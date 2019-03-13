@@ -51,7 +51,7 @@ MainView {
                 visible: folderModel.count == 0
                 height: units.gu(5)
                 Text {
-                    text: "No password found in current folder"
+                    text: "No password found in the current folder"
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.verticalCenter: parent.verticalCenter
                 }
