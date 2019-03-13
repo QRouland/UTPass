@@ -1,0 +1,11 @@
+{
+  "template": "cmake",
+  "kill": "UTPass",
+  "scripts": {
+    "clean_third": "third/clean.sh"
+  },
+  "dependencies_build": [
+    "texinfo",
+    "gpgsm"
+  ]
+}

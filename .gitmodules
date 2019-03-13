@@ -1,0 +1,9 @@
+[submodule "third/gpgme"]
+	path = third/gpgme
+	url = https://github.com/gpg/gpgme
+[submodule "third/libassuan"]
+	path = third/libassuan
+	url = https://github.com/gpg/libassuan
+[submodule "third/libgpg-error"]
+	path = third/libgpg-error
+	url = https://github.com/gpg/libgpg-error
