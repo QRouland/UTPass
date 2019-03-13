@@ -46,6 +46,17 @@ MainView {
             id: navigation
             anchors.fill: parent
 
+            Rectangle {
+                width: page.width
+                visible: folderModel.count == 0
+                height: units.gu(5)
+                Text {
+                    text: "No password found in current folder"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
+
             ListView {
                 id : listViewDirs
                 anchors.fill: parent
@@ -53,8 +64,8 @@ MainView {
                 model: FolderListModel {
                     id: folderModel
                     nameFilters: ["*.gpg"]
-                    rootFolder: "file:assets/lol"
-                    folder: "file:assets/lol"
+                    rootFolder: "file:password-store"
+                    folder: "file:password-store"
                 }
                 delegate: MyComponents.ViewFileDir {
                     id: fileDelegate
@@ -63,6 +74,5 @@ MainView {
         }
 
     }
-
     //Component.onCompleted: Pass.speak()
 }

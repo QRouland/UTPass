@@ -5,12 +5,14 @@ Component {
     Rectangle {
         width: page.width
         height: units.gu(5)
+
         Text {
             text: fileBaseName
             anchors.left: parent.left
             anchors.leftMargin: units.gu(1)
             anchors.verticalCenter: parent.verticalCenter
         }
+
         Icon {
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
@@ -19,13 +21,13 @@ Component {
             name:  fileIsDir ? "go-next" : "lock"
             color: UbuntuColors.orange
         }
-        MouseArea
-        {
+
+        MouseArea {
             anchors.fill: parent
             onClicked: {  if (fileIsDir){ folderModel.folder = folderModel.folder + "/" + fileName ; backAction.visible = true;} }
         }
-        CustomBorder
-        {
+
+        CustomBorder {
             commonBorder: false
             lBorderwidth: 0
             rBorderwidth: 0
