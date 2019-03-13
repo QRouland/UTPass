@@ -1,0 +1,15 @@
+{
+    "name": "utpass.qrouland",
+    "description": "A password management app for Ubuntu Touch aiming to be compatible with",
+    "architecture": "@CLICK_ARCH@",
+    "title": "UTPass",
+    "hooks": {
+        "UTPass": {
+            "apparmor": "UTPass.apparmor",
+            "desktop":  "UTPass.desktop"
+        }
+    },
+    "version": "0.0.1",
+    "maintainer": "Quentin Rouland <quentin@qrouland.com>",
+    "framework" : "ubuntu-sdk-16.04"
+}
