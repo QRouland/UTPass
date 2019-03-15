@@ -3,10 +3,11 @@
 #include <QUrl>
 #include <QString>
 #include <QQuickView>
-#include "gpgme++/global.h"
+#include <QtQml>
 
 int main(int argc, char *argv[])
 {
+
     new QGuiApplication(argc, argv);
     QGuiApplication::setApplicationName("utpass.qrouland");
 

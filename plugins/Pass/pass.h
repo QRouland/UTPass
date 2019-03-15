@@ -5,13 +5,16 @@
 
 class Pass: public QObject {
     Q_OBJECT
+    QString gpgHome;
 
 public:
     Pass();
     ~Pass() override = default;
 
-    Q_INVOKABLE void cmd_show(QString path) ;
-    Q_INVOKABLE void cmd_version() ;
+    Q_INVOKABLE QString decrypt(QByteArray plainText);
+    Q_INVOKABLE QString decrypt_file(QString path);
+    Q_INVOKABLE QByteArray encrypt(QString str);
+    Q_INVOKABLE bool encrypt_file(QString str, QString path);
 };
 
 #endif

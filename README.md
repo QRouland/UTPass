@@ -2,7 +2,6 @@
 
 A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
 
-
 # Building
 
 * Install [clickable](https://github.com/bhdouglass/clickable).
@@ -10,6 +9,13 @@ A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4�
 * Build the app : ```cd UTPass && clickable```
 
 For more options/details see the [clickable documentation](http://clickable.bhdouglass.com/en/latest/index.html)       
+
+## Custom clickable command
+* ```clickable c ``` : clean third directory and run ```clickable clean```
+* ```clickable crun ``` : clean third directory and run ```clickable```
+* ```clickable run``` : run ```clickable --dirty```
+* ```clickable crund ``` : clean third directory and run ```clickable desktop```
+* ```clickable rund ``` : run ```clickable desktop --dirty ```
 
 # Contributing
 
@@ -110,8 +116,10 @@ List passwords that match pass-names
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# Acknowledge
-* Ubports
-* pass
-* clikable
-* gpgmepp & gpgme & gpg  
+# Useful Links
+
+Some useful links related to UTpass development :
+* [Ubports](https://ubports.com/) : Ubuntu Touch Community
+* [ZX2C4’s pass command line application](https://www.passwordstore.org/) : the standard unix password manager.
+* [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages 
+* [Gpgme](https://www.gnupg.org/software/gpgme/index.html) : GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications

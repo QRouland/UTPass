@@ -1,9 +1,10 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
+import "../styles"
 
 Component {
     Rectangle {
-        width: page.width
+        width: parent.width
         height: units.gu(5)
 
         Text {
@@ -19,7 +20,7 @@ Component {
             width: units.gu(4)
             height: units.gu(4)
             name:  fileIsDir ? "go-next" : "lock"
-            color: UbuntuColors.orange
+            color: Theme.raisin_black
         }
 
         MouseArea {

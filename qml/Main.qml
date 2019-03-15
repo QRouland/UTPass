@@ -1,78 +1,22 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
-import Qt.labs.folderlistmodel 2.1
 import Ubuntu.Components 1.3
 
-import Pass 1.0
-import "components" as MyComponents
+import "components"
 
 MainView {
     id: root
     objectName: "mainView"
     applicationName: "utpass.qrouland"
+
     automaticOrientation: true
 
     width: units.gu(45)
     height: units.gu(75)
-
-    Page {
-        id: page
+    PageStack {
+        id: pageStack
         anchors.fill: parent
 
-        header: PageHeader {
-            id: header
-            width: parent.width
-            height: units.gu(6)
-            title: i18n.tr("UTPass")
-            flickable: navigation
-            leadingActionBar.height: units.gu(4)
-            leadingActionBar.actions: [
-                Action {
-                    id: backAction
-                    iconName: "back"
-                    text: "Back"
-                    visible:false
-                    onTriggered: {
-                            folderModel.folder = folderModel.parentFolder;
-                            if(folderModel.rootFolder === folderModel.folder) {
-                                backAction.visible = false;
-                            }
-                    }
-                }
-            ]
-        }
-
-        Flickable {
-            id: navigation
-            anchors.fill: parent
-
-            Rectangle {
-                width: page.width
-                visible: folderModel.count == 0
-                height: units.gu(5)
-                Text {
-                    text: "No password found in the current folder"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
-
-            ListView {
-                id : listViewDirs
-                anchors.fill: parent
-                spacing: 1
-                model: FolderListModel {
-                    id: folderModel
-                    nameFilters: ["*.gpg"]
-                    rootFolder: "file:password-store"
-                    folder: "file:password-store"
-                }
-                delegate: MyComponents.ViewFileDir {
-                    id: fileDelegate
-                }
-            }
-        }
-
+        Component.onCompleted: push(pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml")))
     }
-    //Component.onCompleted: Pass.speak()
 }

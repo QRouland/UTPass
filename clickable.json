@@ -2,7 +2,11 @@
   "template": "cmake",
   "kill": "UTPass",
   "scripts": {
-    "clean_third": "third/clean.sh"
+    "c": "third/clean.sh && clickable clean",
+    "crun": "third/clean.sh && clickable",
+    "run": "clickable --dirty",
+    "crund": "third/clean.sh && clickable desktop",
+    "rund": "clickable desktop --dirty"
   },
   "dependencies_build": [
     "texinfo",
