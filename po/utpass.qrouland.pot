@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-15 17:28+0000\n"
+"POT-Creation-Date: 2019-03-16 09:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/pages/Settings.qml:8 ../qml/pages/headers/MainHeader.qml:28
-msgid "Settings"
+#: ../qml/components/Search.qml:6 ../qml/pages/headers/MainHeader.qml:23
+#: ../qml/pages/headers/MainHeader.qml:36
+msgid "Search"
 msgstr ""
 
 #: ../qml/pages/PasswordList.qml:17
@@ -29,20 +30,19 @@ msgstr ""
 msgid "No password found in the current folder"
 msgstr ""
 
-#: ../qml/pages/Info.qml:9 ../qml/pages/headers/MainHeader.qml:35
-msgid "Info"
+#: ../qml/pages/Settings.qml:8 ../qml/pages/headers/MainHeader.qml:44
+msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/Info.qml:43 ../qml/pages/headers/MainHeader.qml:8
-#: ../qml/pages/headers/StackHeader.qml:7 UTPass.desktop.in.h:1
+#: ../qml/pages/headers/MainHeader.qml:8 ../qml/pages/headers/StackHeader.qml:8
+#: ../qml/pages/Info.qml:43 UTPass.desktop.in.h:1
 msgid "UTPass"
+msgstr ""
+
+#: ../qml/pages/headers/MainHeader.qml:51 ../qml/pages/Info.qml:9
+msgid "Info"
 msgstr ""
 
 #: ../qml/pages/Info.qml:53
 msgid "Suggest improvement(s) or report a bug(s)"
-msgstr ""
-
-#: ../qml/pages/headers/MainHeader.qml:15
-#: ../qml/pages/headers/MainHeader.qml:19
-msgid "Search"
 msgstr ""

@@ -7,6 +7,26 @@ PageHeader {
     height: units.gu(6)
     title: i18n.tr("UTPass")
 
+    contents: Item {
+        height : parent.height
+        width: parent.width
+        Label {
+            id : labelTitle
+            text: mainHeader.title
+            anchors.verticalCenter: parent.verticalCenter
+            visible: true
+        }
+        TextField {
+            id: searchBar
+            anchors.right : parent.right
+            anchors.left : parent.left
+            placeholderText: i18n.tr("Search")
+            height: units.gu(4)
+            visible: false
+            anchors.verticalCenter: parent.verticalCenter
+        }
+    }
+
     trailingActionBar.height: units.gu(4)
     trailingActionBar.numberOfSlots: 2
     trailingActionBar.actions: [
@@ -14,13 +34,8 @@ PageHeader {
             iconName: "search"
             text: i18n.tr("Search")
             onTriggered: {
-                mainHeader.contents = TextField {
-                    id: searchBar
-                    placeholderText: i18n.tr("Search")
-                    height: units.gu(4)
-                    visible: false
-                    anchors.verticalCenter: parent.verticalCenter
-                }
+                searchBar.visible = searchBar.visible ? false : true;
+                labelTitle.visible = labelTitle.visible ? false : true;
             }
         },
         Action {
