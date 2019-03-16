@@ -2,17 +2,17 @@
 #include <QFile>
 #include "pass.h"
 #include "gpgme++/global.h"
+#include "gpgme++/engineinfo.h"
+#include "qgpgme/protocol.h"
 #include "qgpgme/encryptjob.h"
-#include "qgpgme/decryptjob.h"
-#include "qgpgme/keylistjob.h"
+
 
 
 Pass::Pass() {
     qDebug() << "Initializing GpgMe";
-    /*auto err = GpgME::initializeLibrary(GpgME::OpenPGP);
-    if(err) {
+    if(GpgME::initializeLibrary(GpgME::OpenPGP))
         qFatal("Fatal error when initializing GpgMe");
-    }*/
+    qDebug() << "GpgME Engine Version :" << GpgME::engineInfo(GpgME::GpgEngine).version();
 }
 
 void Pass::speak() {
@@ -46,9 +46,15 @@ QString Pass::decrypt_file(const QString path) {
 QByteArray Pass::encrypt(const QString str) {
     /*auto listjob = QGpgME::openpgp()->keyListJob(false, false, false);
     std::vector<GpgME::Key> keys;
-    auto keylistresult = listjob->exec(QStringList() << QStringLiteral("alfa@example.net"),
-                                       false, keys);
-    auto job = QGpgME::openpgp()->encryptJob(/*ASCII Armor *//*true, /* Textmode *//* true);
+    auto keylistresult = listjob->exec(QStringList() << QStringLiteral("alfa@example.net"), false, keys);
+
+
+
+    auto job = QGpgME::openpgp()
+            ->encryptJob(
+                    true, //ASCII Armor
+                    true //Textmode
+            );
     QByteArray cipherText;
     auto result = job->exec(keys, QStringLiteral("Hello World").toUtf8(), GpgME::Context::AlwaysTrust, cipherText);
     return cipherText;*/
