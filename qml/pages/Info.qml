@@ -50,7 +50,7 @@ Page {
             }
             Link {
                 url: "https://github.com/QRouland/UTPass/issues"
-                text: i18n.tr('Suggest improvements or report a bug')
+                text: i18n.tr('Suggest improvement(s) or report a bug(s)')
             }
         }
     }

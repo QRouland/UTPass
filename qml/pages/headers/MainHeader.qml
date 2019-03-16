@@ -13,6 +13,15 @@ PageHeader {
         Action {
             iconName: "search"
             text: i18n.tr("Search")
+            onTriggered: {
+                mainHeader.contents = TextField {
+                    id: searchBar
+                    placeholderText: i18n.tr("Search")
+                    height: units.gu(4)
+                    visible: false
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+            }
         },
         Action {
             iconName: "settings"
