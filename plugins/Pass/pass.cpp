@@ -2,15 +2,21 @@
 #include <QFile>
 #include "pass.h"
 #include "gpgme++/global.h"
-#include "qgpgme/protocol.h"
 #include "qgpgme/encryptjob.h"
 #include "qgpgme/decryptjob.h"
 #include "qgpgme/keylistjob.h"
 
 
 Pass::Pass() {
-    GpgME::initializeLibrary();
-    this->gpgHome = qgetenv("GNUPGHOME");
+    qDebug() << "Initializing GpgMe";
+    /*auto err = GpgME::initializeLibrary(GpgME::OpenPGP);
+    if(err) {
+        qFatal("Fatal error when initializing GpgMe");
+    }*/
+}
+
+void Pass::speak() {
+    qDebug() << "Starting app from main.cpp";
 }
 
 QString Pass::decrypt(const QByteArray cipherText) {

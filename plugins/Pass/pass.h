@@ -11,6 +11,7 @@ public:
     Pass();
     ~Pass() override = default;
 
+    Q_INVOKABLE void speak();
     Q_INVOKABLE QString decrypt(QByteArray plainText);
     Q_INVOKABLE QString decrypt_file(QString path);
     Q_INVOKABLE QByteArray encrypt(QString str);

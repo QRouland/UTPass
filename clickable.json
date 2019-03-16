@@ -11,5 +11,8 @@
   "dependencies_build": [
     "texinfo",
     "gpgsm"
+  ],
+  "dependencies_target": [
+
   ]
 }

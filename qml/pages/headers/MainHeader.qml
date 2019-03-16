@@ -24,6 +24,7 @@ PageHeader {
             height: units.gu(4)
             visible: false
             anchors.verticalCenter: parent.verticalCenter
+            onFocusChanged: {}
         }
     }
 
@@ -34,8 +35,11 @@ PageHeader {
             iconName: "search"
             text: i18n.tr("Search")
             onTriggered: {
-                searchBar.visible = searchBar.visible ? false : true;
-                labelTitle.visible = labelTitle.visible ? false : true;
+                searchBar.visible = !searchBar.visible;
+                labelTitle.visible = !searchBar.visible;
+                if (searchBar.visible === true) {
+                    searchBar.focus = true
+                }
             }
         },
         Action {
