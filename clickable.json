@@ -3,16 +3,15 @@
   "kill": "UTPass",
   "scripts": {
     "c": "third/clean.sh && clickable clean",
-    "crun": "third/clean.sh && clickable",
-    "run": "clickable --dirty",
-    "crund": "third/clean.sh && clickable desktop",
-    "rund": "clickable desktop --dirty"
+    "cr": "third/clean.sh && clickable",
+    "r": "clickable --dirty",
+    "crd": "third/clean.sh && clickable desktop",
+    "rd": "clickable desktop --dirty"
   },
   "dependencies_build": [
     "texinfo",
-    "gpgsm"
+    "gpgsm",
+    "bison"
   ],
-  "dependencies_target": [
-
-  ]
+  "dependencies_target": []
 }

@@ -12,10 +12,10 @@ For more options/details see the [clickable documentation](http://clickable.bhdo
 
 ## Custom clickable command
 * ```clickable c ``` : clean third directory and run ```clickable clean```
-* ```clickable crun ``` : clean third directory and run ```clickable```
-* ```clickable run``` : run ```clickable --dirty```
-* ```clickable crund ``` : clean third directory and run ```clickable desktop```
-* ```clickable rund ``` : run ```clickable desktop --dirty ```
+* ```clickable cr ``` : clean third directory and run ```clickable```
+* ```clickable r``` : run ```clickable --dirty```
+* ```clickable crd ``` : clean third directory and run ```clickable desktop```
+* ```clickable rd ``` : run ```clickable desktop --dirty ```
 
 # Contributing
 

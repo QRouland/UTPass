@@ -7,3 +7,6 @@
 [submodule "third/libgpg-error"]
 	path = third/libgpg-error
 	url = https://github.com/gpg/libgpg-error
+[submodule "third/gnupg"]
+	path = third/gnupg
+	url = https://github.com/gpg/gnupg

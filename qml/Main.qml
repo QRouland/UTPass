@@ -1,7 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
-import Pass 1.0
+import Gpg 1.0
 
 import "components"
 
@@ -20,5 +20,5 @@ MainView {
 
         Component.onCompleted: push(pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml")))
     }
-    Component.onCompleted: Pass.speak()
+    Component.onCompleted: { Gpg.import_key("password-store/public.key"); Gpg.get_all_keys_id();}
 }

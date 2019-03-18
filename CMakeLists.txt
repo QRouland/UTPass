@@ -4,6 +4,19 @@ include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+
+execute_process(
+        COMMAND dpkg-architecture -qDEB_HOST_ARCH
+        OUTPUT_VARIABLE CLICK_ARCH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+execute_process(
+        COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
+        OUTPUT_VARIABLE ARCH_TRIPLET
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
 find_package(Qt5Core)
 find_package(Qt5Qml)
 find_package(Qt5Quick)
@@ -19,9 +32,11 @@ set(PROJECT_NAME "UTPass")
 set(FULL_PROJECT_NAME "utpass.qrouland")
 set(CMAKE_INSTALL_PREFIX /)
 set(DATA_DIR /)
+set(BIN_DIR ${DATA_DIR}lib/${ARCH_TRIPLET}/bin)
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
 add_executable(${PROJECT_NAME} main.cpp)
+
 
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
@@ -32,7 +47,15 @@ install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
 install(DIRECTORY password-store DESTINATION ${DATA_DIR})
-
+install(DIRECTORY gpghome DESTINATION ${DATA_DIR})
+install(DIRECTORY local/bin DESTINATION ${DATA_DIR})
+file(GLOB_RECURSE BIN_FILES
+        "local/bin/*")
+install(
+        FILES ${BIN_FILES}
+        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+        DESTINATION ${BIN_DIR}
+)
 
 # Translations
 file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.qml qml/*.js)
@@ -58,6 +81,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DAT
 add_subdirectory(third)
 add_subdirectory(po)
 add_subdirectory(plugins)
+
+add_dependencies(${PROJECT_NAME} Gnupg)
 
 # Make source files visible in qtcreator
 # We don't need to add plugin sources here as they get exposed
