@@ -62,19 +62,19 @@ file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.q
 list(APPEND I18N_SRC_FILES ${DESKTOP_FILE_NAME}.in.h)
 
 find_program(INTLTOOL_MERGE intltool-merge)
-if(NOT INTLTOOL_MERGE)
+if (NOT INTLTOOL_MERGE)
     message(FATAL_ERROR "Could not find intltool-merge, please install the intltool package")
-endif()
+endif ()
 find_program(INTLTOOL_EXTRACT intltool-extract)
-if(NOT INTLTOOL_EXTRACT)
+if (NOT INTLTOOL_EXTRACT)
     message(FATAL_ERROR "Could not find intltool-extract, please install the intltool package")
-endif()
+endif ()
 
 add_custom_target(${DESKTOP_FILE_NAME} ALL
-    COMMENT "Merging translations into ${DESKTOP_FILE_NAME}..."
-    COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${CMAKE_SOURCE_DIR}/${DESKTOP_FILE_NAME}.in ${DESKTOP_FILE_NAME}
-    COMMAND sed -i 's/${PROJECT_NAME}-//g' ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME}
-)
+        COMMENT "Merging translations into ${DESKTOP_FILE_NAME}..."
+        COMMAND LC_ALL=C ${INTLTOOL_MERGE} -d -u ${CMAKE_SOURCE_DIR}/po ${CMAKE_SOURCE_DIR}/${DESKTOP_FILE_NAME}.in ${DESKTOP_FILE_NAME}
+        COMMAND sed -i 's/${PROJECT_NAME}-//g' ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME}
+        )
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
 
@@ -88,13 +88,13 @@ add_dependencies(${PROJECT_NAME} Gnupg)
 # We don't need to add plugin sources here as they get exposed
 # via the library target.
 file(GLOB_RECURSE PROJECT_SRC_FILES
-    RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-    qml/*.qml
-    qml/*.js
-    *.json
-    *.json.in
-    *.apparmor
-    *.desktop.in
-)
+        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        qml/*.qml
+        qml/*.js
+        *.json
+        *.json.in
+        *.apparmor
+        *.desktop.in
+        )
 
-add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES} )
+add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})

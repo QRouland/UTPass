@@ -2,9 +2,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(PLUGIN "Pass")
 
 set(
-    SRC
-    plugin.cpp
-    pass.cpp
+        SRC
+        plugin.cpp
+        pass.cpp
 )
 
 set(CMAKE_AUTOMOC ON)
@@ -15,9 +15,9 @@ qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
 
 execute_process(
-    COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
-    OUTPUT_VARIABLE ARCH_TRIPLET
-    OUTPUT_STRIP_TRAILING_WHITESPACE
+        COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
+        OUTPUT_VARIABLE ARCH_TRIPLET
+        OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")

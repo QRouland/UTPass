@@ -2,7 +2,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(PLUGIN "Gpg")
 
 set(
-    SRC
+        SRC
         plugin.cpp
         gpg.cpp
 )
@@ -37,9 +37,9 @@ set_property(TARGET QGpgme PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libq
 target_link_libraries(${PLUGIN} QGpgme Gpgmepp Gpgme GpgAssuan GpgError)
 
 execute_process(
-    COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
-    OUTPUT_VARIABLE ARCH_TRIPLET
-    OUTPUT_STRIP_TRAILING_WHITESPACE
+        COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
+        OUTPUT_VARIABLE ARCH_TRIPLET
+        OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
