@@ -43,7 +43,7 @@ Gpg::Gpg()
     qDebug() << "GpgME Engine Version :" << engineInfo(OpenPGP).version();
 }
 
-void Gpg::list_dir()
+void Gpg::listDir()
 {
     qDebug() << "hello world!";
 }
@@ -64,7 +64,7 @@ QString Gpg::decrypt(const QByteArray cipherText)
     return QString::fromUtf8(plainText);*/
 }
 
-QString Gpg::decrypt_file(const QString path)
+QString Gpg::decryptFile(QString path)
 {
     /*QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -91,7 +91,7 @@ QByteArray Gpg::encrypt(const QString str)
     return cipherText;*/
 }
 
-bool Gpg::encrypt_file(const QString str, const QString path)
+bool Gpg::encryptFile(QString str, QString path)
 {
     /*QFile file(path);
     if (!file.open(QIODevice::WriteOnly)) {
@@ -102,7 +102,7 @@ bool Gpg::encrypt_file(const QString str, const QString path)
     return true;*/
 }
 
-QString Gpg::get_key_id(QString uid)
+QString Gpg::getKeyId(QString uid)
 {
     qDebug() << "Getting the key id " << uid;
     auto *job = openpgp()->keyListJob(false, false, false);
@@ -119,7 +119,7 @@ QString Gpg::get_key_id(QString uid)
     return kId;
 }
 
-QStringList Gpg::get_all_keys_id()
+QStringList Gpg::getAllKeysId()
 {
     qDebug() << "Show all available key";
     auto job = openpgp()->keyListJob(false, false, false);
@@ -140,7 +140,7 @@ QStringList Gpg::get_all_keys_id()
     return r;
 }
 
-bool Gpg::import_key(QString path)
+bool Gpg::importKey(QString path)
 {
     qDebug() << "Importing the key file" << path;
     QFile file(path);

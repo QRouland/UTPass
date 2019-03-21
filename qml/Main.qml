@@ -23,7 +23,7 @@ MainView {
                                             "pages/PasswordList.qml")))
     }
     Component.onCompleted: {
-        Gpg.import_key("password-store/public.key")
-        Gpg.get_all_keys_id()
+        Gpg.importKey("password-store/public.key")
+        Gpg.getAllKeysId()
     }
 }

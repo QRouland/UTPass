@@ -6,7 +6,7 @@
 class Pass : public QObject
 {
     Q_OBJECT
-    QString gpgHome;
+    QString pass_store;
 
 public:
     Pass();

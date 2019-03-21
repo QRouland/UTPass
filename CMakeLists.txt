@@ -45,8 +45,6 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INST
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
-install(DIRECTORY password-store DESTINATION ${DATA_DIR})
-install(DIRECTORY gpghome DESTINATION ${DATA_DIR})
 install(DIRECTORY local/bin DESTINATION ${DATA_DIR})
 file(GLOB_RECURSE BIN_FILES
         "local/bin/*")
@@ -97,18 +95,3 @@ file(GLOB_RECURSE PROJECT_SRC_FILES
         )
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})
-
-# Tests
-enable_testing(true)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include_directories(tests/plugins)
-
-find_package(Qt5Test)
-
-add_executable(TestGpg tests/plugins/TestGpg.cpp)
-add_executable(TestPass tests/plugins/TestPass.cpp)
-target_link_libraries(TestGpg Qt5::Test)
-target_link_libraries(TestPass Qt5::Test)
-
-add_test(TestGpg TestGpg)
-add_test(TestPass TestPass)

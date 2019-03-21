@@ -1,9 +1,9 @@
-#ifndef PASSPLUGIN_H
-#define PASSPLUGIN_H
+#ifndef GPGPLUGIN_H
+#define GPGPLUGIN_H
 
 #include <QQmlExtensionPlugin>
 
-class FileSystemPlugin : public QQmlExtensionPlugin
+class GpgPlugin : public QQmlExtensionPlugin
 {
     Q_OBJECT
     Q_PLUGIN_METADATA(IID

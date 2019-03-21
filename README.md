@@ -11,15 +11,15 @@ A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4�
 For more options/details see the [clickable documentation](http://clickable.bhdouglass.com/en/latest/index.html)       
 
 ## Custom clickable command
-* ```clickable test ``` : run test for all plugins 
-* ```clickable test_gpg ``` : run test for gpg plugin
-* ```clickable test_pass``` : run test for pass plugin
-* ```clickable style ``` : reformat the code (Required : [astyle](astyle.sourceforge.ne) & [https://github.com/jesperhh/qmlfmt](https://github.com/jesperhh/qmlfmt))
+* ```clickable test ``` : build and run test for all plugins
+* ```clickable test_gpg ``` : build and run test for gpg plugin
+* ```clickable test_pass``` : build and run test for pass plugin
+* ```clickable style ``` : reformat the code (Required : [astyle](astyle.sourceforge.ne) & [qmlfmt](https://github.com/jesperhh/qmlfmt))
 
 # Contributing
 
-Any contributions are welcome using the github issue & pull request system. 
-Please try to respect the code style format by runnning ```clickable style``` before committing.
+Any contributions are welcome using the github issue & pull request system.
+Please try to respect the code style format by running ```clickable style``` before committing.
 
 # Features
 
@@ -37,7 +37,7 @@ The goal is to be closest possible of the features offer by [ZX2C4’s pass comm
         List passwords.
     - [x] UI allowing to navigate through the password store showing the available passwords
 ---
-- [ ] pass find pass-names... 
+- [ ] pass find pass-names...
 List passwords that match pass-names
    - [ ] Search bar allowing searchs by pass-names
 ---
@@ -80,7 +80,7 @@ List passwords that match pass-names
 ---
 - [ ] pass cp [--force,-f] old-path new-path
         Copies old-path to new-path, optionally forcefully, selectively reencrypting.
-        
+
      - [ ] TBD
 ---
 - [ ] pass git git-command-args...
@@ -90,7 +90,7 @@ List passwords that match pass-names
 ---
 - [ ] pass help
         Show this text.
-        
+
      - [ ] TBD
 ---
 - [ ] pass version
@@ -121,5 +121,5 @@ List passwords that match pass-names
 Some useful links related to UTpass development :
 * [Ubports](https://ubports.com/) : Ubuntu Touch Community
 * [ZX2C4’s pass command line application](https://www.passwordstore.org/) : the standard unix password manager.
-* [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages 
+* [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages
 * [Gpgme](https://www.gnupg.org/software/gpgme/index.html) : GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications

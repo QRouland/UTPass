@@ -3,10 +3,10 @@
   "kill": "UTPass",
   "scripts": {
     "clean": "third/clean.sh && rm -rf build",
-    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && qmlfmt -w qml",
-    "test": "clickable run \"cd build && make test\"",
-    "test_gpg": "clickable run \"cd build && ./TestGpg\"",
-    "test_pass": "clickable run \"cd build && ./TestPass\""
+    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && astyle --options=.astylerc \"tests/*.cpp,*.h\" && qmlfmt -w qml",
+    "test": "clickable build --arch amd64 && clickable run \"cd build && make test\"",
+    "test_gpg": "clickable build --arch amd64 && clickable run \"cd build && ./TestGpg\"",
+    "test_pass": "clickable build --arch amd64 && clickable run \"cd build && ./TestPass\""
   },
   "dependencies_build": [
     "texinfo",
