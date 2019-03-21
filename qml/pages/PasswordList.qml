@@ -4,10 +4,9 @@ import Qt.labs.folderlistmodel 2.1
 import "../components"
 import "headers"
 
-
 Page {
-    header : MainHeader {
-        flickable : nav
+    header: MainHeader {
+        flickable: nav
 
         leadingActionBar.height: units.gu(4)
         leadingActionBar.actions: [
@@ -15,11 +14,11 @@ Page {
                 id: backAction
                 iconName: "back"
                 text: i18n.tr("Back")
-                visible:false
+                visible: false
                 onTriggered: {
-                    folderModel.folder = folderModel.parentFolder;
-                    if(folderModel.rootFolder === folderModel.folder) {
-                        backAction.visible = false;
+                    folderModel.folder = folderModel.parentFolder
+                    if (folderModel.rootFolder === folderModel.folder) {
+                        backAction.visible = false
                     }
                 }
             }
@@ -42,7 +41,7 @@ Page {
             }
         }
 
-       ListView {
+        ListView {
             anchors.fill: parent
             spacing: 1
             model: FolderListModel {

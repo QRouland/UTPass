@@ -3,15 +3,16 @@
 
 #include <QObject>
 
-class Pass : public QObject {
- Q_OBJECT
-  QString gpgHome;
+class Pass : public QObject
+{
+    Q_OBJECT
+    QString gpgHome;
 
- public:
-  Pass();
-  ~Pass() override = default;
+public:
+    Pass();
+    ~Pass() override = default;
 
-  Q_INVOKABLE void speak();
+    Q_INVOKABLE void speak();
 };
 
 #endif

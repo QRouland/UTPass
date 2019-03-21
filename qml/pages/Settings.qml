@@ -4,7 +4,7 @@ import "headers"
 
 Page {
     header: StackHeader {
-        id:settingsHeader
+        id: settingsHeader
         title: i18n.tr('Settings')
     }
 
@@ -23,8 +23,6 @@ Page {
                 height: units.gu(6)
                 text: "Settings"
             }
-         }
+        }
     }
 }
-
-

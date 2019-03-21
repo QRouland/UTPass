@@ -56,7 +56,7 @@ ExternalProject_Add(
         INSTALL_DIR ${EXTERNAL_LIBS}
         DOWNLOAD_COMMAND ""
         SOURCE_DIR ${GNUPG_PATH}
-        CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure  --prefix=${EXTERNAL_LIBS}  --enable-maintainer-mode --host ${ARCH_TRIPLET} --disable-doc
+        CONFIGURE_COMMAND <SOURCE_DIR>/autogen.sh && <SOURCE_DIR>/configure  --prefix=${EXTERNAL_LIBS}  --enable-maintainer-mode --host ${ARCH_TRIPLET}
         BUILD_IN_SOURCE 1
         BUILD_COMMAND make
         INSTALL_COMMAND make install

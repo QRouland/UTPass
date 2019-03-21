@@ -2,11 +2,11 @@
   "template": "cmake",
   "kill": "UTPass",
   "scripts": {
-    "c": "third/clean.sh && clickable clean",
-    "cr": "third/clean.sh && clickable",
-    "r": "clickable --dirty",
-    "crd": "third/clean.sh && clickable desktop",
-    "rd": "clickable desktop --dirty"
+    "clean": "third/clean.sh && rm -rf build",
+    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && qmlfmt -w qml",
+    "test": "clickable run \"cd build && make test\"",
+    "test_gpg": "clickable run \"cd build && ./TestGpg\"",
+    "test_pass": "clickable run \"cd build && ./TestPass\""
   },
   "dependencies_build": [
     "texinfo",

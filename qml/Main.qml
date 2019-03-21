@@ -6,7 +6,7 @@ import Gpg 1.0
 import "components"
 
 MainView {
-    id: root
+    id: "root"
     objectName: "mainView"
     applicationName: "utpass.qrouland"
 
@@ -18,7 +18,12 @@ MainView {
         id: pageStack
         anchors.fill: parent
 
-        Component.onCompleted: push(pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml")))
+        Component.onCompleted: push(pageStack.push(
+                                        Qt.resolvedUrl(
+                                            "pages/PasswordList.qml")))
     }
-    Component.onCompleted: { Gpg.import_key("password-store/public.key"); Gpg.get_all_keys_id();}
+    Component.onCompleted: {
+        Gpg.import_key("password-store/public.key")
+        Gpg.get_all_keys_id()
+    }
 }

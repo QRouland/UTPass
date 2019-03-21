@@ -11,15 +11,15 @@ A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4â€
 For more options/details see the [clickable documentation](http://clickable.bhdouglass.com/en/latest/index.html)       
 
 ## Custom clickable command
-* ```clickable c ``` : clean third directory and run ```clickable clean```
-* ```clickable cr ``` : clean third directory and run ```clickable```
-* ```clickable r``` : run ```clickable --dirty```
-* ```clickable crd ``` : clean third directory and run ```clickable desktop```
-* ```clickable rd ``` : run ```clickable desktop --dirty ```
+* ```clickable test ``` : run test for all plugins 
+* ```clickable test_gpg ``` : run test for gpg plugin
+* ```clickable test_pass``` : run test for pass plugin
+* ```clickable style ``` : reformat the code (Required : [astyle](astyle.sourceforge.ne) & [https://github.com/jesperhh/qmlfmt](https://github.com/jesperhh/qmlfmt))
 
 # Contributing
 
-Any contributions are welcome using the github issue & pull request system.
+Any contributions are welcome using the github issue & pull request system. 
+Please try to respect the code style format by runnning ```clickable style``` before committing.
 
 # Features
 

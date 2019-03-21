@@ -37,7 +37,6 @@ set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
@@ -98,3 +97,18 @@ file(GLOB_RECURSE PROJECT_SRC_FILES
         )
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})
+
+# Tests
+enable_testing(true)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+include_directories(tests/plugins)
+
+find_package(Qt5Test)
+
+add_executable(TestGpg tests/plugins/TestGpg.cpp)
+add_executable(TestPass tests/plugins/TestPass.cpp)
+target_link_libraries(TestGpg Qt5::Test)
+target_link_libraries(TestPass Qt5::Test)
+
+add_test(TestGpg TestGpg)
+add_test(TestPass TestPass)

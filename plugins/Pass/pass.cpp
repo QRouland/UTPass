@@ -3,12 +3,14 @@
 
 #include "pass.h"
 
-Pass::Pass() {
+Pass::Pass()
+{
 
 }
 
-void Pass::speak() {
-  qDebug() << "Starting app from main.cpp";
+void Pass::speak()
+{
+    qDebug() << "Starting app from main.cpp";
 }
 
 

@@ -8,10 +8,10 @@ PageHeader {
     title: i18n.tr("UTPass")
 
     contents: Item {
-        height : parent.height
+        height: parent.height
         width: parent.width
         Label {
-            id : labelTitle
+            id: labelTitle
             text: stackHeader.title
             anchors.verticalCenter: parent.verticalCenter
         }

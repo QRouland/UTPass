@@ -19,13 +19,18 @@ Component {
             anchors.verticalCenter: parent.verticalCenter
             width: units.gu(4)
             height: units.gu(4)
-            name:  fileIsDir ? "go-next" : "lock"
+            name: fileIsDir ? "go-next" : "lock"
             color: Theme.raisin_black
         }
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {  if (fileIsDir){ folderModel.folder = folderModel.folder + "/" + fileName ; backAction.visible = true;} }
+            onClicked: {
+                if (fileIsDir) {
+                    folderModel.folder = folderModel.folder + "/" + fileName
+                    backAction.visible = true
+                }
+            }
         }
 
         CustomBorder {

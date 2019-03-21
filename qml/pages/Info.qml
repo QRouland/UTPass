@@ -5,7 +5,7 @@ import "../components"
 
 Page {
     header: StackHeader {
-        id : infoHeader
+        id: infoHeader
         title: i18n.tr('Info')
     }
 
@@ -19,22 +19,22 @@ Page {
             spacing: 2
             anchors.fill: parent
             Rectangle {
-               width: parent.width
-               height: units.gu(4)
+                width: parent.width
+                height: units.gu(4)
             }
             Rectangle {
-               width: parent.width
-               height: units.gu(12)
-               Image {
-                   source: "../../assets/logo.svg"
-                   width: units.gu(12)
-                   height: units.gu(12)
-                   anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width
+                height: units.gu(12)
+                Image {
+                    source: "../../assets/logo.svg"
+                    width: units.gu(12)
+                    height: units.gu(12)
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
             Rectangle {
-               width: parent.width
-               height: units.gu(4)
+                width: parent.width
+                height: units.gu(4)
             }
             Text {
                 horizontalAlignment: Text.AlignHCenter
@@ -55,5 +55,3 @@ Page {
         }
     }
 }
-
-
