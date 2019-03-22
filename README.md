@@ -6,15 +6,17 @@ A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4â€
 
 * Install [clickable](https://github.com/bhdouglass/clickable).
 * Clone this repo : ```git clone --recursive  https://github.com/qrouland/UTPass```
-* Build the app : ```cd UTPass && clickable```
+* Move to app directory: ```cd UTPass```
+* Build third parties : ```clickable third_build```
+* Build the app : ```clickable```
 
 For more options/details see the [clickable documentation](http://clickable.bhdouglass.com/en/latest/index.html)       
 
 ## Custom clickable command
-* ```clickable test ``` : build and run test for all plugins
-* ```clickable test_gpg ``` : build and run test for gpg plugin
-* ```clickable test_pass``` : build and run test for pass plugin
-* ```clickable style ``` : reformat the code (Required : [astyle](astyle.sourceforge.ne) & [qmlfmt](https://github.com/jesperhh/qmlfmt))
+* ```clickable third_build ``` : build third dependencies for arm architecture
+* ```clickable third_build_d ``` : build third dependencies for amd64 architecture
+* ```clickable third_clean ``` : clean third parties
+* ```clickable style ``` : reformat the code (Required [astyle](astyle.sourceforge.ne) & [qmlfmt](https://github.com/jesperhh/qmlfmt) installed)
 
 # Contributing
 

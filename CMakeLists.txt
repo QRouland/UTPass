@@ -1,6 +1,5 @@
 project(UTPass C CXX)
 cmake_minimum_required(VERSION 3.5.1)
-include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
@@ -45,9 +44,8 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INST
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
-install(DIRECTORY local/bin DESTINATION ${DATA_DIR})
 file(GLOB_RECURSE BIN_FILES
-        "local/bin/*")
+        "third/local/bin/${ARCH_TRIPLET}/*")
 install(
         FILES ${BIN_FILES}
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
@@ -75,23 +73,7 @@ add_custom_target(${DESKTOP_FILE_NAME} ALL
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DATA_DIR})
 
-add_subdirectory(third)
 add_subdirectory(po)
 add_subdirectory(plugins)
-
-add_dependencies(${PROJECT_NAME} Gnupg)
-
-# Make source files visible in qtcreator
-# We don't need to add plugin sources here as they get exposed
-# via the library target.
-file(GLOB_RECURSE PROJECT_SRC_FILES
-        RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-        qml/*.qml
-        qml/*.js
-        *.json
-        *.json.in
-        *.apparmor
-        *.desktop.in
-        )
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})

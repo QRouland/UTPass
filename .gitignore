@@ -1,6 +1,12 @@
-cmake-build-debug
+# Builds dirs 
+cmake-build-*
 build
-taglib-build
+
+
+# IDE
 .clickable
 .idea
-local
+*.project
+
+# Third parties ouput dir
+third/local

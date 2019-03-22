@@ -1,4 +1,6 @@
+cmake_minimum_required(VERSION 3.5.1)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+include(${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 execute_process(
         COMMAND dpkg-architecture -qDEB_HOST_MULTIARCH
@@ -7,7 +9,7 @@ execute_process(
 )
 
 
-set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/local")
+set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/local/${ARCH_TRIPLET}")
 set(THIRD_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 set(LIBGPGERROR_PATH "${THIRD_PATH}/libgpg-error")
 set(LIBASSUAN_PATH "${THIRD_PATH}/libassuan")

@@ -13,11 +13,10 @@ add_library(${PLUGIN} MODULE ${SRC})
 set_target_properties(${PLUGIN} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PLUGIN})
 qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
-set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/local")
+set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/third/local/${ARCH_TRIPLET}")
 set(THIRD_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 INCLUDE_DIRECTORIES(${EXTERNAL_LIBS}/include)
-add_dependencies(${PLUGIN} LibGpgme)
 
 add_library(GpgError STATIC IMPORTED)
 set_property(TARGET GpgError PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libgpg-error.a")

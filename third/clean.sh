@@ -1,6 +1,8 @@
 #!/bin/sh
-
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+cd $SCRIPTPATH && rm -rf build
+git submodule update --init --recursive
 
 for LIB in "gnupg" "gpgme"  "libassuan" "libgpg-error"
 do

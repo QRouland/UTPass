@@ -2,11 +2,10 @@
   "template": "cmake",
   "kill": "UTPass",
   "scripts": {
-    "clean": "third/clean.sh && rm -rf build",
-    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && astyle --options=.astylerc \"tests/*.cpp,*.h\" && qmlfmt -w qml",
-    "test": "clickable build --arch amd64 && clickable run \"cd build && make test\"",
-    "test_gpg": "clickable build --arch amd64 && clickable run \"cd build && ./TestGpg\"",
-    "test_pass": "clickable build --arch amd64 && clickable run \"cd build && ./TestPass\""
+	"third_build": "clickable run 'cd third && ./clean.sh && mkdir build && cd build && cmake .. && make'",
+	"third_build_d": "clickable run 'cd third && ./clean.sh && mkdir build && cd build && cmake .. && make' --arch amd64 ",
+    "third_clean": "cd third && ./clean.sh",
+    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && qmlfmt -w tests && qmlfmt -w qml"
   },
   "dependencies_build": [
     "texinfo",
