@@ -1,6 +1,6 @@
 # UTPass
 
-A password management app for Ubuntu Touch aiming to be compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
+A Ubuntu Touch password management app aiming to be compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
 
 # Building
 
@@ -21,7 +21,7 @@ For more options/details see the [clickable documentation](http://clickable.bhdo
 # Contributing
 
 Any contributions are welcome using the github issue & pull request system.
-Please try to respect the code style format by running ```clickable style``` before committing.
+Please respect the code style format by running ```clickable style``` before committing.
 
 # Features
 

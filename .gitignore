@@ -7,6 +7,8 @@ build
 .clickable
 .idea
 *.project
+*.workspace
+.codelite
 
 # Third parties ouput dir
 third/local

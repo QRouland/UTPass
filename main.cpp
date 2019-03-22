@@ -7,7 +7,6 @@
 
 int main(int argc, char *argv[])
 {
-
     new QGuiApplication(argc, argv);
     QGuiApplication::setApplicationName("utpass.qrouland");
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-22 15:10+0000\n"
+"POT-Creation-Date: 2019-03-22 16:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,17 +29,37 @@ msgstr ""
 msgid "No password found in the current folder"
 msgstr ""
 
-#: ../qml/pages/Info.qml:9 ../qml/pages/headers/MainHeader.qml:56
+#: ../qml/pages/Info.qml:10 ../qml/pages/headers/MainHeader.qml:56
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/Info.qml:43 ../qml/pages/headers/MainHeader.qml:8
-#: ../qml/pages/headers/StackHeader.qml:8 UTPass.desktop.in.h:1
-msgid "UTPass"
+#: ../qml/pages/Info.qml:31
+msgid "<b><font size=\"6\">%1</font></b>"
+msgstr ""
+
+#: ../qml/pages/Info.qml:47
+msgid "<font size=\"4\">Maintainer<br>%1</font>"
 msgstr ""
 
 #: ../qml/pages/Info.qml:53
+msgid "<font size=\"4\">Version<br>%1</font><br>%2@%3"
+msgstr ""
+
+#: ../qml/pages/Info.qml:64
 msgid "Suggest improvement(s) or report a bug(s)"
+msgstr ""
+
+#: ../qml/pages/Info.qml:68
+msgid "Access to the source code"
+msgstr ""
+
+#: ../qml/pages/Info.qml:75
+msgid "<font size=\"2\">Released under the terms of the GNU GPL v3</font>"
+msgstr ""
+
+#: ../qml/pages/headers/MainHeader.qml:8 ../qml/pages/headers/StackHeader.qml:8
+#: UTPass.desktop.in.h:1
+msgid "UTPass"
 msgstr ""
 
 #: ../qml/pages/headers/MainHeader.qml:23

@@ -1,2 +1,2 @@
-singleton Passtore 1.0 Passtore.qml
+singleton PasswordStore 1.0 PasswordStore.qml
 singleton Manifest 1.0 Manifest.qml
