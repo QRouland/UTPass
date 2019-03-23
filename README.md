@@ -2,13 +2,15 @@
 
 A Ubuntu Touch password management app aiming to be compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
 
+# Build & Tests
+
 # Building
 
 * Install [clickable](https://github.com/bhdouglass/clickable).
 * Clone this repo : ```git clone --recursive  https://github.com/qrouland/UTPass```
 * Move to app directory: ```cd UTPass```
 * Build third parties : ```clickable third_build```
-* Build the app : ```clickable```
+* Build & Run the app : ```clickable```
 
 For more options/details see the [clickable documentation](http://clickable.bhdouglass.com/en/latest/index.html)       
 
@@ -16,21 +18,19 @@ For more options/details see the [clickable documentation](http://clickable.bhdo
 * ```clickable third_build ``` : build third dependencies for arm architecture
 * ```clickable third_build_d ``` : build third dependencies for amd64 architecture
 * ```clickable third_clean ``` : clean third parties
-* ```clickable style ``` : reformat the code (Required [astyle](astyle.sourceforge.ne) & [qmlfmt](https://github.com/jesperhh/qmlfmt) installed)
+* ```clickable style ``` : reformat the code (Required [astyle](https://astyle.sourceforge.net) & [qmlfmt](https://github.com/jesperhh/qmlfmt) to be installed)
 
 ## Testing 
 
 To switch to the tests build you need to add the following arguments to the build command : -DTEST_RUNNER=ON.
 
 To do so with clickable you need to use the following commands:
-```
-export CLICKABLE_BUILD_ARGS='-DTEST_RUNNER=ON'
-clickable
-```
-To comeback to the app build unset the environnment variable :
-```
-unset CLICKABLE_BUILD_ARGS
-```
+
+* Set CLICKABLE_BUILD_ARGS environnment variable : ```export CLICKABLE_BUILD_ARGS='-DTEST_RUNNER=ON'```
+* Build & Run the tests ```clickable ```
+
+To comeback to the standart app build :
+* Unset CLICKABLE_BUILD_ARGS environnment variable ```unset CLICKABLE_BUILD_ARGS```
 
 # Contributing
 
@@ -40,7 +40,7 @@ Please respect the code style format by running ```clickable style``` before com
 # Features
 
 The goal is to be closest possible of the features offer by [ZX2C4’s pass command line application](https://www.passwordstore.org/). 
-See to the FEATURES.MD file for detailed comparison.
+See to the FEATURES.MD file for details.
 
 # License
 
