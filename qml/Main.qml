@@ -1,7 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.1
 import Ubuntu.Components 1.3
-import Gpg 1.0
 
 import "components"
 
@@ -23,7 +22,6 @@ MainView {
                                             "pages/PasswordList.qml")))
     }
     Component.onCompleted: {
-        Gpg.importKey("password-store/public.key")
-        Gpg.getAllKeysId()
+
     }
 }

@@ -19,16 +19,17 @@ Page {
         Flow {
             spacing: units.gu(3)
             anchors.fill: parent
-			Rectangle {
+            Rectangle {
                 width: parent.width
                 height: units.gu(1)
             }
-			Text {
+            Text {
                 horizontalAlignment: Text.AlignHCenter
-				verticalAlignment: Text.AlignVCenter
+                verticalAlignment: Text.AlignVCenter
                 width: parent.width
                 height: units.gu(4)
-                text: i18n.tr('<b><font size="6">%1</font></b>').arg(Manifest.title)
+                text: i18n.tr('<b><font size="6">%1</font></b>').arg(
+                          Manifest.title)
             }
             Rectangle {
                 width: parent.width
@@ -40,40 +41,44 @@ Page {
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
-			Text {
+            Text {
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
                 height: units.gu(6)
-                text: i18n.tr('<font size="4">Maintainer<br>%1</font>').arg(Manifest.maintainer)
+                text: i18n.tr('<font size="4">Maintainer<br>%1</font>').arg(
+                          Manifest.maintainer)
             }
             Text {
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
                 height: units.gu(6)
-                text: i18n.tr('<font size="4">Version<br>%1</font><br>%2@%3').arg(Manifest.version).arg(Manifest.framework).arg(Manifest.architecture)
+                text: i18n.tr(
+                          '<font size="4">Version<br>%1</font><br>%2@%3').arg(
+                          Manifest.version).arg(Manifest.framework).arg(
+                          Manifest.architecture)
             }
-
         }
-		Flow {
-			spacing: 2
+        Flow {
+            spacing: 2
             anchors.bottom: parent.bottom
-			anchors.right: parent.right
-			anchors.left: parent.left
-			Link {
+            anchors.right: parent.right
+            anchors.left: parent.left
+            Link {
                 url: "https://github.com/QRouland/UTPass/issues"
                 text: i18n.tr('Suggest improvement(s) or report a bug(s)')
             }
-			Link {
+            Link {
                 url: "https://github.com/QRouland/UTPass"
                 text: i18n.tr('Access to the source code')
             }
-			Text {
-				width: parent.width
+            Text {
+                width: parent.width
                 height: units.gu(3)
-				horizontalAlignment: Text.AlignHCenter
-				verticalAlignment: Text.AlignVCenter
-                text: i18n.tr('<font size="2">Released under the terms of the GNU GPL v3</font>')
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: i18n.tr(
+                          '<font size="2">Released under the terms of the GNU GPL v3</font>')
             }
-		}
+        }
     }
 }

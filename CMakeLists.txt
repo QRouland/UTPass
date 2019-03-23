@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.5.1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+option(TEST_RUNNER "Run Test" OFF)
+if(${TEST_RUNNER})
+    add_definitions(-DTEST_RUNNER)
+endif()
 
 execute_process(
         COMMAND dpkg-architecture -qDEB_HOST_ARCH
@@ -15,6 +19,7 @@ execute_process(
         OUTPUT_VARIABLE ARCH_TRIPLET
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
 
 find_package(Qt5Core)
 find_package(Qt5Qml)
@@ -36,7 +41,13 @@ set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
 add_executable(${PROJECT_NAME} main.cpp)
 
-qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
+if(${TEST_RUNNER})
+    find_package(Qt5QuickTest)
+    qt5_use_modules(${PROJECT_NAME} Gui Qml Quick QuickTest)
+else()
+    qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
+endif()
+
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 configure_file(manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
@@ -45,12 +56,15 @@ install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
 file(GLOB_RECURSE BIN_FILES
-        "third/local/bin/${ARCH_TRIPLET}/*")
+        "third/local/${ARCH_TRIPLET}/bin/*")
 install(
         FILES ${BIN_FILES}
         PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
         DESTINATION ${BIN_DIR}
 )
+if(${TEST_RUNNER})
+    install(DIRECTORY tests DESTINATION ${DATA_DIR})
+endif()
 
 # Translations
 file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.qml qml/*.js)
@@ -77,3 +91,4 @@ add_subdirectory(po)
 add_subdirectory(plugins)
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})
+

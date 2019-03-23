@@ -4,8 +4,8 @@
   "scripts": {
 	"third_build": "clickable run 'cd third && ./clean.sh && mkdir build && cd build && cmake .. && make'",
 	"third_build_d": "clickable run 'cd third && ./clean.sh && mkdir build && cd build && cmake .. && make' --arch amd64 ",
-    "third_clean": "cd third && ./clean.sh",
-    "style": "astyle --options=.astylerc \"plugins/*.cpp,*.h\" && qmlfmt -w tests && qmlfmt -w qml"
+    "third_clean": "cd third && rm -rf local && ./clean.sh",
+    "style": "astyle --options=.astylerc 'plugins/*.cpp,*.h' && qmlfmt -w tests && qmlfmt -w qml"
   },
   "dependencies_build": [
     "texinfo",

@@ -1,14 +1,14 @@
 # Builds dirs 
-cmake-build-*
-build
+build*
 
-
-# IDE
+# IDE & Devs tools
 .clickable
 .idea
 *.project
 *.workspace
 .codelite
+*.kdev4
+*swp
 
 # Third parties ouput dir
 third/local
