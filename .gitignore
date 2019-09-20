@@ -1,0 +1,22 @@
+# Builds dirs 
+build*
+
+# IDE & Devs tools
+.clickable
+.idea
+*.project
+*.workspace
+.codelite
+*.kdev4
+*swp
+scripts
+
+# Third parties ouput dir
+libs/third/local
+
+
+# desktop
+desktop
+
+# Test (Not Ready yet !) 
+tests

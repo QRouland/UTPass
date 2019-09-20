@@ -1,0 +1,7 @@
+[Desktop Entry]
+_Name=UTPass
+Exec=UTPass
+Icon=assets/logo.svg
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
