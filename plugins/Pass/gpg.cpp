@@ -4,7 +4,6 @@
 #include <QDir>
 #include <QtCore/QStandardPaths>
 
-
 #include <gpgme.h>
 #include <gpgme++/data.h>
 #include <gpgme++/global.h>
