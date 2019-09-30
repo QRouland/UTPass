@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
-"PO-Revision-Date: 2019-09-30 08:35+0000\n"
-"Last-Translator: Reda <redxxiii@zaclys.net>\n"
+"PO-Revision-Date: 2019-09-30 08:36+0000\n"
+"Last-Translator: Advocatux <advocatux@airpost.net>\n"
 "Language-Team: Spanish <https://translate-ut.org/projects/utpass/utpass/es/>"
 "\n"
 "Language: es\n"
@@ -161,17 +161,14 @@ msgid "%1<br>will be definitively removed.<br>Continue ?"
 msgstr "1%<br>será eliminada definitivamente.<br>¿Continuar?"
 
 #: ../qml/pages/settings/InfoKeys.qml:87
-#, fuzzy
 msgid "Key removal failed !"
-msgstr "La eliminación de la llave ha fallado!"
+msgstr "¡Falló la eliminación de la clave!"
 
 #: ../qml/pages/settings/InfoKeys.qml:94
-#, fuzzy
 msgid "Key successfully deleted !"
-msgstr "La clave ha sido borrada con éxito!"
+msgstr "¡La clave ha sido eliminada correctamente!"
 
 #: ../qml/pages/settings/Settings.qml:28
-#, fuzzy
 msgid "GPG"
 msgstr "GPG"
 
