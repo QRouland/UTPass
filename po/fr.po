@@ -1,14 +1,15 @@
 # UTPass
 # Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 # This file is distributed under the same license as the utpass.qrouland package.
-#  Anne17 <>anneonyme017@netcourrier.com>, 2019.
+# Anne17 <>anneonyme017@netcourrier.com>, 2019.
+# Quentin Rouland <quentin@qrouland.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
-"PO-Revision-Date: 2019-09-30 08:53+0000\n"
-"Last-Translator: Reda <redxxiii@zaclys.net>\n"
+"PO-Revision-Date: 2019-09-30 09:19+0000\n"
+"Last-Translator: Quentin Rouland <quentin@qrouland.com>\n"
 "Language-Team: French <https://translate-ut.org/projects/utpass/utpass/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -60,7 +61,7 @@ msgstr "Réussite !"
 #: ../qml/pages/headers/MainHeader.qml:8 ../qml/pages/headers/StackHeader.qml:8
 #: UTPass.desktop.in.h:1
 msgid "UTPass"
-msgstr "Mots de passe"
+msgstr "UTPass"
 
 #: ../qml/pages/headers/MainHeader.qml:23
 msgid "Search"
