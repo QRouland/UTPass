@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the utpass.qrouland package.
 # Richard Lee <apps-lee@outlook.fr>, 2019.
+# Reda <redxxiii@zaclys.net>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 08:53+0000\n"
-"Last-Translator: Richard Lee <apps-lee@outlook.fr>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: French <https://translate-ut.org/projects/utpass/utpass/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +111,7 @@ msgstr "Importation de clé GPG"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:69
 msgid "Key import failed !"
-msgstr "L'importation de la clé a échoué ! "
+msgstr "L'importation de la clé a échoué !"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:76
 msgid "Key successfully imported !"
@@ -118,7 +119,7 @@ msgstr "La clé a été ajoutée avec succès !"
 
 #: ../qml/pages/settings/ImportZip.qml:17
 msgid "Zip Password Store Import"
-msgstr "Importation d'un fichier Zip de mots de passe"
+msgstr "Importation d'un fichier zip de mots de passe"
 
 #: ../qml/pages/settings/ImportZip.qml:72
 msgid ""
@@ -156,7 +157,7 @@ msgstr "%1<br>sera définitivement supprimée.<br>Voulez-vous continuer ?"
 
 #: ../qml/pages/settings/InfoKeys.qml:87
 msgid "Key removal failed !"
-msgstr "La supression de clé a échoué !"
+msgstr "La suppression de clé a échoué !"
 
 #: ../qml/pages/settings/InfoKeys.qml:94
 msgid "Key successfully deleted !"
