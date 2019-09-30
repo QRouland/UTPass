@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 08:50+0000\n"
-"Last-Translator: Advocatux <advocatux@airpost.net>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: Spanish <https://translate-ut.org/projects/utpass/utpass/es/>"
 "\n"
 "Language: es\n"
@@ -180,13 +180,16 @@ msgid "Show GPG keys"
 msgstr "Mostrar las claves GPG"
 
 #: ../qml/pages/settings/Settings.qml:43
+#, fuzzy
 msgid "Password Store"
-msgstr ""
+msgstr "Archivo de contraseñas"
 
 #: ../qml/pages/settings/Settings.qml:47
+#, fuzzy
 msgid "Import a Password Store Zip"
-msgstr ""
+msgstr "Importar un archivo Zip de contraseñas"
 
 #: ../qml/pages/settings/Settings.qml:56
+#, fuzzy
 msgid "Warning: importing delete any exiting Password Store"
-msgstr ""
+msgstr "Advertencia: Importar borra cualquier archivo de contraseñas existente"
