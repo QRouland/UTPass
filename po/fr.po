@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
-"PO-Revision-Date: 2019-09-30 09:19+0000\n"
-"Last-Translator: Reda <redxxiii@zaclys.net>\n"
+"PO-Revision-Date: 2019-09-30 09:24+0000\n"
+"Last-Translator: Quentin Rouland <quentin@qrouland.com>\n"
 "Language-Team: French <https://translate-ut.org/projects/utpass/utpass/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "Accéder au code source"
 
 #: ../qml/pages/Info.qml:101
 msgid "Released under the terms of the GNU GPL v3"
-msgstr "Publié sous les termes de la GNU GPL v3"
+msgstr "Distribuée sous les termes de la GNU GPL v3"
 
 #: ../qml/pages/PasswordList.qml:23
 msgid "Back"
