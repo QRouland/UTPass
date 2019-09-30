@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 08:33+0000\n"
-"Last-Translator: Advocatux <advocatux@airpost.net>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: Spanish <https://translate-ut.org/projects/utpass/utpass/es/>"
 "\n"
 "Language: es\n"
@@ -141,24 +141,29 @@ msgstr ""
 "¡La importación del archivo de contraseñas se ha realizado correctamente!"
 
 #: ../qml/pages/settings/InfoKeys.qml:16
+#, fuzzy
 msgid "Info Keys"
-msgstr ""
+msgstr "Informaciones sobre las claves"
 
 #: ../qml/pages/settings/InfoKeys.qml:44
+#, fuzzy
 msgid "Key id : %1"
-msgstr ""
+msgstr "Identificador de clave : %1"
 
 #: ../qml/pages/settings/InfoKeys.qml:49
+#, fuzzy
 msgid "Delete this key"
-msgstr ""
+msgstr "Borrar esta clave"
 
 #: ../qml/pages/settings/InfoKeys.qml:68
+#, fuzzy
 msgid "You're are about to delete<br>%1<br>Continue ?"
-msgstr ""
+msgstr "Está a punto de borrar<br>%1<br>Continuar?"
 
 #: ../qml/pages/settings/InfoKeys.qml:71
+#, fuzzy
 msgid "%1<br>will be definitively removed.<br>Continue ?"
-msgstr ""
+msgstr "1%<br>será borrada definitivamente.<br>Continuar?"
 
 #: ../qml/pages/settings/InfoKeys.qml:87
 msgid "Key removal failed !"
