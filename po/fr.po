@@ -1,8 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# UTPass
+# Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 # This file is distributed under the same license as the utpass.qrouland package.
-# Richard Lee <apps-lee@outlook.fr>, 2019.
-# Reda <redxxiii@zaclys.net>, 2019.
+#  Anne17 <>anneonyme017@netcourrier.com>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
