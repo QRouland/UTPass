@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
-"PO-Revision-Date: 2019-09-30 08:19+0000\n"
-"Last-Translator: Reda <redxxiii@zaclys.net>\n"
+"PO-Revision-Date: 2019-09-30 08:27+0000\n"
+"Last-Translator: Advocatux <advocatux@airpost.net>\n"
 "Language-Team: Spanish <https://translate-ut.org/projects/utpass/utpass/es/>"
 "\n"
 "Language: es\n"
@@ -20,77 +20,63 @@ msgstr ""
 "X-Generator: Weblate 3.8\n"
 
 #: ../qml/components/FileDir.qml:71
-#, fuzzy
 msgid "Decryption failed !"
-msgstr "¡El descifrado falló!"
+msgstr "¡Falló el descifrado!"
 
 #: ../qml/dialogs/DoubleValidationDialog.qml:28
 #: ../qml/dialogs/PassphraseDialog.qml:29
 #: ../qml/dialogs/SimpleValidationDialog.qml:19
-#, fuzzy
 msgid "Ok"
-msgstr "Validar"
+msgstr "Aceptar"
 
 #: ../qml/dialogs/DoubleValidationDialog.qml:44
 #: ../qml/dialogs/PassphraseDialog.qml:41
 #: ../qml/dialogs/SimpleValidationDialog.qml:30
-#, fuzzy
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../qml/dialogs/ErrorDialog.qml:12
-#, fuzzy
 msgid "Error !"
-msgstr "Error!"
+msgstr "¡Error!"
 
 #: ../qml/dialogs/ErrorDialog.qml:15 ../qml/dialogs/SuccessDialog.qml:15
-#, fuzzy
 msgid "OK"
-msgstr "Validar"
+msgstr "Aceptar"
 
 #: ../qml/dialogs/PassphraseDialog.qml:7
-#, fuzzy
 msgid "Authentication required"
 msgstr "Se requiere autentificación"
 
 #: ../qml/dialogs/PassphraseDialog.qml:8
-#, fuzzy
 msgid "Enter passphrase:"
-msgstr "Introduzca la frase de contraseña:"
+msgstr "Introducir contraseña:"
 
 #: ../qml/dialogs/PassphraseDialog.qml:20
-#, fuzzy
 msgid "passphrase"
-msgstr "frase de contraseña"
+msgstr "contraseña"
 
 #: ../qml/dialogs/SuccessDialog.qml:12
-#, fuzzy
 msgid "Success !"
-msgstr "Éxito!"
+msgstr "¡Correcto!"
 
 #: ../qml/pages/headers/MainHeader.qml:8 ../qml/pages/headers/StackHeader.qml:8
 #: UTPass.desktop.in.h:1
-#, fuzzy
 msgid "UTPass"
 msgstr "UTPass"
 
 #: ../qml/pages/headers/MainHeader.qml:23
-#, fuzzy
 msgid "Search"
 msgstr "Buscar"
 
 #: ../qml/pages/headers/MainHeader.qml:51 ../qml/pages/settings/Settings.qml:14
-#, fuzzy
 msgid "Settings"
-msgstr "Ajustes"
+msgstr "Configuración"
 
 #: ../qml/pages/headers/MainHeader.qml:58 ../qml/pages/Info.qml:11
-#, fuzzy
 msgid "Info"
-msgstr "información"
+msgstr "Información"
 
 #: ../qml/pages/Info.qml:50
-#, fuzzy
 msgid "<b>Version</b>"
 msgstr "<b>Versión</b>"
 
@@ -100,37 +86,31 @@ msgid "<b>Maintainer</>"
 msgstr "<b>Mantenedor </>"
 
 #: ../qml/pages/Info.qml:90
-#, fuzzy
 msgid "Suggest improvement(s) or report a bug(s)"
-msgstr "Sugerir mejoras o reportar problemas"
+msgstr "Sugerir mejora(s) o reportar problema(s)"
 
 #: ../qml/pages/Info.qml:94
-#, fuzzy
 msgid "Access to the source code"
 msgstr "Acceso al código fuente"
 
 #: ../qml/pages/Info.qml:101
-#, fuzzy
 msgid "Released under the terms of the GNU GPL v3"
 msgstr "Publicado bajo los términos de la GNU GPL v3"
 
 #: ../qml/pages/PasswordList.qml:23
-#, fuzzy
 msgid "Back"
-msgstr "Volver"
+msgstr "Atrás"
 
 #: ../qml/pages/PasswordList.qml:43
-#, fuzzy
 msgid ""
 "No password found<br>You can import a password store zip in the settings"
 msgstr ""
-"No se han encontrado contraseñas <br>Puede importar un archivo zip de "
-"almacenamiento de contraseñas en la configuración."
+"No se han encontrado contraseñas<br>Puede importar un archivo zip de "
+"almacenamiento de contraseñas en la configuración"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:17
-#, fuzzy
 msgid "GPG Key Import"
-msgstr "Importación de claves GPG"
+msgstr "Importar clave GPG"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:69
 msgid "Key import failed !"
