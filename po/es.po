@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 08:27+0000\n"
-"Last-Translator: Advocatux <advocatux@airpost.net>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: Spanish <https://translate-ut.org/projects/utpass/utpass/es/>"
 "\n"
 "Language: es\n"
@@ -113,29 +113,38 @@ msgid "GPG Key Import"
 msgstr "Importar clave GPG"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:69
+#, fuzzy
 msgid "Key import failed !"
-msgstr ""
+msgstr "La importación de claves falló!"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:76
+#, fuzzy
 msgid "Key successfully imported !"
-msgstr ""
+msgstr "Clave importada con éxito!"
 
 #: ../qml/pages/settings/ImportZip.qml:17
+#, fuzzy
 msgid "Zip Password Store Import"
-msgstr ""
+msgstr "Importación de un archivo zip de contraseñas"
 
 #: ../qml/pages/settings/ImportZip.qml:72
+#, fuzzy
 msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
+"La importación de un nuevo zip borrará<br>cualquier contraseña "
+"almacenada!<br>Continuar?"
 
 #: ../qml/pages/settings/ImportZip.qml:82
+#, fuzzy
 msgid "Password store import failed !"
-msgstr ""
+msgstr "La importación del archivo de contraseñas ha fallado!"
 
 #: ../qml/pages/settings/ImportZip.qml:89
+#, fuzzy
 msgid "Password store sucessfully imported !"
 msgstr ""
+"La importación del archivo de contraseñas se ha realizado correctamente!"
 
 #: ../qml/pages/settings/InfoKeys.qml:16
 msgid "Info Keys"
