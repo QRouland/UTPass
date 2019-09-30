@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the utpass.qrouland package.
 # Anne17 <>anneonyme017@netcourrier.com>, 2019.
 # Quentin Rouland <quentin@qrouland.com>, 2019.
+# Reda <redxxiii@zaclys.net>, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 09:19+0000\n"
-"Last-Translator: Quentin Rouland <quentin@qrouland.com>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: French <https://translate-ut.org/projects/utpass/utpass/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +74,7 @@ msgstr "Paramètres"
 
 #: ../qml/pages/headers/MainHeader.qml:58 ../qml/pages/Info.qml:11
 msgid "Info"
-msgstr "Informations"
+msgstr "Infos"
 
 #: ../qml/pages/Info.qml:50
 msgid "<b>Version</b>"
@@ -93,7 +94,7 @@ msgstr "Accéder au code source"
 
 #: ../qml/pages/Info.qml:101
 msgid "Released under the terms of the GNU GPL v3"
-msgstr "Distribuée sous les termes de la LPG GNU v3"
+msgstr "Publié sous les termes de la GNU GPL v3"
 
 #: ../qml/pages/PasswordList.qml:23
 msgid "Back"
