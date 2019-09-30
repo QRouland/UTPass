@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-21 14:01+0000\n"
 "PO-Revision-Date: 2019-09-30 09:24+0000\n"
-"Last-Translator: Quentin Rouland <quentin@qrouland.com>\n"
+"Last-Translator: Reda <redxxiii@zaclys.net>\n"
 "Language-Team: French <https://translate-ut.org/projects/utpass/utpass/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,8 @@ msgstr "Retour"
 msgid ""
 "No password found<br>You can import a password store zip in the settings"
 msgstr ""
-"Aucun mot de passe trouvé<br>Vous pouvez importer un fichier Zip de mots de passe dans les paramètres"
+"Aucun mot de passe trouvé<br>Vous pouvez importer un fichier zip de stockage "
+"de mots de passe dans les paramètres."
 
 #: ../qml/pages/settings/ImportKeyFile.qml:17
 msgid "GPG Key Import"
@@ -116,7 +117,7 @@ msgstr "L'importation de la clé a échoué !"
 
 #: ../qml/pages/settings/ImportKeyFile.qml:76
 msgid "Key successfully imported !"
-msgstr "La clé a été ajoutée avec succès !"
+msgstr "Clé importée avec succès !"
 
 #: ../qml/pages/settings/ImportZip.qml:17
 msgid "Zip Password Store Import"
@@ -126,15 +127,16 @@ msgstr "Importation d'un fichier zip de mots de passe"
 msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
-"L'importation d'un nouveau fichier Zip supprimera<br>les fichiers précédents !<br>Voulez-vous continuer ?"
+"L'importation d'un nouveau zip supprimera<br>tout mot de passe stocké!<br>"
+"Continuer ?"
 
 #: ../qml/pages/settings/ImportZip.qml:82
 msgid "Password store import failed !"
-msgstr "L'importation d'un fichier de mots de passe a échoué !"
+msgstr "L'importation du fichier de mots de passe a échoué !"
 
 #: ../qml/pages/settings/ImportZip.qml:89
 msgid "Password store sucessfully imported !"
-msgstr "L'importation d'un fichier de mots de passe a réussi !"
+msgstr "L'importation du fichier de mots de passe a réussi !"
 
 #: ../qml/pages/settings/InfoKeys.qml:16
 msgid "Info Keys"
