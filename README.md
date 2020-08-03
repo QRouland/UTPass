@@ -21,6 +21,22 @@ See [Contributing wiki page](https://taiga.rdrive.ovh/project/utpass/wiki/contri
 The goal is to be closest possible of the features offer by [ZX2C4’s pass command line application](https://www.passwordstore.org/). 
 See [Features wiki page](https://taiga.rdrive.ovh/project/utpass/wiki/contributing) for details.
 
+## Export/Import
+
+Assuming that there are already passwords in another device using [ZX2C4’s pass command line application](https://www.passwordstore.org/) and, therefore, that [gpg keys](https://gnupg.org/) have been previously generated for encryption purposes, these may be helpful commands:
+
+Export gpg private keys in order to decrypt passwords:
+```
+gpg --output keys.gpg --export-secret-keys
+```
+
+Export passwords, assuming they reside in *.password-store* folder:
+```
+zip passwords.zip -r .password-store/
+```
+
+Both files have the correct format for UTPass to import them and work as intended. It is highly recommended to remove them after imported to **UTPass**.
+
 ## License
 
     Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
@@ -45,4 +61,5 @@ Some useful links related to UTPass development :
 * [Ubports](https://ubports.com/) : Ubuntu Touch Community
 * [ZX2C4’s pass command line application](https://www.passwordstore.org/) : the standard unix password manager.
 * [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages
+* [GnuPG](https://gnupg.org/): The GNU Privacy Guard
 * [Gpgme](https://www.gnupg.org/software/gpgme/index.html) : GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications
