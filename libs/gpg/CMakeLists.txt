@@ -66,3 +66,5 @@ ExternalProject_Add(
         BUILD_COMMAND make
         INSTALL_COMMAND make install
 )
+
+install(TARGETS)

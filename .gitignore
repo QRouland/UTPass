@@ -11,12 +11,5 @@ build*
 *swp
 scripts
 
-# Third parties ouput dir
-libs/third/local
-
-
-# desktop
-desktop
-
-# Test (Not Ready yet !) 
-tests
+# venv
+venv

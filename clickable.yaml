@@ -1,0 +1,23 @@
+clickable_minimum_required: 7
+builder: cmake
+kill: UTPass
+scripts:
+  style: >-
+    echo 'Astyle :' && astyle --options=.astylerc main.cpp && astyle
+    --options=.astylerc --recursive 'plugins/*.cpp,*.h' && echo 'QmlFmt :' &&
+    qmlfmt -l tests && qmlfmt -w tests && qmlfmt -l qml && qmlfmt -w qml
+libraries:
+  gpg:
+    builder: cmake
+    make_jobs: 4
+    dependencies_host:
+      - texinfo
+      - gpgsm
+      - bison
+  quazip:
+    builder: cmake
+    make_jobs: 4
+  libgit2:
+    builder: cmake
+    make_jobs: 4
+    build_args: '-DBUILD_SHARED_LIBS=OFF'
