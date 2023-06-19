@@ -19,6 +19,7 @@ MainView {
 
     function initPass(rootView) {
         Pass.init(rootView)
+        pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml"));
     }
 
     function callPassphraseDialog(useridHint, description, previousWasBad) {
@@ -43,8 +44,6 @@ MainView {
         id: pageStack
         anchors.fill: parent
 
-        Component.onCompleted: {
-            pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml"))
-        }
+        Component.onCompleted: {}
     }
 }
