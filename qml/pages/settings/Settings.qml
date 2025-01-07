@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 import Pass 1.0
 import "../headers"
 import "../../components"
@@ -51,7 +51,7 @@ Page {
             verticalAlignment: Text.AlignVCenter
             width: parent.width
             height: units.gu(4)
-            color: UbuntuColors.red
+            color: LomiriColors.red
             text: i18n.tr(
                       'Warning: importing delete any exiting Password Store')
         }

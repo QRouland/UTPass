@@ -1,6 +1,6 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 import Pass 1.0
 import "../headers"
 import "../../components"
@@ -47,7 +47,7 @@ Page {
             Button {
                 id: buttonDeleteKey
                 text: i18n.tr("Delete this key")
-                color: UbuntuColors.red
+                color: LomiriColors.red
                 onClicked: {
                     infoKeysPage.currentKey = model.modelData.uid
                     PopupUtils.open(infoKeysPageDeleteValidation, infoKeysPage)

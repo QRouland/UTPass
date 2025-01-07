@@ -1,6 +1,6 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 
 Dialog {
     id: dialogSuccess
@@ -13,7 +13,7 @@ Dialog {
     text: textSuccess
     Button {
         text: i18n.tr("OK")
-        color: UbuntuColors.green
+        color: LomiriColors.green
         onClicked: function () {
             dialogClosed()
             PopupUtils.close(dialogSuccess)

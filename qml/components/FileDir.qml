@@ -1,6 +1,6 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 import Pass 1.0
 import "../styles"
 import "../dialogs"
@@ -27,7 +27,7 @@ Component {
             anchors.rightMargin: units.gu(2)
             height: units.gu(4)
             name: fileIsDir ? "go-next" : "lock"
-            color: UbuntuColors.orange
+            color: LomiriColors.orange
         }
 
         MouseArea {
@@ -62,7 +62,7 @@ Component {
             rBorderwidth: 0
             tBorderwidth: 0
             bBorderwidth: 1
-            borderColor: UbuntuColors.warmGrey
+            borderColor: LomiriColors.warmGrey
         }
 
         Component {

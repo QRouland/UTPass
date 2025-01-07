@@ -28,7 +28,7 @@ set(PROJECT_NAME "UTPass")
 set(FULL_PROJECT_NAME "utpass.qrouland")
 set(CMAKE_INSTALL_PREFIX /)
 set(DATA_DIR /)
-set(BIN_DIR ${DATA_DIR}lib/bin)
+# set(BIN_DIR ${DATA_DIR}lib/bin)
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
 add_executable(${PROJECT_NAME} main.cpp)
@@ -48,13 +48,15 @@ install(FILES ${PROJECT_NAME}.contenthub DESTINATION ${DATA_DIR})
 install(FILES LICENSE DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
-file(GLOB_RECURSE BIN_FILES
-        "build/${ARCH_TRIPLET}/gpg/local/bin/*")
-install(
-        FILES ${BIN_FILES}
-        PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
-        DESTINATION ${BIN_DIR}
-)
+
+# file(GLOB_RECURSE BIN_FILES
+#         "/usr/bin/gpg*"
+# )
+# install(
+#         FILES ${BIN_FILES}
+#         PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
+#         DESTINATION ${BIN_DIR}
+# )
 
 # Translations
 file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.qml qml/*.js)
@@ -81,4 +83,3 @@ add_subdirectory(po)
 add_subdirectory(plugins)
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})
-

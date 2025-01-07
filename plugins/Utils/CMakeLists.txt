@@ -23,15 +23,6 @@ add_library(${PLUGIN} MODULE ${SRC})
 set_target_properties(${PLUGIN} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PLUGIN})
 qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
-set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/quazip/install/")
-
-INCLUDE_DIRECTORIES(${EXTERNAL_LIBS}/include)
-
-add_library(quazip STATIC IMPORTED)
-set_property(TARGET quazip PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libquazip5.a")
-
-target_link_libraries(${PLUGIN} quazip)
-
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
 

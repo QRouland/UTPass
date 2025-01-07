@@ -15,6 +15,7 @@ private:
     Gpg();
     QObject *m_window;
 
+    QString findCommandPath(const QString &command);
     QString initGpgHome();
     QString initGpgExec();
     void initGpgConfig();

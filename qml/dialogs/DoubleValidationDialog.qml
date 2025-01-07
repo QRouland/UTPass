@@ -1,6 +1,6 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
-import Ubuntu.Components.Popups 1.3
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 
 Dialog {
     id: doubleValidationDialog
@@ -26,7 +26,7 @@ Dialog {
 
     Button {
         text: i18n.tr("Ok")
-        color: UbuntuColors.green
+        color: LomiriColors.green
 
         onClicked: {
             if (nb_validation == 1) {
@@ -42,7 +42,7 @@ Dialog {
     Button {
         id: cancelButton
         text: i18n.tr("Cancel")
-        color: UbuntuColors.red
+        color: LomiriColors.red
         onClicked: {
             nb_validation = 0
             canceled()

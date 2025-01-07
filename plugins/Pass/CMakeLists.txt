@@ -4,6 +4,7 @@ set(PLUGIN "Pass")
 set(
         SRC
         plugin.cpp
+        git.cpp
         pass.cpp
         gpg.cpp
         passkeymodel.h
@@ -26,29 +27,29 @@ add_library(${PLUGIN} MODULE ${SRC})
 set_target_properties(${PLUGIN} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PLUGIN})
 qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
-set(EXTERNAL_LIBS "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/gpg/local/")
 
-INCLUDE_DIRECTORIES(${EXTERNAL_LIBS}/include)
+add_library(gpgerror SHARED IMPORTED)
+set_property(TARGET gpgerror PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgpg-error.so.0.28.0")
 
-add_library(GpgError STATIC IMPORTED)
-set_property(TARGET GpgError PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libgpg-error.a")
+add_library(libassuan SHARED IMPORTED)
+set_property(TARGET libassuan PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libassuan.so")
 
-add_library(GpgAssuan STATIC IMPORTED)
-set_property(TARGET GpgAssuan PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libassuan.a")
+add_library(libgpgme SHARED IMPORTED)
+set_property(TARGET libgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgpgme.so")
 
-add_library(Gpgme STATIC IMPORTED)
-set_property(TARGET Gpgme PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libgpgme.a")
+add_library(libgpgmepp SHARED IMPORTED)
+set_property(TARGET libgpgmepp PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgpgmepp.so")
 
-add_library(Gpgmepp STATIC IMPORTED)
-set_property(TARGET Gpgmepp PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libgpgmepp.a")
+add_library(libqgpgme SHARED IMPORTED)
+set_property(TARGET libqgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libqgpgme.so.7")
 
-add_library(QGpgme STATIC IMPORTED)
-set_property(TARGET QGpgme PROPERTY IMPORTED_LOCATION "${EXTERNAL_LIBS}/lib/libqgpgme.a")
 
-target_link_libraries(${PLUGIN} QGpgme Gpgmepp Gpgme GpgAssuan GpgError)
+add_library(libgit2 SHARED IMPORTED)
+set_property(TARGET libgit2 PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgit2.so")
+
+target_link_libraries(${PLUGIN} gpgerror libassuan libgpgme libgpgmepp libgit2)
 
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
-
 install(TARGETS ${PLUGIN} DESTINATION ${QT_IMPORTS_DIR}/${PLUGIN}/)
 install(FILES qmldir DESTINATION ${QT_IMPORTS_DIR}/${PLUGIN}/)

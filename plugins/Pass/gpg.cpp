@@ -23,8 +23,8 @@
 #include <qgpgme/changeownertrustjob.h>
 
 #include "gpg.h"
-#include "pass.h"
 #include "passphraseprovider.h"
+#include "qprocess.h"
 
 
 
@@ -36,11 +36,9 @@ Gpg::Gpg()
 {
     m_window = nullptr;
 
-    initializeLibrary();
-
     Gpg::initGpgConfig();
 
-    auto  error = checkEngine(OpenPGP);
+    auto error = checkEngine(OpenPGP);
     if (error) {
         qDebug() << "Code Error : " << error.code();
         qDebug() << "Error str : " << error.asString();
@@ -65,15 +63,32 @@ QString Gpg::initGpgHome()
 }
 
 
+QString Gpg::findCommandPath(const QString &command) {
+    // Retrieve the PATH environment variable
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    QString pathEnv = env.value("PATH");
+
+    // Split the PATH by colon
+    QStringList pathDirs = pathEnv.split(":", QString::SkipEmptyParts);
+
+    // Check each directory in the PATH
+    foreach (const QString &dir, pathDirs) {
+        QFileInfo fileInfo(QDir(dir).filePath(command));
+
+        // If the file exists and is executable, return the path
+        if (fileInfo.exists() && fileInfo.isExecutable()) {
+            return fileInfo.absoluteFilePath();
+        }
+    }
+
+    return QString::null;
+}
+
 QString Gpg::initGpgExec()
 {
-    QString path =  QDir::currentPath().append("/lib/bin/gpg");
-    QFileInfo file(path);
-    if (!file.isFile()) {
-        qFatal("GNUPGEXEC file not found !");
-    }
-    if (!file.isExecutable()) {
-        qFatal("GNUPGEXEC file not executable !");
+    QString path = findCommandPath("gpg");
+    if (path.isNull()) {
+        qFatal("No valid gpg exec found !");
     }
     return path;
 }
@@ -81,20 +96,30 @@ QString Gpg::initGpgExec()
 
 void Gpg::initGpgConfig()
 {
-    auto home = initGpgHome();
-    auto exec = initGpgExec();
+    initializeLibrary();
+    gpgme_set_global_flag("disable-gpgconf", "1");
+
+    QString home = initGpgHome();
+    qDebug() << "Gpg home is " << home;
+    QString exec = initGpgExec();
+    qDebug() << "Gpg exec is " << exec;
 
     QFile agentConf(home + QStringLiteral("/gpg-agent.conf"));
     agentConf.remove();
     agentConf.open(QIODevice::WriteOnly);
-    agentConf.write("allow-loopback-pinentry");
+    agentConf.write("allow-loopback-pinentry\n");
     agentConf.close();
 
-    gpgme_set_engine_info (
+    auto err = gpgme_set_engine_info (
         GPGME_PROTOCOL_OpenPGP,
         exec.toLocal8Bit().data(),
         home.toLocal8Bit().data()
     );
+    if (err != GPG_ERR_NO_ERROR) {
+        qDebug() << "Error code : " << err;
+        qDebug() << "Error str : " << gpg_strerror(err);
+        qFatal("GPGME set engine info failed !");
+    }
 }
 
 

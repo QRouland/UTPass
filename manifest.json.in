@@ -12,5 +12,5 @@
     },
     "version": "0.0.3-dev",
     "maintainer": "Quentin Rouland <quentin@qrouland.com>",
-    "framework" : "ubuntu-sdk-16.04"
+    "framework" : "ubuntu-sdk-20.04"
 }

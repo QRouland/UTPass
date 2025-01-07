@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE bool gpgDeleteKeyId(QString id);
     Q_INVOKABLE bool gpgImportKeyFromFile(QUrl url);
     Q_INVOKABLE QVariant gpgGetAllKeysModel();
+    Q_INVOKABLE bool gitClone(QString url);
 };
 
 #endif

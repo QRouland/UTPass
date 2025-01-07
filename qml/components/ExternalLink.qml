@@ -1,5 +1,5 @@
 import QtQuick 2.4
-import Ubuntu.Components 1.3
+import Lomiri.Components 1.3
 import "../styles"
 
 Item {
@@ -14,7 +14,7 @@ Item {
     property int tBorderwidth: 0
     property int bBorderwidth: 0
     property int commonBorderWidth: 0
-    property string borderColor: UbuntuColors.warmGrey
+    property string borderColor: LomiriColors.warmGrey
 
     width: parent.width
     height: units.gu(6)
@@ -36,7 +36,7 @@ Item {
             width: units.gu(4)
             height: units.gu(4)
             name: "go-next"
-            color: UbuntuColors.orange
+            color: LomiriColors.orange
         }
 
         MouseArea {
