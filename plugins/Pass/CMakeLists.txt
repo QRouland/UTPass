@@ -41,13 +41,12 @@ add_library(libgpgmepp SHARED IMPORTED)
 set_property(TARGET libgpgmepp PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgpgmepp.so")
 
 add_library(libqgpgme SHARED IMPORTED)
-set_property(TARGET libqgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libqgpgme.so.7")
-
+set_property(TARGET libqgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libqgpgme.so")
 
 add_library(libgit2 SHARED IMPORTED)
 set_property(TARGET libgit2 PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgit2.so")
 
-target_link_libraries(${PLUGIN} gpgerror libassuan libgpgme libgpgmepp libgit2)
+target_link_libraries(${PLUGIN} gpgerror libassuan libgpgme libgpgmepp libqgpgme libgit2)
 
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
