@@ -17,12 +17,17 @@ dependencies_target:
 
 install_lib:
 - "libgpg-error.so.0.28.0"
-- "libassuan.so"
-- "libgpgme.so"
-- "libgpgmepp.so"
-- "libqgpgme.so.7"
-- "libgit2.so"
-- "libquazip5.so"
+- "libassuan.so*"
+- "libgpgme.so*"
+- "libgpgmepp.so*"
+- "libqgpgme.so*"
+- "libgit2.so*"
+- "libquazip5.so*"
+- "libmbedtls.so*"
+- "libmbedx509.so*"
+- "libmbedcrypto.so*"
+- "libhttp_parser.so*"
+- "libssh2.so*"
 
 install_bin:
 - "gpg"

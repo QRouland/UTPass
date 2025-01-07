@@ -70,5 +70,5 @@ QString Pass::getPasswordStore()
 bool Pass::gitClone(QString url)
 {
     qInfo() << "Cloning . password_store from " << url;
-    return Git::instance()->clone(url);
+    return Git::instance()->clone(url, m_password_store);
 }

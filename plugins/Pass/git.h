@@ -21,7 +21,7 @@ public:
     Git(Git const &) = delete;
     void operator=(Git const &) = delete;
 
-    bool clone(QString url);
+    bool clone(QString url, QString path);
 };
 
 #endif

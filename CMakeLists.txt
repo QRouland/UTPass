@@ -28,7 +28,7 @@ set(PROJECT_NAME "UTPass")
 set(FULL_PROJECT_NAME "utpass.qrouland")
 set(CMAKE_INSTALL_PREFIX /)
 set(DATA_DIR /)
-# set(BIN_DIR ${DATA_DIR}lib/bin)
+
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
 add_executable(${PROJECT_NAME} main.cpp)
@@ -41,7 +41,6 @@ configure_file(${CMAKE_CURRENT_BINARY_DIR}/manifest.json ${CMAKE_CURRENT_BINARY_
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest_.json DESTINATION ${DATA_DIR})
 
-#install(DIRECTORY desktop DESTINATION ${DATA_DIR})
 
 install(FILES ${PROJECT_NAME}.apparmor DESTINATION ${DATA_DIR})
 install(FILES ${PROJECT_NAME}.contenthub DESTINATION ${DATA_DIR})
@@ -49,14 +48,6 @@ install(FILES LICENSE DESTINATION ${DATA_DIR})
 install(DIRECTORY qml DESTINATION ${DATA_DIR})
 install(DIRECTORY assets DESTINATION ${DATA_DIR})
 
-# file(GLOB_RECURSE BIN_FILES
-#         "/usr/bin/gpg*"
-# )
-# install(
-#         FILES ${BIN_FILES}
-#         PERMISSIONS OWNER_EXECUTE OWNER_READ GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE
-#         DESTINATION ${BIN_DIR}
-# )
 
 # Translations
 file(GLOB_RECURSE I18N_SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/po qml/*.qml qml/*.js)

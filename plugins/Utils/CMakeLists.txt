@@ -23,6 +23,10 @@ add_library(${PLUGIN} MODULE ${SRC})
 set_target_properties(${PLUGIN} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PLUGIN})
 qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
+add_library(libquazip5 SHARED IMPORTED)
+set_property(TARGET libquazip5 PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libquazip5.so")
+
+target_link_libraries(${PLUGIN} libquazip5)
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
 

@@ -7,7 +7,6 @@
 #include <QEventLoop>
 #include <QSemaphore>
 #include <gpgme++/interfaces/passphraseprovider.h>
-#include "passphraseprovider.h"
 #include "gpg.h"
 
 
