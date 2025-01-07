@@ -8,13 +8,6 @@ UTPass is avalaible on the [OpenStore](open-store.io)
 
 [![OpenStore](https://open-store.io/badges/en_US.png)](https://open-store.io/app/utpass.qrouland)
 
-## Build & Tests
-
-See [Build & Tests wiki page](https://taiga.rdrive.ovh/project/utpass/wiki/build-tests)
-
-## Contributing & Issues
-
-See [Contributing wiki page](https://taiga.rdrive.ovh/project/utpass/wiki/contributing)
 
 ## Features
 
@@ -37,22 +30,14 @@ zip passwords.zip -r .password-store/
 
 Both files have the correct format for UTPass to import them and work as intended. It is highly recommended to remove them after imported to **UTPass**.
 
-## License
 
-    Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+## Build & Tests
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+See [Build & Tests wiki page](https://github.com/QRouland/UTPass/wiki/Build-&-Tests)
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+## Contributing & Issues
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+See [Contributing wiki page](https://github.com/QRouland/UTPass/wiki/Contributing)
 
 
 ## Useful Links
@@ -63,3 +48,21 @@ Some useful links related to UTPass development :
 * [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages
 * [GnuPG](https://gnupg.org/): The GNU Privacy Guard
 * [Gpgme](https://www.gnupg.org/software/gpgme/index.html) : GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications
+
+
+## License
+
+Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
