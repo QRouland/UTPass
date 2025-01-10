@@ -12,7 +12,7 @@ Utils::Utils() {};
 bool Utils::unzip(QUrl zip_url, QString dir_out_path)
 {
     auto tmp_dir_path =  QStandardPaths::writableLocation(
-                             QStandardPaths::CacheLocation).append("/unzip");
+                             QStandardPaths::TempLocation).append("/unzip");
 
     QDir tmp_dir(tmp_dir_path);
     tmp_dir.removeRecursively();

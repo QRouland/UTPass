@@ -22,7 +22,7 @@ private:
     void initGpgConfig();
 
 public:
-    ~Gpg();
+    ~Gpg() = default;
 
     static std::shared_ptr<Gpg> instance()
     {

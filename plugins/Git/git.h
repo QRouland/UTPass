@@ -10,7 +10,7 @@ class Git : public QObject
     Q_OBJECT
 
 public:
-    Git();
+    Git() = default;
     ~Git() override = default;
 
     Q_INVOKABLE bool clone(QString url, QString path);

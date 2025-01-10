@@ -6,9 +6,6 @@
 #include "libgit.h"
 
 
-Git::Git()
-{}
-
 bool Git::clone(QString url, QString path)
 {
     qInfo() << "Cloning " << url << "password_store to " << path;
