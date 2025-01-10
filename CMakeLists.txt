@@ -3,6 +3,10 @@ cmake_minimum_required(VERSION 3.5.1)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release")
+endif()
+
 execute_process(
         COMMAND dpkg-architecture -qDEB_HOST_ARCH
         OUTPUT_VARIABLE CLICK_ARCH
@@ -31,7 +35,8 @@ set(DATA_DIR /)
 
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp
+    qml/pages/settings/ImportGitClone.qml)
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

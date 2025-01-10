@@ -13,6 +13,7 @@ class Gpg
 {
 private:
     Gpg();
+
     QObject *m_window;
 
     QString findCommandPath(const QString &command);
@@ -42,7 +43,7 @@ public:
     };
 
 
-    QPair< Error, std::vector< Key > > getAllKeys(bool remote = false, bool include_sigs = {}, bool
+    QPair<Error, std::vector<Key >> getAllKeys(bool remote = false, bool include_sigs = {}, bool
                                                   validate = false);
     QPair<Error, std::vector<Key>> getKeys( QString pattern_uid,  bool remote = false,
                                             bool include_sigs = false,

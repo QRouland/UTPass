@@ -9,6 +9,9 @@
 class Pass : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString password_store READ password_store)
+
+private:
     QString m_password_store;
 
 signals:
@@ -16,18 +19,17 @@ signals:
     void decryptCanceled();
     void decryptFailed();
 
-
 public:
     Pass();
     ~Pass() override = default;
 
+    QString password_store() const { return m_password_store; }
+
     Q_INVOKABLE void init(QObject *window);
-    Q_INVOKABLE QString getPasswordStore();
     Q_INVOKABLE void decrypt(QUrl url);
     Q_INVOKABLE bool gpgDeleteKeyId(QString id);
     Q_INVOKABLE bool gpgImportKeyFromFile(QUrl url);
     Q_INVOKABLE QVariant gpgGetAllKeysModel();
-    Q_INVOKABLE bool gitClone(QString url);
 };
 
 #endif

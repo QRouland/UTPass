@@ -67,6 +67,6 @@ Page {
     }
 
     Component.onCompleted: {
-        passwordStorePath = "file:" + Pass.getPasswordStore()
+        passwordStorePath = "file:" + Pass.password_store
     }
 }

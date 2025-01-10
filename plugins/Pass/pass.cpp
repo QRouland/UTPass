@@ -3,7 +3,6 @@
 #include <QtCore/QDir>
 
 #include "pass.h"
-#include "git.h"
 #include "gpg.h"
 #include "passkeymodel.h"
 
@@ -22,8 +21,9 @@ void Pass::init(QObject *window)
     Gpg::instance()->setWindow(window);
 
     QDir dir(m_password_store);
-    if (!dir.exists())
+    if (!dir.exists()) {
         dir.mkpath(".");
+    }
     qInfo() << "Password Store is :" << m_password_store;
 }
 
@@ -62,13 +62,3 @@ QVariant Pass::gpgGetAllKeysModel()
                                    Gpg::instance()->getAllKeys().second));
 }
 
-QString Pass::getPasswordStore()
-{
-    return m_password_store;
-}
-
-bool Pass::gitClone(QString url)
-{
-    qInfo() << "Cloning . password_store from " << url;
-    return Git::instance()->clone(url, m_password_store);
-}

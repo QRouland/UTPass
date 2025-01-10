@@ -43,6 +43,10 @@ Page {
             text: i18n.tr('Password Store')
         }
         PageStackLink {
+            page: Qt.resolvedUrl("ImportGitClone.qml")
+            text: i18n.tr('Import a Password Store using Git')
+        }
+        PageStackLink {
             page: Qt.resolvedUrl("ImportZip.qml")
             text: i18n.tr('Import a Password Store Zip')
         }

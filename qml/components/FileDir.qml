@@ -69,9 +69,6 @@ Component {
             id: passwordPageDecryptError
             ErrorDialog {
                 textError: i18n.tr("Decryption failed !")
-                onDialogClosed: {
-                    pageStack.pop()
-                }
             }
         }
     }
