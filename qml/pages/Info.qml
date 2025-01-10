@@ -86,11 +86,11 @@ Page {
         anchors.right: parent.right
         anchors.left: parent.left
         ExternalLink {
-            url: "https://taiga.rdrive.ovh/project/utpass/issues"
+            url: "https://github.com/QRouland/UTPass/issues"
             text: i18n.tr("Suggest improvement(s) or report a bug(s)")
         }
         ExternalLink {
-            url: "https://git.rdrive.ovh/QRouland/UTPass"
+            url: "https://github.com/QRouland/UTPass"
             text: i18n.tr("Access to the source code")
         }
         Text {
