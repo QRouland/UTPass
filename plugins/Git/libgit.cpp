@@ -13,12 +13,13 @@ LibGit::LibGit()
     git_libgit2_init();
 }
 
-LibGit::~LibGit() {
+LibGit::~LibGit()
+{
     git_libgit2_shutdown();
 }
 
 int LibGit::credentials_cb(git_cred **out, const char *url, const char *username_from_url,
-                   unsigned int allowed_types, void *payload)
+                           unsigned int allowed_types, void *payload)
 {
     int error;
     const char *user, *pass;
@@ -38,7 +39,8 @@ int LibGit::credentials_cb(git_cred **out, const char *url, const char *username
     return GIT_EUSER;
 }
 
-bool LibGit::clone(QString url, QString path) {
+bool LibGit::clone(QString url, QString path)
+{
     git_repository *repo = NULL;
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
     opts.fetch_opts.callbacks.credentials = *credentials_cb;

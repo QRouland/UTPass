@@ -42,10 +42,10 @@ public:
 
 
     QPair<Error, std::vector<Key >> getAllKeys(bool remote = false, bool include_sigs = {}, bool
-                                                  validate = false);
-    QPair<Error, std::vector<Key>> getKeys( QString pattern_uid,  bool remote = false,
-                                            bool include_sigs = false,
-                                            bool validate = false);
+            validate = false);
+    QPair<Error, std::vector<Key >> getKeys( QString pattern_uid,  bool remote = false,
+            bool include_sigs = false,
+            bool validate = false);
     QPair<Error, Key> getKey( QString uid,  bool remote = false,  bool include_sigs = false,
                               bool validate = false);
     QPair<Error, QString>  decrypt( QByteArray cipherText);

@@ -1,13 +1,12 @@
-import QtQuick 2.4
-import Lomiri.Components 1.3
 import "../styles"
+import Lomiri.Components 1.3
+import QtQuick 2.4
 
 Item {
     id: externalLink
 
     property string url
     property string text
-
     property bool commonBorder: true
     property int lBorderwidth: 0
     property int rBorderwidth: 0
@@ -42,12 +41,13 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                Qt.openUrlExternally(externalLink.url)
+                Qt.openUrlExternally(externalLink.url);
             }
         }
 
         CustomBorder {
             id: cb
+
             commonBorder: externalLink.commonBorder
             lBorderwidth: externalLink.lBorderwidth
             rBorderwidth: externalLink.rBorderwidth
@@ -55,5 +55,7 @@ Item {
             bBorderwidth: externalLink.bBorderwidth
             borderColor: externalLink.borderColor
         }
+
     }
+
 }

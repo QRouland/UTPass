@@ -29,7 +29,7 @@ bool Utils::unzip(QUrl zip_url, QString dir_out_path)
 
     qDebug() << "Guessing if it should remove a single root folder";
     QStringList files_in_tmp_dir = tmp_dir.entryList(QDir::AllEntries | QDir::Hidden |
-                                                     QDir::NoDotAndDotDot);
+                                   QDir::NoDotAndDotDot);
 
     auto dir_import_path =
         files_in_tmp_dir.length() == 1 ?

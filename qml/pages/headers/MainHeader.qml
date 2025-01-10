@@ -1,40 +1,15 @@
-import QtQuick 2.4
 import Lomiri.Components 1.3
+import QtQuick 2.4
 
 PageHeader {
     id: mainHeader
+
     width: parent.width
     height: units.gu(6)
     title: i18n.tr("UTPass")
-
-    contents: Item {
-        height: parent.height
-        width: parent.width
-        Label {
-            id: labelTitle
-            text: mainHeader.title
-            anchors.verticalCenter: parent.verticalCenter
-            visible: true
-        }
-        TextField {
-            id: searchBar
-            anchors.right: parent.right
-            anchors.left: parent.left
-            placeholderText: i18n.tr("Search")
-            height: units.gu(4)
-            visible: false
-            anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-
-            }
-        }
-    }
-
     trailingActionBar.height: units.gu(4)
     trailingActionBar.numberOfSlots: 2
     trailingActionBar.actions: [
-
-
         /*Action { TODO
             iconName: "search"
             text: i18n.tr("Search")
@@ -50,15 +25,43 @@ PageHeader {
             iconName: "settings"
             text: i18n.tr("Settings")
             onTriggered: {
-                pageStack.push(Qt.resolvedUrl("../settings/Settings.qml"))
+                pageStack.push(Qt.resolvedUrl("../settings/Settings.qml"));
             }
         },
         Action {
             iconName: "info"
             text: i18n.tr("Info")
             onTriggered: {
-                pageStack.push(Qt.resolvedUrl("../Info.qml"))
+                pageStack.push(Qt.resolvedUrl("../Info.qml"));
             }
         }
     ]
+
+    contents: Item {
+        height: parent.height
+        width: parent.width
+
+        Label {
+            id: labelTitle
+
+            text: mainHeader.title
+            anchors.verticalCenter: parent.verticalCenter
+            visible: true
+        }
+
+        TextField {
+            id: searchBar
+
+            anchors.right: parent.right
+            anchors.left: parent.left
+            placeholderText: i18n.tr("Search")
+            height: units.gu(4)
+            visible: false
+            anchors.verticalCenter: parent.verticalCenter
+            onFocusChanged: {
+            }
+        }
+
+    }
+
 }

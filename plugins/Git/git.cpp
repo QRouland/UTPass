@@ -19,7 +19,7 @@ bool Git::clone(QString url, QString destination_dir_path)
     qDebug() << "Cloning " << url << " to tmp dir " << tmp_dir.absolutePath();
     auto ret = LibGit::instance()->clone(url, tmp_dir.absolutePath()); // TODO Better error handling
 
-    if(ret) {
+    if (ret) {
         qDebug() << "Removing password_store " << destination_dir_path;
         QDir destination_dir(destination_dir_path);
         destination_dir.removeRecursively();

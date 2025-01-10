@@ -1,13 +1,14 @@
-import QtQuick 2.4
+import "../dialogs"
+import "../styles"
 import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
 import Pass 1.0
-import "../styles"
-import "../dialogs"
+import QtQuick 2.4
 
 Component {
     Rectangle {
         id: fileDir
+
         property string activePasswordName
 
         anchors.right: parent.right
@@ -34,24 +35,20 @@ Component {
             anchors.fill: parent
             onClicked: {
                 if (fileIsDir) {
-                    folderModel.folder = folderModel.folder + "/" + fileName
-                    backAction.visible = true
+                    folderModel.folder = folderModel.folder + "/" + fileName;
+                    backAction.visible = true;
                 } else {
-                    fileDir.activePasswordName = fileBaseName
-
-                    Pass.onDecrypted.connect(function (text) {
-                        pageStack.push(Qt.resolvedUrl("../pages/Password.qml"),
-                                       {
-                                           "plainText": text,
-                                           "title": fileDir.activePasswordName
-                                       })
-                    })
-
-                    Pass.onDecryptFailed.connect(function () {
-                        PopupUtils.open(passwordPageDecryptError)
-                    })
-
-                    Pass.decrypt(folderModel.folder + "/" + fileName)
+                    fileDir.activePasswordName = fileBaseName;
+                    Pass.onDecrypted.connect(function(text) {
+                        pageStack.push(Qt.resolvedUrl("../pages/Password.qml"), {
+                            "plainText": text,
+                            "title": fileDir.activePasswordName
+                        });
+                    });
+                    Pass.onDecryptFailed.connect(function() {
+                        PopupUtils.open(passwordPageDecryptError);
+                    });
+                    Pass.decrypt(folderModel.folder + "/" + fileName);
                 }
             }
         }
@@ -67,9 +64,13 @@ Component {
 
         Component {
             id: passwordPageDecryptError
+
             ErrorDialog {
                 textError: i18n.tr("Decryption failed !")
             }
+
         }
+
     }
+
 }

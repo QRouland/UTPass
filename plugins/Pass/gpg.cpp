@@ -63,7 +63,8 @@ QString Gpg::initGpgHome()
 }
 
 
-QString Gpg::findCommandPath(const QString &command) {
+QString Gpg::findCommandPath(const QString &command)
+{
     // Retrieve the PATH environment variable
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     QString pathEnv = env.value("PATH");
@@ -111,10 +112,10 @@ void Gpg::initGpgConfig()
     agentConf.close();
 
     auto err = gpgme_set_engine_info (
-        GPGME_PROTOCOL_OpenPGP,
-        exec.toLocal8Bit().data(),
-        home.toLocal8Bit().data()
-    );
+                   GPGME_PROTOCOL_OpenPGP,
+                   exec.toLocal8Bit().data(),
+                   home.toLocal8Bit().data()
+               );
     if (err != GPG_ERR_NO_ERROR) {
         qDebug() << "Error code : " << err;
         qDebug() << "Error str : " << gpg_strerror(err);
@@ -198,13 +199,13 @@ Error Gpg::encryptToFile(QString str, QString path, QString uid, bool ascii_armo
 
 
 QPair<Error, std::vector< GpgME::Key >> Gpg::getAllKeys ( bool remote, const bool include_sigs,
-                                                          bool validate )
+        bool validate )
 {
     return getKeys(QString(""), remote, include_sigs, validate);
 }
 
-QPair<Error, std::vector<Key>> Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
-                                            bool validate)
+QPair<Error, std::vector<Key >> Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
+        bool validate)
 {
     qDebug() << "Getting the keys " << pattern_uid;
     auto job = std::unique_ptr<KeyListJob>(openpgp()->keyListJob(remote, include_sigs, validate));
@@ -213,7 +214,7 @@ QPair<Error, std::vector<Key>> Gpg::getKeys(QString pattern_uid, bool remote, bo
     auto result = job->exec(QStringList() << pattern_uid, false, keys);
 
     qDebug() << "Got the keys " << pattern_uid;
-    return QPair<Error, std::vector< Key >>(result.error(), keys);
+    return QPair<Error, std::vector< Key >> (result.error(), keys);
 }
 
 

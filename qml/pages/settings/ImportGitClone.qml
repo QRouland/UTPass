@@ -1,18 +1,17 @@
-import QtQuick 2.4
-import Lomiri.Components 1.3
-import Lomiri.Components.Popups 1.3
-import Git 1.0
-import Pass 1.0
-import "../headers"
 import "../../components"
 import "../../dialogs"
+import "../headers"
+import Git 1.0
+import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
+import Pass 1.0
+import QtQuick 2.4
 
 Page {
     id: importGitClonePage
 
-    header: StackHeader {
-        id: importGitCloneHeader
-        title: i18n.tr('Git Clone Import')
+    Component.onCompleted: {
+        PopupUtils.open(importGitCloneValidation, importGitClonePage);
     }
 
     Flow {
@@ -30,6 +29,7 @@ Page {
 
         Text {
             id: repoUrlLabe
+
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             width: parent.width
@@ -38,6 +38,7 @@ Page {
 
         TextField {
             id: textFieldInput
+
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             width: parent.width
@@ -46,51 +47,58 @@ Page {
 
         Button {
             id: buttonAdd
+
             width: parent.width
             text: i18n.tr('Clone')
             onClicked: {
-                var ret = Git.clone(textFieldInput.text, Pass.password_store)
-                if(ret) {
-                    PopupUtils.open(dialogImportGitCloneSuccess)
-                } else {
-                    PopupUtils.open(importGitCloneError, importGitClonePage)
-                }
-
-
+                var ret = Git.clone(textFieldInput.text, Pass.password_store);
+                if (ret)
+                    PopupUtils.open(dialogImportGitCloneSuccess);
+                else
+                    PopupUtils.open(importGitCloneError, importGitClonePage);
             }
         }
+
     }
 
     Component {
-         id:  importGitCloneValidation
-         SimpleValidationDialog {
-             text: i18n.tr(
-                       "Importing a git repo will delete<br>any existing password store!<br>Continue ?")
-             onCanceled: {
-                pageStack.pop()
-             }
-         }
+        id: importGitCloneValidation
+
+        SimpleValidationDialog {
+            text: i18n.tr("Importing a git repo will delete<br>any existing password store!<br>Continue ?")
+            onCanceled: {
+                pageStack.pop();
+            }
+        }
+
     }
 
     Component {
-        id:  importGitCloneError
+        id: importGitCloneError
+
         ErrorDialog {
             textError: i18n.tr("An error occured during git clone !")
         }
+
     }
 
     Component {
         id: dialogImportGitCloneSuccess
+
         SuccessDialog {
             textSuccess: i18n.tr("Password store sucessfully imported !")
             onDialogClosed: {
-                pageStack.pop()
-                pageStack.pop()
+                pageStack.pop();
+                pageStack.pop();
             }
         }
+
     }
 
-    Component.onCompleted: {
-        PopupUtils.open(importGitCloneValidation, importGitClonePage)
+    header: StackHeader {
+        id: importGitCloneHeader
+
+        title: i18n.tr('Git Clone Import')
     }
+
 }

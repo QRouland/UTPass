@@ -1,14 +1,19 @@
-import QtQuick 2.4
-import Lomiri.Components 1.3
-import "headers"
 import "../components"
+import Lomiri.Components 1.3
+import QtQuick 2.4
+import "headers"
 
 Page {
     id: infoPage
 
-    header: StackHeader {
-        id: infoHeader
-        title: i18n.tr('Info')
+    Component.onCompleted: {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "../../manifest_.json", false);
+        xhr.send();
+        var mJson = JSON.parse(xhr.responseText);
+        manifestTitle.text = "<b>" + mJson.title + "</b>";
+        manifestVersion.text = mJson.version + "<br>" + mJson.framework + "@" + mJson.architecture;
+        manifestMaintener.text = mJson.maintainer;
     }
 
     Flow {
@@ -24,6 +29,7 @@ Page {
 
         Text {
             id: manifestTitle
+
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             width: parent.width
@@ -35,12 +41,14 @@ Page {
         Rectangle {
             width: parent.width
             height: units.gu(12)
+
             Image {
                 source: "../../assets/logo.svg"
                 width: units.gu(12)
                 height: units.gu(12)
                 anchors.horizontalCenter: parent.horizontalCenter
             }
+
         }
 
         Text {
@@ -54,6 +62,7 @@ Page {
 
         Text {
             id: manifestVersion
+
             horizontalAlignment: Text.AlignHCenter
             width: parent.width
             height: units.gu(4)
@@ -72,12 +81,14 @@ Page {
 
         Text {
             id: manifestMaintener
+
             horizontalAlignment: Text.AlignHCenter
             width: parent.width
             height: units.gu(2)
             fontSizeMode: Text.Fit
             font.pixelSize: 72
         }
+
     }
 
     Flow {
@@ -85,14 +96,17 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
+
         ExternalLink {
             url: "https://github.com/QRouland/UTPass/issues"
             text: i18n.tr("Suggest improvement(s) or report a bug(s)")
         }
+
         ExternalLink {
             url: "https://github.com/QRouland/UTPass"
             text: i18n.tr("Access to the source code")
         }
+
         Text {
             width: parent.width
             height: units.gu(2)
@@ -100,17 +114,13 @@ Page {
             verticalAlignment: Text.AlignVCenter
             text: i18n.tr("Released under the terms of the GNU GPL v3")
         }
+
     }
 
-    Component.onCompleted: {
-        var xhr = new XMLHttpRequest()
-        xhr.open("GET", "../../manifest_.json", false)
-        xhr.send()
+    header: StackHeader {
+        id: infoHeader
 
-        var mJson = JSON.parse(xhr.responseText)
-
-        manifestTitle.text = "<b>" + mJson.title + "</b>"
-        manifestVersion.text = mJson.version + "<br>" + mJson.framework + "@" + mJson.architecture
-        manifestMaintener.text = mJson.maintainer
+        title: i18n.tr('Info')
     }
+
 }

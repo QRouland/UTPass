@@ -13,7 +13,7 @@ class LibGit
 private:
     LibGit();
     static int credentials_cb(git_cred **out, const char *url, const char *username_from_url,
-                            unsigned int allowed_types, void *payload);
+                              unsigned int allowed_types, void *payload);
 
 
 public:

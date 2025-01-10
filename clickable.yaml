@@ -4,9 +4,10 @@ kill: UTPass
 
 scripts:
   style: >-
-    echo 'Astyle :' && astyle --options=.astylerc main.cpp && astyle
-    --options=.astylerc --recursive 'plugins/*.cpp,*.h' && echo 'QmlFmt :' &&
-    qmlfmt -l tests && qmlfmt -w tests && qmlfmt -l qml && qmlfmt -w qml
+    echo 'Astyle :' && astyle --options=.astylerc main.cpp && astyle --options=.astylerc --recursive 'plugins/*.cpp,*.h' && echo 'Running QmlFormat' && find . -name "*.qml" -exec qmlformat -i {} \; && echo 'Success'
+
+
+
 
 dependencies_target:
 - libgpgmepp-dev

@@ -23,7 +23,10 @@ public:
     Pass();
     ~Pass() override = default;
 
-    QString password_store() const { return m_password_store; }
+    QString password_store() const
+    {
+        return m_password_store;
+    }
 
     Q_INVOKABLE void init(QObject *window);
     Q_INVOKABLE void decrypt(QUrl url);

@@ -1,16 +1,14 @@
-import QtQuick 2.4
-import Lomiri.Components 1.3
 import "../styles"
+import Lomiri.Components 1.3
+import QtQuick 2.4
 
 Item {
     id: pageStackLink
 
     property string page
     property var params: {
-
     }
     property string text
-
     property bool commonBorder: true
     property int lBorderwidth: 0
     property int rBorderwidth: 0
@@ -45,12 +43,13 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                pageStack.push(page, params)
+                pageStack.push(page, params);
             }
         }
 
         CustomBorder {
             id: cb
+
             commonBorder: pageStackLink.commonBorder
             lBorderwidth: pageStackLink.lBorderwidth
             rBorderwidth: pageStackLink.rBorderwidth
@@ -58,5 +57,7 @@ Item {
             bBorderwidth: pageStackLink.bBorderwidth
             borderColor: pageStackLink.borderColor
         }
+
     }
+
 }
