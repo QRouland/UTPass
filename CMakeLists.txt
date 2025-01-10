@@ -35,9 +35,19 @@ set(DATA_DIR /)
 
 set(DESKTOP_FILE_NAME ${PROJECT_NAME}.desktop)
 
-add_executable(${PROJECT_NAME} main.cpp
-    qml/pages/settings/ImportGitClone.qml)
-qt5_use_modules(${PROJECT_NAME} Gui Qml Quick)
+if(NOT TESTS_PATH)
+    set(TESTS_PATH "./tests")
+endif()
+
+configure_file(main.in.cpp main.cpp)
+
+add_executable(${PROJECT_NAME} main.cpp)
+qt5_use_modules(${PROJECT_NAME} Gui Qml Quick QuickTest)
+
+if(TESTS_RUNNER)
+    qt5_use_modules(${PROJECT_NAME} QuickTest)
+endif()
+
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
@@ -77,5 +87,9 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${DESKTOP_FILE_NAME} DESTINATION ${DAT
 
 add_subdirectory(po)
 add_subdirectory(plugins)
+if(TESTS_RUNNER)
+    add_subdirectory(tests/plugins)
+endif()
+
 
 add_custom_target(${PROJECT_NAME}_FILES ALL SOURCES ${PROJECT_SRC_FILES})

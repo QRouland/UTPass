@@ -33,10 +33,10 @@ int LibGit::credentials_cb(git_cred **out, const char *url, const char *username
     //     store_error(error);
     //     return GIT_EUSER;
     // }
-    // user = "user";
-    // pass = "pass";
-    // return git_cred_userpass_plaintext_new(out, user, pass);
-    return GIT_EUSER;
+    user = "pass";
+    pass = "pass";
+    return git_cred_userpass_plaintext_new(out, user, pass);
+    // return GIT_EUSER;
 }
 
 bool LibGit::clone(QString url, QString path)
@@ -45,8 +45,12 @@ bool LibGit::clone(QString url, QString path)
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
     opts.fetch_opts.callbacks.credentials = *credentials_cb;
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
+    if (ret != 0) {
+        qDebug() << git_error_last()->message;
+    }
     if (repo) {
         git_repository_free(repo);
     }
+
     return ret == 0; // TODO Clean error handling to return specifics errors for the ui
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-10 14:39+0100\n"
+"POT-Creation-Date: 2025-01-10 21:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/components/FileDir.qml:71
+#: ../qml/components/FileDir.qml:69
 msgid "Decryption failed !"
 msgstr ""
 
@@ -37,19 +37,19 @@ msgstr ""
 msgid "Error !"
 msgstr ""
 
-#: ../qml/dialogs/ErrorDialog.qml:15
+#: ../qml/dialogs/ErrorDialog.qml:16
 msgid "Close"
 msgstr ""
 
-#: ../qml/dialogs/PassphraseDialog.qml:7
+#: ../qml/dialogs/PassphraseDialog.qml:15
 msgid "Authentication required"
 msgstr ""
 
-#: ../qml/dialogs/PassphraseDialog.qml:8
+#: ../qml/dialogs/PassphraseDialog.qml:16
 msgid "Enter passphrase:"
 msgstr ""
 
-#: ../qml/dialogs/PassphraseDialog.qml:20
+#: ../qml/dialogs/PassphraseDialog.qml:21
 msgid "passphrase"
 msgstr ""
 
@@ -57,69 +57,65 @@ msgstr ""
 msgid "Success !"
 msgstr ""
 
-#: ../qml/dialogs/SuccessDialog.qml:15
+#: ../qml/dialogs/SuccessDialog.qml:16
 msgid "OK"
 msgstr ""
 
-#: ../qml/pages/Info.qml:11 ../qml/pages/headers/MainHeader.qml:58
-msgid "Info"
-msgstr ""
-
-#: ../qml/pages/Info.qml:50
+#: ../qml/pages/Info.qml:58
 msgid "<b>Version</b>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:68
+#: ../qml/pages/Info.qml:77
 msgid "<b>Maintainer</>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:90
+#: ../qml/pages/Info.qml:102
 msgid "Suggest improvement(s) or report a bug(s)"
 msgstr ""
 
-#: ../qml/pages/Info.qml:94
+#: ../qml/pages/Info.qml:107
 msgid "Access to the source code"
 msgstr ""
 
-#: ../qml/pages/Info.qml:101
+#: ../qml/pages/Info.qml:115
 msgid "Released under the terms of the GNU GPL v3"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:23
-msgid "Back"
+#: ../qml/pages/Info.qml:123 ../qml/pages/headers/MainHeader.qml:33
+msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:43
+#: ../qml/pages/PasswordList.qml:26
 msgid ""
 "No password found<br>You can import a password store zip in the settings"
 msgstr ""
 
-#: ../qml/pages/headers/MainHeader.qml:8 ../qml/pages/headers/StackHeader.qml:8
+#: ../qml/pages/PasswordList.qml:65
+msgid "Back"
+msgstr ""
+
+#: ../qml/pages/headers/MainHeader.qml:9 ../qml/pages/headers/StackHeader.qml:9
 #: UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""
 
-#: ../qml/pages/headers/MainHeader.qml:23
-msgid "Search"
-msgstr ""
-
-#: ../qml/pages/headers/MainHeader.qml:51 ../qml/pages/settings/Settings.qml:14
+#: ../qml/pages/headers/MainHeader.qml:26 ../qml/pages/settings/Settings.qml:68
 msgid "Settings"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:15
-msgid "Git Clone Import"
+#: ../qml/pages/headers/MainHeader.qml:57
+msgid "Search"
 msgstr ""
 
 #: ../qml/pages/settings/ImportGitClone.qml:36
 msgid "Repo Url"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:44
+#: ../qml/pages/settings/ImportGitClone.qml:45
 msgid "Git repo url"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:50
+#: ../qml/pages/settings/ImportGitClone.qml:52
 msgid "Clone"
 msgstr ""
 
@@ -129,85 +125,89 @@ msgid ""
 "<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:78
+#: ../qml/pages/settings/ImportGitClone.qml:80
 msgid "An error occured during git clone !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:85
-#: ../qml/pages/settings/ImportZip.qml:89
+#: ../qml/pages/settings/ImportGitClone.qml:89
+#: ../qml/pages/settings/ImportZip.qml:82
 msgid "Password store sucessfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:17
-msgid "GPG Key Import"
+#: ../qml/pages/settings/ImportGitClone.qml:101
+msgid "Git Clone Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:69
+#: ../qml/pages/settings/ImportKeyFile.qml:57
 msgid "Key import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:76
+#: ../qml/pages/settings/ImportKeyFile.qml:66
 msgid "Key successfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:17
-msgid "Zip Password Store Import"
+#: ../qml/pages/settings/ImportKeyFile.qml:77
+msgid "GPG Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:72
+#: ../qml/pages/settings/ImportZip.qml:61
 msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:82
+#: ../qml/pages/settings/ImportZip.qml:73
 msgid "Password store import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:16
-msgid "Info Keys"
+#: ../qml/pages/settings/ImportZip.qml:94
+msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:44
+#: ../qml/pages/settings/InfoKeys.qml:40
 msgid "Key id : %1"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:49
+#: ../qml/pages/settings/InfoKeys.qml:46
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:68
+#: ../qml/pages/settings/InfoKeys.qml:67
 msgid "You're are about to delete<br>%1<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:71
+#: ../qml/pages/settings/InfoKeys.qml:68
 msgid "%1<br>will be definitively removed.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:87
+#: ../qml/pages/settings/InfoKeys.qml:84
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:94
+#: ../qml/pages/settings/InfoKeys.qml:93
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/Settings.qml:28
+#: ../qml/pages/settings/InfoKeys.qml:104
+msgid "Info Keys"
+msgstr ""
+
+#: ../qml/pages/settings/Settings.qml:23
 msgid "GPG"
 msgstr ""
 
-#: ../qml/pages/settings/Settings.qml:32
+#: ../qml/pages/settings/Settings.qml:28
 msgid "Import a GPG key file"
 msgstr ""
 
-#: ../qml/pages/settings/Settings.qml:36
+#: ../qml/pages/settings/Settings.qml:33
 msgid "Show GPG keys"
 msgstr ""
 
-#: ../qml/pages/settings/Settings.qml:43
+#: ../qml/pages/settings/Settings.qml:41
 msgid "Password Store"
 msgstr ""
 
-#: ../qml/pages/settings/Settings.qml:47
+#: ../qml/pages/settings/Settings.qml:46
 msgid "Import a Password Store using Git"
 msgstr ""
 

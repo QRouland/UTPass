@@ -6,6 +6,10 @@
 #include <QtQml>
 
 
+#ifdef TEST_RUNNER
+#include <QtQuickTest/quicktest.h>
+#endif
+
 int main(int argc, char *argv[])
 {
     qDebug() << "Starting app from main.cpp";
@@ -13,6 +17,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication::setApplicationName("utpass.qrouland");
 
+#ifndef TEST_RUNNER
     auto *view = new QQuickView();
     view->setSource(QUrl(QStringLiteral("qml/Main.qml")));
     view->setResizeMode(QQuickView::SizeRootObjectToView);
@@ -23,4 +28,7 @@ int main(int argc, char *argv[])
         Q_ARG(QVariant, QVariant::fromValue(mainView))
     );
     return QGuiApplication::exec();
+#else
+    return quick_test_main(argc, argv, "@TESTS_PATH@", "@TESTS_PATH@");
+#endif
 }

@@ -13,7 +13,6 @@ bool Git::clone(QString url, QString destination_dir_path)
     QDir tmp_dir(QStandardPaths::writableLocation(
                      QStandardPaths::CacheLocation).append("/clone"));
     tmp_dir.removeRecursively();
-    tmp_dir.mkpath(".");
     qDebug() << "Temp dir path is " << tmp_dir.absolutePath();
 
     qDebug() << "Cloning " << url << " to tmp dir " << tmp_dir.absolutePath();
