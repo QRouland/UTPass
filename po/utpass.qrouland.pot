@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-10 13:55+0100\n"
+"POT-Creation-Date: 2025-01-10 14:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,6 +133,11 @@ msgstr ""
 msgid "An error occured during git clone !"
 msgstr ""
 
+#: ../qml/pages/settings/ImportGitClone.qml:85
+#: ../qml/pages/settings/ImportZip.qml:89
+msgid "Password store sucessfully imported !"
+msgstr ""
+
 #: ../qml/pages/settings/ImportKeyFile.qml:17
 msgid "GPG Key Import"
 msgstr ""
@@ -156,10 +161,6 @@ msgstr ""
 
 #: ../qml/pages/settings/ImportZip.qml:82
 msgid "Password store import failed !"
-msgstr ""
-
-#: ../qml/pages/settings/ImportZip.qml:89
-msgid "Password store sucessfully imported !"
 msgstr ""
 
 #: ../qml/pages/settings/InfoKeys.qml:16

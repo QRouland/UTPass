@@ -39,7 +39,6 @@ int LibGit::credentials_cb(git_cred **out, const char *url, const char *username
 }
 
 bool LibGit::clone(QString url, QString path) {
-    qDebug("yo");
     git_repository *repo = NULL;
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
     opts.fetch_opts.callbacks.credentials = *credentials_cb;

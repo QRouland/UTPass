@@ -89,6 +89,7 @@ Page {
             textSuccess: i18n.tr("Password store sucessfully imported !")
             onDialogClosed: {
                 pageStack.pop()
+                pageStack.pop()
             }
         }
     }

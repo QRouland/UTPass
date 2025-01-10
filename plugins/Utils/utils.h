@@ -10,7 +10,7 @@ class Utils : public QObject
     Q_OBJECT
 
 public:
-    Utils();
+    Utils() = default;
     ~Utils() override = default;
 
     Q_INVOKABLE bool unzip(QUrl zip_url, QString dir_out);

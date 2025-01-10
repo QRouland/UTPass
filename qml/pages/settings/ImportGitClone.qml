@@ -51,7 +51,7 @@ Page {
             onClicked: {
                 var ret = Git.clone(textFieldInput.text, Pass.password_store)
                 if(ret) {
-                    pageStack.pop()
+                    PopupUtils.open(dialogImportGitCloneSuccess)
                 } else {
                     PopupUtils.open(importGitCloneError, importGitClonePage)
                 }
@@ -76,6 +76,17 @@ Page {
         id:  importGitCloneError
         ErrorDialog {
             textError: i18n.tr("An error occured during git clone !")
+        }
+    }
+
+    Component {
+        id: dialogImportGitCloneSuccess
+        SuccessDialog {
+            textSuccess: i18n.tr("Password store sucessfully imported !")
+            onDialogClosed: {
+                pageStack.pop()
+                pageStack.pop()
+            }
         }
     }
 

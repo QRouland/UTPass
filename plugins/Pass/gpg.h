@@ -22,8 +22,6 @@ private:
     void initGpgConfig();
 
 public:
-    ~Gpg() = default;
-
     static std::shared_ptr<Gpg> instance()
     {
         static std::shared_ptr<Gpg> s{new Gpg};
