@@ -3,7 +3,7 @@ import Lomiri.Components.Popups 1.3
 import QtQuick 2.4
 
 Dialog {
-    id: passphraseProvider
+    id: dialog
 
     signal validated(string passphrase)
     signal canceled()
@@ -27,11 +27,11 @@ Dialog {
         id: okButton
 
         text: i18n.tr("Ok")
-        color: LomiriColors.green
+        color: theme.palette.normal.positive
         onClicked: {
             validated(passphraseField.text);
             passphraseField.text = "";
-            PopupUtils.close(passphraseProvider);
+            PopupUtils.close(dialog);
         }
     }
 
@@ -39,10 +39,9 @@ Dialog {
         id: cancelButton
 
         text: i18n.tr("Cancel")
-        color: LomiriColors.red
         onClicked: {
             canceled();
-            PopupUtils.close(passphraseProvider);
+            PopupUtils.close(dialog);
         }
     }
 

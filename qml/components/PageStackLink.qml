@@ -22,12 +22,14 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        color: theme.palette.normal.background
 
         Text {
             text: pageStackLink.text
             anchors.left: parent.left
             anchors.leftMargin: units.gu(2)
             anchors.verticalCenter: parent.verticalCenter
+            color: theme.palette.normal.backgroundText
         }
 
         Icon {

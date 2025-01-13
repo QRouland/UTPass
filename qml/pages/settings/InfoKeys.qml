@@ -29,6 +29,7 @@ Page {
             Rectangle {
                 width: parent.width
                 height: units.gu(1)
+                color: theme.palette.normal.background
             }
 
             Text {
@@ -38,13 +39,20 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: i18n.tr('Key id : %1').arg(model.modelData.uid)
+                color: theme.palette.normal.backgroundText
+            }
+
+            Rectangle {
+                width: parent.width
+                height: units.gu(1)
+                color: theme.palette.normal.background
             }
 
             Button {
                 id: buttonDeleteKey
 
                 text: i18n.tr("Delete this key")
-                color: LomiriColors.red
+                color: theme.palette.normal.negative
                 onClicked: {
                     infoKeysPage.currentKey = model.modelData.uid;
                     PopupUtils.open(infoKeysPageDeleteValidation, infoKeysPage);
@@ -54,6 +62,7 @@ Page {
             Rectangle {
                 width: parent.width
                 height: units.gu(1)
+                color: theme.palette.normal.background
             }
 
         }
@@ -63,10 +72,11 @@ Page {
     Component {
         id: infoKeysPageDeleteValidation
 
-        DoubleValidationDialog {
-            text1: i18n.tr("You're are about to delete<br>%1<br>Continue ?").arg(infoKeysPage.currentKey)
-            text2: i18n.tr("%1<br>will be definitively removed.<br>Continue ?").arg(infoKeysPage.currentKey)
-            onDoubleValidated: {
+        SimpleValidationDialog {
+            text: i18n.tr("You're are about to delete<br>%1<br>Continue ?").arg(infoKeysPage.currentKey)
+            continueText: i18n.tr("Yes")
+            continueColor: theme.palette.normal.negative
+            onValidated: {
                 var status = Pass.gpgDeleteKeyId(infoKeysPage.currentKey);
                 if (status)
                     PopupUtils.open(infoKeysPageDeleteSuccess);

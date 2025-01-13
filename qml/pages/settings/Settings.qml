@@ -21,6 +21,7 @@ Page {
             width: parent.width
             height: units.gu(4)
             text: i18n.tr('GPG')
+            color: theme.palette.normal.backgroundText
         }
 
         PageStackLink {
@@ -39,6 +40,7 @@ Page {
             width: parent.width
             height: units.gu(4)
             text: i18n.tr('Password Store')
+            color: theme.palette.normal.backgroundText
         }
 
         PageStackLink {

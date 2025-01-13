@@ -3,7 +3,7 @@ import Lomiri.Components.Popups 1.3
 import QtQuick 2.4
 
 Dialog {
-    id: dialogError
+    id: dialog
 
     property string textError
 
@@ -14,10 +14,9 @@ Dialog {
 
     Button {
         text: i18n.tr("Close")
-        color: LomiriColors.red
         onClicked: function() {
             dialogClosed();
-            PopupUtils.close(dialogError);
+            PopupUtils.close(dialog);
         }
     }
 

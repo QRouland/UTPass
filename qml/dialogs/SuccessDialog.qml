@@ -3,7 +3,7 @@ import Lomiri.Components.Popups 1.3
 import QtQuick 2.4
 
 Dialog {
-    id: dialogSuccess
+    id: dialog
 
     property string textSuccess
 
@@ -14,10 +14,9 @@ Dialog {
 
     Button {
         text: i18n.tr("OK")
-        color: LomiriColors.green
         onClicked: function() {
             dialogClosed();
-            PopupUtils.close(dialogSuccess);
+            PopupUtils.close(dialog);
         }
     }
 

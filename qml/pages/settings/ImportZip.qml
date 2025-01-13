@@ -59,6 +59,8 @@ Page {
 
         SimpleValidationDialog {
             text: i18n.tr("Importing a new zip will delete<br>any existing password store!<br>Continue ?")
+            continueText: i18n.tr("Yes")
+            continueColor: theme.palette.normal.negative
             onCanceled: {
                 pageStack.pop();
             }

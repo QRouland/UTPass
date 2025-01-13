@@ -6,6 +6,8 @@ import QtQuick.Layouts 1.1
 import "dialogs"
 
 MainView {
+    //theme.name: "Lomiri.Components.Themes.SuruDark"
+
     id: root
 
     signal responsePassphraseDialog(bool canceled, string passphrase)

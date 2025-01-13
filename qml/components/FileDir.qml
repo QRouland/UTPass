@@ -2,6 +2,7 @@ import "../dialogs"
 import "../styles"
 import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
+import Lomiri.Components.Themes 1.3
 import Pass 1.0
 import QtQuick 2.4
 
@@ -14,12 +15,14 @@ Component {
         anchors.right: parent.right
         anchors.left: parent.left
         height: units.gu(5)
+        color: theme.palette.normal.background
 
         Text {
             text: fileBaseName
             anchors.left: parent.left
             anchors.leftMargin: units.gu(2)
             anchors.verticalCenter: parent.verticalCenter
+            color: theme.palette.normal.backgroundText
         }
 
         Icon {

@@ -66,6 +66,7 @@ Page {
             id: buttonAdd
 
             width: parent.width
+            color: theme.palette.normal.positive
             text: i18n.tr('Clone')
             onClicked: {
                 var ret = false;
@@ -87,6 +88,8 @@ Page {
 
         SimpleValidationDialog {
             text: i18n.tr("Importing a git repo will delete<br>any existing password store!<br>Continue ?")
+            continueText: i18n.tr("Yes")
+            continueColor: theme.palette.normal.negative
             onCanceled: {
                 pageStack.pop();
             }

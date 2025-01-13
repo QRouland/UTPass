@@ -25,6 +25,7 @@ Page {
         Rectangle {
             width: parent.width
             height: units.gu(1)
+            color: theme.palette.normal.background
         }
 
         Text {
@@ -36,11 +37,13 @@ Page {
             height: units.gu(8)
             fontSizeMode: Text.Fit
             font.pixelSize: 144
+            color: theme.palette.normal.backgroundText
         }
 
         Rectangle {
             width: parent.width
             height: units.gu(12)
+            color: theme.palette.normal.background
 
             Image {
                 source: "../../assets/logo.svg"
@@ -58,6 +61,7 @@ Page {
             text: i18n.tr("<b>Version</b>")
             fontSizeMode: Text.Fit
             font.pixelSize: 72
+            color: theme.palette.normal.backgroundText
         }
 
         Text {
@@ -68,6 +72,7 @@ Page {
             height: units.gu(4)
             fontSizeMode: Text.Fit
             font.pixelSize: 72
+            color: theme.palette.normal.backgroundText
         }
 
         Text {
@@ -77,6 +82,7 @@ Page {
             text: i18n.tr("<b>Maintainer</>")
             fontSizeMode: Text.Fit
             font.pixelSize: 72
+            color: theme.palette.normal.backgroundText
         }
 
         Text {
@@ -87,6 +93,7 @@ Page {
             height: units.gu(2)
             fontSizeMode: Text.Fit
             font.pixelSize: 72
+            color: theme.palette.normal.backgroundText
         }
 
     }
@@ -113,6 +120,7 @@ Page {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             text: i18n.tr("Released under the terms of the GNU GPL v3")
+            color: theme.palette.normal.backgroundText
         }
 
     }

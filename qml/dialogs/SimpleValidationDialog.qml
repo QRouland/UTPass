@@ -3,24 +3,28 @@ import Lomiri.Components.Popups 1.3
 import QtQuick 2.4
 
 Dialog {
-    id: doubleValidationDialog
+    id: dialog
 
     property string text
+    property string continueText: i18n.tr("Ok")
+    property color continueColor: theme.palette.normal.positive
 
     signal validated()
     signal canceled()
 
     Text {
         horizontalAlignment: Text.AlignHCenter
-        text: doubleValidationDialog.text
+        text: dialog.text
     }
 
     Button {
-        text: i18n.tr("Ok")
-        color: LomiriColors.green
+        id: continueButton
+
+        text: dialog.continueText
+        color: dialog.continueColor
         onClicked: {
             validated();
-            PopupUtils.close(doubleValidationDialog);
+            PopupUtils.close(dialog);
         }
     }
 
@@ -28,10 +32,9 @@ Dialog {
         id: cancelButton
 
         text: i18n.tr("Cancel")
-        color: LomiriColors.red
         onClicked: {
             canceled();
-            PopupUtils.close(doubleValidationDialog);
+            PopupUtils.close(dialog);
         }
     }
 
