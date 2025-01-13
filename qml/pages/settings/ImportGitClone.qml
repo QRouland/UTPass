@@ -69,12 +69,10 @@ Page {
             text: i18n.tr('Clone')
             onClicked: {
                 var ret = false;
-                if(repoPasswordInput.text === "") {
+                if (repoPasswordInput.text === "")
                     ret = Git.clone_http(repoUrlInput.text, Pass.password_store);
-                } else {
+                else
                     ret = Git.clone_http_pass(repoUrlInput.text, Pass.password_store, repoPasswordInput.text);
-                }
-
                 if (ret)
                     PopupUtils.open(dialogImportGitCloneSuccess);
                 else

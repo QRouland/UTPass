@@ -12,7 +12,9 @@ extern "C" {
 
 struct Unset { };
 struct HTTP { };
-struct HTTPAuth { QString pass; };
+struct HTTPAuth {
+    QString pass;
+};
 struct SSHAuth { };
 struct SSHKey { };
 typedef std::variant<Unset, HTTP, HTTPAuth, SSHAuth, SSHKey> mode_type;

@@ -4,7 +4,7 @@ kill: UTPass
 
 scripts:
   style: >-
-    echo 'Running Astyle :' && astyle --options=.astylerc main.cpp && astyle --options=.astylerc --recursive 'plugins/*.cpp,*.h' && echo 'Running QmlFormat' && find . -name "*.qml" -exec qmlformat -i {} \; && echo 'Success'
+    echo 'Running Astyle :' && astyle --options=.astylerc --recursive '*.cpp,*.h' --exclude=build && echo 'Running QmlFormat' && find . -name "*.qml" -exec qmlformat -i {} \; && echo 'Success'
 
 
 

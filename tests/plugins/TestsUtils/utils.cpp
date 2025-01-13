@@ -8,7 +8,8 @@
 #include "utils.h"
 
 
-QString TestsUtils::getTempPath() {
+QString TestsUtils::getTempPath()
+{
     qFatal("yp");
     // Get the system's temporary directory
     QString tempDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);

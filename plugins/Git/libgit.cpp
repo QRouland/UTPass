@@ -7,14 +7,9 @@ extern "C" {
 }
 
 #include "libgit.h"
+#include "utils.h"
 
 
-template<class... Ts>
-struct overload : Ts... {
-    using Ts::operator()...;
-};
-template<class... Ts>
-overload(Ts...) -> overload<Ts...>;
 
 LibGit::LibGit()
 {
@@ -26,7 +21,8 @@ LibGit::~LibGit()
     git_libgit2_shutdown();
 }
 
-void LibGit::set_mode(mode_type type) {
+void LibGit::set_mode(mode_type type)
+{
     this->mode = type;
 }
 
@@ -36,30 +32,35 @@ int LibGit::credentials_cb(git_cred **out, const char *url, const char *username
     // TODO : More precise Error Handling for UI
     auto instance = LibGit::instance();
     auto v =  overload {
-        [](const Unset& x) {
+        [](const Unset & x)
+        {
             qDebug() << "credentials_cb : Unset ";
             qWarning() << "credentials_cb : callback should never be call for Unset ";
             return (int) GIT_EUSER;
         },
-        [](const HTTP& x) {
+        [](const HTTP & x)
+        {
             qDebug() << "credentials_cb : HTTP ";
             qWarning() << "credentials_cb : callback should never be call for HTTP ";
             return (int) GIT_EUSER;
         },
-        [&out, &username_from_url](const HTTPAuth& x) {
+        [&out, &username_from_url](const HTTPAuth & x)
+        {
             qDebug() << "credentials_cb : HTTPAuth ";
-            if(!username_from_url) {
+            if (!username_from_url) {
                 qWarning() << "credentials_cb : no username provided ";
                 return (int) GIT_EUSER;
             }
             return git_cred_userpass_plaintext_new(out, username_from_url, x.pass.toLocal8Bit().constData());
         },
-        [&](const SSHAuth& x)   {
+        [&](const SSHAuth & x)
+        {
             qWarning() << "credentials_cb : SSHAuth to be implemented ";
             return (int) GIT_EUSER;
         }, // TODO
-        [&](const SSHKey& x)    {
-                 qWarning() << "credentials_cb : SSHKey to be implemented ";
+        [&](const SSHKey & x)
+        {
+            qWarning() << "credentials_cb : SSHKey to be implemented ";
             return (int) GIT_EUSER;
         }  // TODO
     };
@@ -76,10 +77,10 @@ bool LibGit::clone(QString url, QString path)
 
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
     if (ret != 0) {
-            qDebug() << git_error_last()->message;
+        qDebug() << git_error_last()->message;
     }
     if (repo) {
-            git_repository_free(repo);
+        git_repository_free(repo);
     }
     return ret == 0; // TODO Clean error handling to return specifics errors for the ui
 

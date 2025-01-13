@@ -6,14 +6,7 @@
 
 #include "git.h"
 #include "libgit.h"
-
-
-template<class... Ts>
-struct overload : Ts... {
-    using Ts::operator()...;
-};
-template<class... Ts>
-overload(Ts...) -> overload<Ts...>;
+#include "utils.h"
 
 
 QDir Git::clone_setup()
@@ -29,7 +22,7 @@ QDir Git::clone_setup()
 
 bool Git::clone_tear_down(QDir tmp_dir)
 {
-    tmp_dir.removeRecursively();
+    return tmp_dir.removeRecursively();
 }
 
 bool Git::move_to_destination(QString path, QDir tmp_dir)
@@ -49,11 +42,11 @@ bool Git::move_to_destination(QString path, QDir tmp_dir)
 bool Git::clone(QString url, QString path, mode_type mode) //, GitPlugin::RepoType type, QString pass)
 {
     auto v =  overload {
-        [](const Unset& x)  { return "Unset"; },
-        [](const HTTP& x)   { return "Unset"; },
-        [](const HTTPAuth& x)   { return "HTTPAuth"; },
-        [](const SSHAuth& x)   { return "SSHAuth"; },
-        [](const SSHKey& x)   { return "SSHKey"; },
+        [](const Unset & x)  { return "Unset"; },
+        [](const HTTP & x)   { return "Unset"; },
+        [](const HTTPAuth & x)   { return "HTTPAuth"; },
+        [](const SSHAuth & x)   { return "SSHAuth"; },
+        [](const SSHKey & x)   { return "SSHKey"; },
     };
     qInfo() << "Cloning " << url << " to destination " << path << " using " << std::visit(v, mode);
 
@@ -63,9 +56,11 @@ bool Git::clone(QString url, QString path, mode_type mode) //, GitPlugin::RepoTy
     qDebug() << "Cloning " << url << " to tmp dir " << tmp_dir.absolutePath();
     auto ret = LibGit::instance()->clone(url, tmp_dir.absolutePath()); // TODO Better error handling
 
-    if (ret) { this->move_to_destination(path, tmp_dir);}
+    if (ret) {
+        this->move_to_destination(path, tmp_dir);
+    }
 
-    tmp_dir.removeRecursively();
+    this->clone_tear_down(tmp_dir);
     LibGit::instance()->set_mode(Unset());
 
     return ret ;
@@ -77,7 +72,8 @@ bool Git::clone_http(QString url, QString path) //, GitPlugin::RepoType type, QS
     return this->clone(url, path, mode);
 }
 
-bool Git::clone_http_pass(QString url, QString path, QString pass) {
+bool Git::clone_http_pass(QString url, QString path, QString pass)
+{
     HTTPAuth mode = { pass };
     return this->clone(url, path, mode);
 }
