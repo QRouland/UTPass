@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 17:55+0100\n"
+"POT-Creation-Date: 2025-01-13 17:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,22 +120,22 @@ msgstr ""
 msgid "Clone"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:91
+#: ../qml/pages/settings/ImportGitClone.qml:89
 msgid ""
 "Importing a git repo will delete<br>any existing password store!"
 "<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:103
+#: ../qml/pages/settings/ImportGitClone.qml:101
 msgid "An error occured during git clone !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:112
+#: ../qml/pages/settings/ImportGitClone.qml:110
 #: ../qml/pages/settings/ImportZip.qml:82
 msgid "Password store sucessfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:124
+#: ../qml/pages/settings/ImportGitClone.qml:122
 msgid "Git Clone Import"
 msgstr ""
 

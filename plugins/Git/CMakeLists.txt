@@ -6,7 +6,7 @@ set(
         plugin.cpp
         libgit.cpp
         git.cpp
-        templates.h
+        utils.h
 )
 
 set(CMAKE_AUTOMOC ON)
