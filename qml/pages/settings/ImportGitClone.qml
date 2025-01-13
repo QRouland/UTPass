@@ -28,7 +28,7 @@ Page {
         }
 
         Text {
-            id: repoUrlLabe
+            id: repoUrlLabel
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -37,12 +37,29 @@ Page {
         }
 
         TextField {
-            id: textFieldInput
+            id: repoUrlInput
 
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             width: parent.width
-            placeholderText: i18n.tr('Git repo url')
+        }
+
+        Text {
+            id: repoPasswordLabel
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            width: parent.width
+            text: i18n.tr('Password')
+        }
+
+        TextField {
+            id: repoPasswordInput
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            width: parent.width
+            echoMode: TextInput.Password
         }
 
         Button {
@@ -51,7 +68,13 @@ Page {
             width: parent.width
             text: i18n.tr('Clone')
             onClicked: {
-                var ret = Git.clone(textFieldInput.text, Pass.password_store);
+                var ret = false;
+                if(repoPasswordInput.text === "") {
+                    ret = Git.clone_http(repoUrlInput.text, Pass.password_store);
+                } else {
+                    ret = Git.clone_http_pass(repoUrlInput.text, Pass.password_store, repoPasswordInput.text);
+                }
+
                 if (ret)
                     PopupUtils.open(dialogImportGitCloneSuccess);
                 else

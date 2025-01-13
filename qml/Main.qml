@@ -19,10 +19,10 @@ MainView {
         //TODO use parameters to impove passphrase dialog
         var passphraseDialog = PopupUtils.open(Qt.resolvedUrl("dialogs/PassphraseDialog.qml"));
         passphraseDialog.activateFocus();
-        var validated = function validated(passphrase) {
+        var validated = function (passphrase) {
             responsePassphraseDialog(false, passphrase);
         };
-        var canceled = function canceled() {
+        var canceled = function () {
             responsePassphraseDialog(true, "");
         };
         passphraseDialog.validated.connect(validated);

@@ -23,7 +23,7 @@ Page {
         visible: folderModel.count == 0
 
         Text {
-            text: i18n.tr("No password found<br>You can import a password store zip in the settings")
+            text: i18n.tr("No password found<br>You can import a password store by cloning or importing a zip in the settings")
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
             horizontalAlignment: Text.AlignHCenter
