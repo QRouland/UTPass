@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-14 12:17+0100\n"
+"POT-Creation-Date: 2025-01-14 13:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../qml/components/FileDir.qml:72
+#: ../qml/components/FileDir.qml:59
 msgid "Decryption failed !"
 msgstr ""
 
@@ -67,34 +67,34 @@ msgstr ""
 msgid "<b>Maintainer</>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:108
+#: ../qml/pages/Info.qml:109
 msgid "Suggest improvement(s) or report a bug(s)"
 msgstr ""
 
-#: ../qml/pages/Info.qml:113
+#: ../qml/pages/Info.qml:114
 msgid "Access to the source code"
 msgstr ""
 
-#: ../qml/pages/Info.qml:121
+#: ../qml/pages/Info.qml:122
 msgid "Released under the terms of the GNU GPL v3"
 msgstr ""
 
-#: ../qml/pages/Info.qml:130 ../qml/pages/headers/MainHeader.qml:33
+#: ../qml/pages/Info.qml:131 ../qml/pages/headers/MainHeader.qml:33
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:26
+#: ../qml/pages/PasswordList.qml:22
 msgid ""
 "No password found<br>You can import a password store by cloning or importing "
 "a zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:65
+#: ../qml/pages/PasswordList.qml:61
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/headers/MainHeader.qml:9 ../qml/pages/headers/StackHeader.qml:9
-#: UTPass.desktop.in.h:1
+#: ../qml/pages/PasswordList.qml:68 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 
 #: ../qml/pages/settings/ImportGitClone.qml:91
 #: ../qml/pages/settings/ImportZip.qml:62
-#: ../qml/pages/settings/InfoKeys.qml:117
+#: ../qml/pages/settings/InfoKeys.qml:122
 msgid "Yes"
 msgstr ""
 
@@ -172,27 +172,27 @@ msgstr ""
 msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:72
+#: ../qml/pages/settings/InfoKeys.qml:73
 msgid "Users IDs : "
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:96
+#: ../qml/pages/settings/InfoKeys.qml:99
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:116
+#: ../qml/pages/settings/InfoKeys.qml:121
 msgid "You're are about to delete<br>%1<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:134
+#: ../qml/pages/settings/InfoKeys.qml:139
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:143
+#: ../qml/pages/settings/InfoKeys.qml:148
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:154
+#: ../qml/pages/settings/InfoKeys.qml:159
 msgid "Info Keys"
 msgstr ""
 

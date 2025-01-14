@@ -39,7 +39,7 @@ void Pass::show(QUrl url)
         emit decryptCanceled();
     } else {
         qInfo() << "Decrypt OK";
-        emit decrypted(decrypt_ret.second);
+        emit decrypted(url.fileName(), decrypt_ret.second);
     }
 }
 

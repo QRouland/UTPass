@@ -8,10 +8,6 @@ import QtQuick 2.4
 
 Component {
     Rectangle {
-        id: fileDir
-
-        property string activePasswordName
-
         anchors.right: parent.right
         anchors.left: parent.left
         height: units.gu(5)
@@ -40,17 +36,8 @@ Component {
                 if (fileIsDir) {
                     folderModel.folder = folderModel.folder + "/" + fileName;
                     backAction.visible = true;
+                    passwordListHeader.title = fileName;
                 } else {
-                    fileDir.activePasswordName = fileBaseName;
-                    Pass.onDecrypted.connect(function(text) {
-                        pageStack.push(Qt.resolvedUrl("../pages/Password.qml"), {
-                            "plainText": text,
-                            "title": fileDir.activePasswordName
-                        });
-                    });
-                    Pass.onDecryptFailed.connect(function() {
-                        PopupUtils.open(passwordPageDecryptError);
-                    });
                     Pass.show(folderModel.folder + "/" + fileName);
                 }
             }

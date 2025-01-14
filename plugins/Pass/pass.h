@@ -15,7 +15,7 @@ private:
     QString m_password_store;
 
 signals:
-    void decrypted(QString text);
+    void decrypted(QString name, QString text);
     void decryptCanceled();
     void decryptFailed();
 

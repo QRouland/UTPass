@@ -13,6 +13,15 @@ Page {
     anchors.fill: parent
     Component.onCompleted: {
         passwordStorePath = "file:" + Pass.password_store;
+        Pass.onDecrypted.connect(function(filename, text) {
+            pageStack.push(Qt.resolvedUrl("../pages/Password.qml"), {
+                "plainText": text,
+                "title": filename
+            });
+        });
+        Pass.onDecryptFailed.connect(function() {
+            PopupUtils.open(passwordPageDecryptError);
+        });
     }
 
     Rectangle {
@@ -66,9 +75,13 @@ Page {
                 visible: false
                 onTriggered: {
                     folderModel.folder = folderModel.parentFolder;
-                    if (folderModel.rootFolder === folderModel.folder)
+                    console.debug(folderModel.folder);
+                    if (folderModel.rootFolder === folderModel.folder) {
                         backAction.visible = false;
-
+                        passwordListHeader.title = i18n.tr("UTPass");
+                    } else {
+                        passwordListHeader.title = folderModel.folder;
+                    }
                 }
             }
         ]
