@@ -27,7 +27,7 @@ private:
     mode_type mode;
 
     static int credentialsCB(git_cred **out, const char *url, const char *username_from_url,
-                              unsigned int allowed_types, void *payload);
+                             unsigned int allowed_types, void *payload);
 
 public:
     ~LibGit();

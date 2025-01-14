@@ -27,7 +27,7 @@ void LibGit::setMode(mode_type type)
 }
 
 int LibGit::credentialsCB(git_cred **out, const char *url, const char *username_from_url,
-                           unsigned int allowed_types, void *payload)
+                          unsigned int allowed_types, void *payload)
 {
     // TODO : More precise Error Handling for UI
     auto instance = LibGit::instance();

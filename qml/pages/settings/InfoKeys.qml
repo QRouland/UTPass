@@ -48,7 +48,6 @@ Page {
                 color: theme.palette.normal.backgroundText
             }
 
-
             Rectangle {
                 width: parent.width
                 height: units.gu(1)
@@ -59,8 +58,10 @@ Page {
                 id: userIdsModel
 
                 Component.onCompleted: {
-                    for(var i=0; i< model.modelData.userIds.length; ++i){
-                        userIdsModel.append({"model": model.modelData.userIds[i]})
+                    for (var i = 0; i < model.modelData.userIds.length; ++i) {
+                        userIdsModel.append({
+                            "model": model.modelData.userIds[i]
+                        });
                     }
                 }
             }
@@ -75,6 +76,7 @@ Page {
 
             Repeater {
                 model: userIdsModel
+
                 Text {
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
@@ -82,6 +84,7 @@ Page {
                     text: modelData.uid
                     color: theme.palette.normal.backgroundText
                 }
+
             }
 
             Rectangle {
@@ -106,7 +109,9 @@ Page {
                 height: units.gu(1)
                 color: theme.palette.normal.background
             }
+
         }
+
     }
 
     Component {

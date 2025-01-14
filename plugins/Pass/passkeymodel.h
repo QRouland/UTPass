@@ -19,7 +19,7 @@ public:
 
     UserIdModel(UserID key):
         m_user_id(key)
-        {};
+    {};
 
     QString uid() const
     {
