@@ -18,7 +18,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        model: Pass.gpgGetAllKeysModel()
+        model: Pass.getAllGPGKeys()
 
         delegate: Grid {
             columns: 1
@@ -77,7 +77,7 @@ Page {
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {
-                var status = Pass.gpgDeleteKeyId(infoKeysPage.currentKey);
+                var status = Pass.deleteGPGKey(infoKeysPage.currentKey);
                 if (status)
                     PopupUtils.open(infoKeysPageDeleteSuccess);
                 else
@@ -102,7 +102,7 @@ Page {
         SuccessDialog {
             textSuccess: i18n.tr("Key successfully deleted !")
             onDialogClosed: {
-                infoKeysListView.model = Pass.gpgGetAllKeysModel();
+                infoKeysListView.model = Pass.getAllGPGKeys();
             }
         }
 

@@ -12,7 +12,7 @@ Pass::Pass(): m_password_store (QStandardPaths::writableLocation(
                                         QStandardPaths::AppDataLocation).append("/.password-store"))
 {}
 
-void Pass::init(QObject *window)
+void Pass::initialize(QObject *window)
 {
     if (!window) {
         qFatal("window is invalid. Abording.");
@@ -27,7 +27,7 @@ void Pass::init(QObject *window)
     qInfo() << "Password Store is :" << m_password_store;
 }
 
-void Pass::decrypt(QUrl url)
+void Pass::show(QUrl url)
 {
     qInfo() << "Decrypting";
     auto decrypt_ret = Gpg::instance()->decryptFromFile(url.toLocalFile());
@@ -43,19 +43,19 @@ void Pass::decrypt(QUrl url)
     }
 }
 
-bool Pass::gpgDeleteKeyId(QString id)
+bool Pass::deleteGPGKey(QString id)
 {
     qInfo() << "Deleting Key id " << id;
     return !Gpg::instance()->deleteKeyId(id);
 }
 
-bool Pass::gpgImportKeyFromFile(QUrl url)
+bool Pass::importGPGKey(QUrl url)
 {
     qInfo() << "Importing Key from " << url;
     return !Gpg::instance()->importKeysFromFile(url.toLocalFile());
 }
 
-QVariant Pass::gpgGetAllKeysModel()
+QVariant Pass::getAllGPGKeys()
 {
     qInfo() << "Getting all key form gpg ";
     return QVariant::fromValue(PassKeyModel::keysToPassKeyQObjectList(

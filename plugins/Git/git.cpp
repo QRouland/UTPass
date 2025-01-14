@@ -9,7 +9,7 @@
 #include "utils.h"
 
 
-QDir Git::clone_setup()
+QDir Git::cloneSetup()
 {
     QDir tmp_dir(QStandardPaths::writableLocation( QStandardPaths::CacheLocation).append("/clone"));
 
@@ -20,12 +20,12 @@ QDir Git::clone_setup()
 }
 
 
-bool Git::clone_tear_down(QDir tmp_dir)
+bool Git::cloneTearDown(QDir tmp_dir)
 {
     return tmp_dir.removeRecursively();
 }
 
-bool Git::move_to_destination(QString path, QDir tmp_dir)
+bool Git::moveToDestination(QString path, QDir tmp_dir)
 {
     qDebug() << "Removing password_store " << path;
     QDir destination_dir(path);
@@ -37,42 +37,40 @@ bool Git::move_to_destination(QString path, QDir tmp_dir)
     return dir.rename(tmp_dir.absolutePath(), destination_dir.absolutePath()); // TODO Better error handling
 }
 
-
-
 bool Git::clone(QString url, QString path, mode_type mode) //, GitPlugin::RepoType type, QString pass)
 {
     auto v =  overload {
         [](const Unset & x)  { return "Unset"; },
-        [](const HTTP & x)   { return "Unset"; },
+        [](const HTTP & x)   { return "HTTP"; },
         [](const HTTPAuth & x)   { return "HTTPAuth"; },
         [](const SSHAuth & x)   { return "SSHAuth"; },
         [](const SSHKey & x)   { return "SSHKey"; },
     };
     qInfo() << "Cloning " << url << " to destination " << path << " using " << std::visit(v, mode);
 
-    LibGit::instance()->set_mode(mode);
-    auto tmp_dir = this->clone_setup();
+    LibGit::instance()->setMode(mode);
+    auto tmp_dir = this->cloneSetup();
 
     qDebug() << "Cloning " << url << " to tmp dir " << tmp_dir.absolutePath();
     auto ret = LibGit::instance()->clone(url, tmp_dir.absolutePath()); // TODO Better error handling
 
     if (ret) {
-        this->move_to_destination(path, tmp_dir);
+        this->moveToDestination(path, tmp_dir);
     }
 
-    this->clone_tear_down(tmp_dir);
-    LibGit::instance()->set_mode(Unset());
+    this->cloneTearDown(tmp_dir);
+    LibGit::instance()->setMode(Unset());
 
     return ret ;
 }
 
-bool Git::clone_http(QString url, QString path) //, GitPlugin::RepoType type, QString pass)
+bool Git::cloneHttp(QString url, QString path)
 {
     HTTP mode = {};
     return this->clone(url, path, mode);
 }
 
-bool Git::clone_http_pass(QString url, QString path, QString pass)
+bool Git::cloneHttpPass(QString url, QString path, QString pass)
 {
     HTTPAuth mode = { pass };
     return this->clone(url, path, mode);

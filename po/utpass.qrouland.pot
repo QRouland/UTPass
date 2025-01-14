@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-13 20:49+0100\n"
+"POT-Creation-Date: 2025-01-14 09:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgid "Ok"
 msgstr ""
 
 #: ../qml/dialogs/PassphraseDialog.qml:41
-#: ../qml/dialogs/SimpleValidationDialog.qml:33
+#: ../qml/dialogs/SimpleValidationDialog.qml:34
 msgid "Cancel"
 msgstr ""
 

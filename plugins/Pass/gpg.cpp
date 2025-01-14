@@ -137,6 +137,7 @@ QPair<Error, QString> Gpg::decrypt(QByteArray cipherText)
     auto decResult = job->exec(cipherText, plain_text);
 
     delete job;
+    delete provider;
 
     if (decResult.error()) {
         qWarning() << "something gone wrong on decrypt";
@@ -245,9 +246,6 @@ Error Gpg::importKeysFromFile(QString path)
     auto job = openpgp()->importJob();
     auto ctx = ImportJob::context(job);
 
-    auto provider = new UTPassphraseProvider;
-    ctx->setPassphraseProvider(provider);
-    ctx->setPinentryMode(Context::PinentryLoopback);
     auto result = job->exec(file.readAll());
 
     qDebug() << "numImported" << result.numImported();
@@ -258,7 +256,6 @@ Error Gpg::importKeysFromFile(QString path)
 
     file.close();
     delete job;
-    delete provider;
 
     if (result.error()) {
         qWarning() << "Import go wrong";

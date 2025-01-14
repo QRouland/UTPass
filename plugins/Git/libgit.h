@@ -26,7 +26,7 @@ private:
 
     mode_type mode;
 
-    static int credentials_cb(git_cred **out, const char *url, const char *username_from_url,
+    static int credentialsCB(git_cred **out, const char *url, const char *username_from_url,
                               unsigned int allowed_types, void *payload);
 
 public:
@@ -40,7 +40,7 @@ public:
     void operator=(LibGit const &) = delete;
 
     bool clone(QString url, QString path);
-    void set_mode(mode_type type);
+    void setMode(mode_type type);
 };
 
 #endif

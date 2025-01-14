@@ -21,12 +21,12 @@ LibGit::~LibGit()
     git_libgit2_shutdown();
 }
 
-void LibGit::set_mode(mode_type type)
+void LibGit::setMode(mode_type type)
 {
     this->mode = type;
 }
 
-int LibGit::credentials_cb(git_cred **out, const char *url, const char *username_from_url,
+int LibGit::credentialsCB(git_cred **out, const char *url, const char *username_from_url,
                            unsigned int allowed_types, void *payload)
 {
     // TODO : More precise Error Handling for UI
@@ -73,7 +73,7 @@ bool LibGit::clone(QString url, QString path)
     git_repository *repo = NULL;
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
 
-    opts.fetch_opts.callbacks.credentials = *credentials_cb;
+    opts.fetch_opts.callbacks.credentials = *credentialsCB;
 
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
     if (ret != 0) {

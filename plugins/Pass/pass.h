@@ -28,11 +28,11 @@ public:
         return m_password_store;
     }
 
-    Q_INVOKABLE void init(QObject *window);
-    Q_INVOKABLE void decrypt(QUrl url);
-    Q_INVOKABLE bool gpgDeleteKeyId(QString id);
-    Q_INVOKABLE bool gpgImportKeyFromFile(QUrl url);
-    Q_INVOKABLE QVariant gpgGetAllKeysModel();
+    Q_INVOKABLE void initialize(QObject *window);
+    Q_INVOKABLE void show(QUrl url);
+    Q_INVOKABLE bool deleteGPGKey(QString id);
+    Q_INVOKABLE bool importGPGKey(QUrl url);
+    Q_INVOKABLE QVariant getAllGPGKeys();
 };
 
 #endif

@@ -28,7 +28,7 @@ Page {
                 if (importKeyFilePage.activeTransfer.state === ContentTransfer.Charged) {
                     console.log("Charged");
                     console.log(importKeyFilePage.activeTransfer.items[0].url);
-                    var status = Pass.gpgImportKeyFromFile(importKeyFilePage.activeTransfer.items[0].url);
+                    var status = Pass.importGPGKey(importKeyFilePage.activeTransfer.items[0].url);
                     Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
                     if (status)
                         PopupUtils.open(dialogImportKeyPageSucess);

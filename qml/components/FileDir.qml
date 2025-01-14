@@ -51,7 +51,7 @@ Component {
                     Pass.onDecryptFailed.connect(function() {
                         PopupUtils.open(passwordPageDecryptError);
                     });
-                    Pass.decrypt(folderModel.folder + "/" + fileName);
+                    Pass.show(folderModel.folder + "/" + fileName);
                 }
             }
         }
