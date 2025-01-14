@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-14 09:52+0100\n"
+"POT-Creation-Date: 2025-01-14 12:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,19 +67,19 @@ msgstr ""
 msgid "<b>Maintainer</>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:109
+#: ../qml/pages/Info.qml:108
 msgid "Suggest improvement(s) or report a bug(s)"
 msgstr ""
 
-#: ../qml/pages/Info.qml:114
+#: ../qml/pages/Info.qml:113
 msgid "Access to the source code"
 msgstr ""
 
-#: ../qml/pages/Info.qml:122
+#: ../qml/pages/Info.qml:121
 msgid "Released under the terms of the GNU GPL v3"
 msgstr ""
 
-#: ../qml/pages/Info.qml:131 ../qml/pages/headers/MainHeader.qml:33
+#: ../qml/pages/Info.qml:130 ../qml/pages/headers/MainHeader.qml:33
 msgid "Info"
 msgstr ""
 
@@ -125,7 +125,8 @@ msgid ""
 msgstr ""
 
 #: ../qml/pages/settings/ImportGitClone.qml:91
-#: ../qml/pages/settings/ImportZip.qml:62 ../qml/pages/settings/InfoKeys.qml:77
+#: ../qml/pages/settings/ImportZip.qml:62
+#: ../qml/pages/settings/InfoKeys.qml:117
 msgid "Yes"
 msgstr ""
 
@@ -167,27 +168,31 @@ msgstr ""
 msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:41
-msgid "Key id : %1"
+#: ../qml/pages/settings/InfoKeys.qml:39
+msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:54
+#: ../qml/pages/settings/InfoKeys.qml:72
+msgid "Users IDs : "
+msgstr ""
+
+#: ../qml/pages/settings/InfoKeys.qml:96
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:76
+#: ../qml/pages/settings/InfoKeys.qml:116
 msgid "You're are about to delete<br>%1<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:94
+#: ../qml/pages/settings/InfoKeys.qml:134
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:103
+#: ../qml/pages/settings/InfoKeys.qml:143
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:114
+#: ../qml/pages/settings/InfoKeys.qml:154
 msgid "Info Keys"
 msgstr ""
 

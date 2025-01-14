@@ -58,7 +58,7 @@ bool Pass::importGPGKey(QUrl url)
 QVariant Pass::getAllGPGKeys()
 {
     qInfo() << "Getting all key form gpg ";
-    return QVariant::fromValue(PassKeyModel::keysToPassKeyQObjectList(
-                                   Gpg::instance()->getAllKeys().second));
+    return QVariant::fromValue(PassKeyModel::keysToPassKey(
+                                   Gpg::instance()->getAllKeys().second)); // TODO Error handling
 }
 

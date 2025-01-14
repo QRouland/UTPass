@@ -6,69 +6,84 @@
 
 using namespace GpgME;
 
+class UserIdModel : public QObject
+{
+    Q_OBJECT
+    Q_PROPERTY(QString uid READ uid MEMBER m_uid CONSTANT)
+    Q_PROPERTY(QString name READ name MEMBER m_name CONSTANT)
+    Q_PROPERTY(QString email READ email MEMBER m_email CONSTANT)
+
+    UserID m_user_id;
+public:
+
+
+    UserIdModel(UserID key):
+        m_user_id(key)
+        {};
+
+    QString uid() const
+    {
+        return QString::fromUtf8(m_user_id.id());
+    };
+    QString name() const
+    {
+        return QString::fromUtf8(m_user_id.name());
+    };
+    QString email() const
+    {
+        return QString::fromUtf8(m_user_id.email());
+    };
+};
+
 class PassKeyModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString uid READ uid WRITE setUid NOTIFY uidChanged MEMBER m_uid)
-    Q_PROPERTY(bool secret READ secret WRITE setSecret NOTIFY secretChanged MEMBER m_secret)
-    Q_PROPERTY(bool expired READ expired WRITE setExpired NOTIFY expiredChanged MEMBER m_expired)
+    Q_PROPERTY(QString uid READ uid MEMBER m_uid CONSTANT)
+    Q_PROPERTY(QList<QObject *> userIds READ userIds MEMBER m_user_ids CONSTANT)
+    Q_PROPERTY(bool isSecret READ isSecret MEMBER m_secret CONSTANT)
+    Q_PROPERTY(bool isExpired READ isExpired MEMBER m_expired CONSTANT)
 
-    QString m_uid;
-    bool m_secret;
-    bool m_expired;
-
+    Key m_key;
 public:
-    PassKeyModel(QString uid, bool secret, bool expired):
-        m_uid(uid),
-        m_secret(secret),
-        m_expired(expired)
-    {};
-
     PassKeyModel(Key key):
-        PassKeyModel(QString::fromUtf8(key.keyID()), key.hasSecret(), key.isExpired())
+        m_key(key)
     {};
 
-    static QList<QObject *> keysToPassKeyQObjectList(std::vector<Key> keys)
+    static QList<QObject *> keysToPassKey(std::vector<Key> keys)
     {
-        QList<QObject *> r;
-        std::for_each(keys.begin(), keys.end(), [&r](Key k) {
-            r.append(new PassKeyModel(k));
+        QList<QObject *> ret;
+        std::for_each(keys.begin(), keys.end(), [&ret](Key k) {
+            ret.append(new PassKeyModel(k));
         });
-        return r;
+        return ret;
     };
 
     QString uid() const
     {
-        return m_uid;
-    };
-    bool secret() const
-    {
-        return m_secret;
-    };
-    bool expired() const
-    {
-        return m_expired;
+        return QString::fromUtf8(m_key.keyID());
     };
 
-    void setUid(QString uid)
+    QList<QObject *> userIds() const
     {
-        m_uid = uid;
-        emit uidChanged(uid);
-    }
-    void setSecret(bool secret)
-    {
-        m_secret = secret;
-        emit secretChanged(secret);
-    }
-    void setExpired(bool expired)
-    {
-        m_expired = expired;
-        emit expiredChanged(expired);
-    }
+        auto user_ids = m_key.userIDs();
+        QList<QObject *> ret;
+        std::for_each(user_ids.begin(), user_ids.end(), [&ret](UserID k) {
+            ret.append(new UserIdModel(k));
+        });
+        return ret;
+    };
 
-signals:
-    void uidChanged(QString);
-    void secretChanged(bool);
-    void expiredChanged(bool);
+    bool isSecret() const
+    {
+        return m_key.hasSecret();
+    };
+
+    bool isExpired() const
+    {
+        return m_key.hasSecret();
+    };
 };
+
+
+
 #endif

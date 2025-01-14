@@ -33,13 +33,55 @@ Page {
             }
 
             Text {
-                id: uidKey
-
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: i18n.tr('Key id : %1').arg(model.modelData.uid)
+                text: i18n.tr('Key ID :')
                 color: theme.palette.normal.backgroundText
+            }
+
+            Text {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: model.modelData.uid
+                color: theme.palette.normal.backgroundText
+            }
+
+
+            Rectangle {
+                width: parent.width
+                height: units.gu(1)
+                color: theme.palette.normal.background
+            }
+
+            ListModel {
+                id: userIdsModel
+
+                Component.onCompleted: {
+                    for(var i=0; i< model.modelData.userIds.length; ++i){
+                        userIdsModel.append({"model": model.modelData.userIds[i]})
+                    }
+                }
+            }
+
+            Text {
+                width: parent.width
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: i18n.tr('Users IDs : ')
+                color: theme.palette.normal.backgroundText
+            }
+
+            Repeater {
+                model: userIdsModel
+                Text {
+                    width: parent.width
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: modelData.uid
+                    color: theme.palette.normal.backgroundText
+                }
             }
 
             Rectangle {
@@ -64,9 +106,7 @@ Page {
                 height: units.gu(1)
                 color: theme.palette.normal.background
             }
-
         }
-
     }
 
     Component {

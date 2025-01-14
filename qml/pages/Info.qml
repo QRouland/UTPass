@@ -95,7 +95,6 @@ Page {
             font.pixelSize: 72
             color: theme.palette.normal.backgroundText
         }
-
     }
 
     Flow {
