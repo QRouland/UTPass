@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-15 23:14+0100\n"
+"POT-Creation-Date: 2025-01-15 23:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,17 +85,17 @@ msgid ""
 "a zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:76
+#: ../qml/pages/PasswordList.qml:71 ../qml/pages/settings/InfoKeys.qml:169
+msgid "Decryption failed !"
+msgstr ""
+
+#: ../qml/pages/PasswordList.qml:85
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:83 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/PasswordList.qml:92 ../qml/pages/headers/MainHeader.qml:9
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
-msgstr ""
-
-#: ../qml/pages/PasswordList.qml:96
-msgid "Decryption failed !"
 msgstr ""
 
 #: ../qml/pages/headers/MainHeader.qml:26 ../qml/pages/settings/Settings.qml:70
@@ -126,7 +126,7 @@ msgstr ""
 
 #: ../qml/pages/settings/ImportGitClone.qml:91
 #: ../qml/pages/settings/ImportZip.qml:62
-#: ../qml/pages/settings/InfoKeys.qml:122
+#: ../qml/pages/settings/InfoKeys.qml:131
 msgid "Yes"
 msgstr ""
 
@@ -168,31 +168,31 @@ msgstr ""
 msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:39
+#: ../qml/pages/settings/InfoKeys.qml:48
 msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:73
+#: ../qml/pages/settings/InfoKeys.qml:82
 msgid "Users IDs : "
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:99
+#: ../qml/pages/settings/InfoKeys.qml:108
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:121
+#: ../qml/pages/settings/InfoKeys.qml:130
 msgid "You're are about to delete<br>%1<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:139
+#: ../qml/pages/settings/InfoKeys.qml:148
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:148
+#: ../qml/pages/settings/InfoKeys.qml:157
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:159
+#: ../qml/pages/settings/InfoKeys.qml:177
 msgid "Info Keys"
 msgstr ""
 

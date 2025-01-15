@@ -24,7 +24,6 @@ MainView {
     objectName: "mainView"
     applicationName: "utpass.qrouland"
     automaticOrientation: true
-
     width: units.gu(45)
     height: units.gu(75)
 
@@ -49,4 +48,5 @@ MainView {
         }
 
     }
+
 }

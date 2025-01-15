@@ -53,7 +53,8 @@ Gpg::Gpg(QObject* windows)
     qDebug() << "GNUPG Home is :" << engineInfo(OpenPGP).homeDirectory();
 }
 
-Gpg::~Gpg(){
+Gpg::~Gpg()
+{
     delete this->m_passphrase_provider;
 }
 
@@ -141,7 +142,7 @@ Error Gpg::decrypt(QByteArray cipher_text)
     ctx->setPinentryMode(Context::PinentryLoopback);
 
     QObject::connect(job, &DecryptJob::result,
-                    this, &Gpg::decryptResultSlot);
+                     this, &Gpg::decryptResultSlot);
 
     return job->start(cipher_text);
 }
@@ -161,7 +162,8 @@ Error Gpg::decryptFromFile(QString path)
 
 
 
-void Gpg::decryptResultSlot(const GpgME::DecryptionResult &result, const QByteArray &plainText, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
+void Gpg::decryptResultSlot(const GpgME::DecryptionResult &result, const QByteArray &plainText,
+                            const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
 {
     if (result.error()) {
         qWarning() << "Something gone wrong on decrypt";
@@ -210,13 +212,13 @@ void Gpg::decryptResultSlot(const GpgME::DecryptionResult &result, const QByteAr
 
 
 Error Gpg::getAllKeys ( bool remote, const bool include_sigs,
-        bool validate )
+                        bool validate )
 {
     return getKeys(QString(""), remote, include_sigs, validate);
 }
 
 Error Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
-        bool validate)
+                   bool validate)
 {
     qDebug() << "Getting the keys " << pattern_uid;
     auto job = openpgp()->keyListJob(remote, include_sigs, validate);
@@ -227,7 +229,8 @@ Error Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
     return job->start(QStringList() << pattern_uid, false);
 }
 
-void Gpg::getKeysJobResultSlot(const GpgME::KeyListResult &result, const std::vector<GpgME::Key> &keys, const QString &auditLogAsHtml , const GpgME::Error &auditLogError)
+void Gpg::getKeysJobResultSlot(const GpgME::KeyListResult &result, const std::vector<GpgME::Key> &keys,
+                               const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
 {
     if (result.error()) {
         qWarning() << "Something gone wrong on decrypt";
@@ -258,7 +261,8 @@ Error Gpg::importKeysFromFile(QString path)
     return job->start(data);
 }
 
-void Gpg::importKeysFromFileSlot(const GpgME::ImportResult &result, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
+void Gpg::importKeysFromFileSlot(const GpgME::ImportResult &result, const QString &auditLogAsHtml,
+                                 const GpgME::Error &auditLogError)
 {
     qDebug() << "numImported" << result.numImported();
     qDebug() << "numSecretKeysImported" << result.numSecretKeysImported();
@@ -285,7 +289,8 @@ Error Gpg::deleteKey(const Key key)
     return openpgp()->deleteJob()->start(key, true);
 }
 
-void Gpg::deleteKeySlot(const GpgME::Error &error, const QString &auditLogAsHtml, const GpgME::Error &auditLogError) {
+void Gpg::deleteKeySlot(const GpgME::Error &error, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
+{
 
     if (error) {
         qWarning() << "Something gone wrong on decrypt";

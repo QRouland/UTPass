@@ -10,7 +10,7 @@
 
 Pass::Pass():
     m_password_store (QStandardPaths::writableLocation(
-                                        QStandardPaths::AppDataLocation).append("/.password-store")),
+                          QStandardPaths::AppDataLocation).append("/.password-store")),
     m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
     m_show_filename(QString())
 {}
@@ -23,7 +23,8 @@ void Pass::initialize(QObject *window)
 
     this->m_gpg = std::unique_ptr<Gpg>(new Gpg(window));
 
-    QObject::connect(this, &Pass::responsePassphraseDialogPropagate, this->m_gpg->passphrase_provider(), &UTPassphraseProvider::handleResponse);
+    QObject::connect(this, &Pass::responsePassphraseDialogPropagate, this->m_gpg->passphrase_provider(),
+                     &UTPassphraseProvider::handleResponse);
     QObject::connect(this->m_gpg.get(), &Gpg::importKeysFromFileResult, this, &Pass::importGPGKeyResult);
     QObject::connect(this->m_gpg.get(), &Gpg::getKeysResult, this, &Pass::getAllGPGKeysResult);
     QObject::connect(this->m_gpg.get(), &Gpg::deleteKeyResult, this, &Pass::deleteGPGKeyResult);
@@ -38,7 +39,9 @@ void Pass::initialize(QObject *window)
 
 bool Pass::show(QUrl url)
 {
-    if (!this->m_sem->tryAcquire(1, 500)){ return false; }
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        return false;
+    }
     auto path = url.toLocalFile();
     qInfo() << "Staring decrypting job for " << path;
     QFileInfo file_info(path);
@@ -46,7 +49,8 @@ bool Pass::show(QUrl url)
     return this->m_gpg->decryptFromFile(path);
 }
 
-void Pass::showResult(Error err, QString plain_text) {
+void Pass::showResult(Error err, QString plain_text)
+{
     qInfo() << "Result for decrypting job";
     if (err) {
         qInfo() << "Decrypt Failed";
@@ -61,13 +65,16 @@ void Pass::showResult(Error err, QString plain_text) {
 
 bool Pass::deleteGPGKey(Key key)
 {
-    if (!this->m_sem->tryAcquire(1, 500)){ return false;}
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        return false;
+    }
     qInfo() << "Deleting Key";
     return this->m_gpg->deleteKey(key);
 }
 
-void Pass::deleteGPGKeyResult(Error err) {
-    if(err) {
+void Pass::deleteGPGKeyResult(Error err)
+{
+    if (err) {
         emit deleteGPGKeyFailed(err.asString());
     } else {
         emit deleteGPGKeySucceed();
@@ -77,13 +84,16 @@ void Pass::deleteGPGKeyResult(Error err) {
 
 bool Pass::importGPGKey(QUrl url)
 {
-    if (!this->m_sem->tryAcquire(1, 500)){ return false;}
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        return false;
+    }
     qInfo() << "Importing Key from " << url;
     return this->m_gpg->importKeysFromFile(url.toLocalFile());
 }
 
-void Pass::importGPGKeyResult(Error err) {
-    if(err) {
+void Pass::importGPGKeyResult(Error err)
+{
+    if (err) {
         emit importGPGKeyFailed(err.asString());
     } else {
         emit importGPGKeySucceed();
@@ -93,13 +103,16 @@ void Pass::importGPGKeyResult(Error err) {
 
 bool Pass::getAllGPGKeys()
 {
-    if (!this->m_sem->tryAcquire(1, 500)){ return false; }
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        return false;
+    }
     qInfo() << "Getting all key form gpg ";
     return this->m_gpg->getAllKeys();
 }
 
-void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info) {
-    if(err) {
+void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info)
+{
+    if (err) {
         emit getAllGPGKeysFailed(err.asString());
     } else {
         emit getAllGPGKeysSucceed(QVariant::fromValue(PassKeyModel::keysToPassKey(keys_info)));
@@ -107,7 +120,8 @@ void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info) {
     this->m_sem->release(1);
 }
 
-void Pass::responsePassphraseDialog(bool cancel, QString passphrase) {
+void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
+{
     qDebug() << "responsePassphraseDialog";
     emit responsePassphraseDialogPropagate(cancel, passphrase);
 }

@@ -34,12 +34,12 @@ Component {
             anchors.fill: parent
             onClicked: {
                 var path = folderModel.folder + "/" + fileName;
-                if (fileIsDir) { 
+                if (fileIsDir) {
                     folderModel.folder = path;
                     backAction.visible = true;
                     passwordListHeader.title = fileName;
                 } else {
-                    console.debug("pass show %1".arg(path))
+                    console.debug("pass show %1".arg(path));
                     Pass.show(path);
                 }
             }

@@ -11,6 +11,16 @@ Page {
 
     property string currentKey
 
+    Component.onCompleted: {
+        Pass.onGetAllGPGKeysSucceed.connect(function(keys_info) {
+            infoKeysListView.model = keys_info;
+        });
+        Pass.getAllGPGKeysFailed.connect(function(message) {
+            PopupUtils.open(infoKeysPageGetAllError);
+        });
+        Pass.getAllGPGKeys();
+    }
+
     ListView {
         id: infoKeysListView
 
@@ -18,7 +28,6 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        model: Pass.getAllGPGKeys()
 
         delegate: Grid {
             columns: 1
@@ -149,6 +158,15 @@ Page {
             onDialogClosed: {
                 infoKeysListView.model = Pass.getAllGPGKeys();
             }
+        }
+
+    }
+
+    Component {
+        id: infoKeysPageGetAllError
+
+        ErrorDialog {
+            textError: i18n.tr("Decryption failed !")
         }
 
     }

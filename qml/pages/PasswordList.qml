@@ -1,11 +1,11 @@
-import "headers"
 import "../components"
 import "../dialogs"
 import Lomiri.Components 1.3
+import Lomiri.Components.Popups 1.3
 import Pass 1.0
 import Qt.labs.folderlistmodel 2.1
 import QtQuick 2.4
-import Lomiri.Components.Popups 1.3
+import "headers"
 
 Page {
     id: passwordListPage
@@ -64,6 +64,15 @@ Page {
 
     }
 
+    Component {
+        id: passwordPageDecryptError
+
+        ErrorDialog {
+            textError: i18n.tr("Decryption failed !")
+        }
+
+    }
+
     header: MainHeader {
         id: passwordListHeader
 
@@ -87,15 +96,6 @@ Page {
                 }
             }
         ]
-    }
-
-    Component {
-        id: passwordPageDecryptError
-
-        ErrorDialog {
-            textError: i18n.tr("Decryption failed !")
-        }
-
     }
 
 }
