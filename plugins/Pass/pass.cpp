@@ -8,8 +8,11 @@
 
 
 
-Pass::Pass(): m_password_store (QStandardPaths::writableLocation(
-                                        QStandardPaths::AppDataLocation).append("/.password-store"))
+Pass::Pass():
+    m_password_store (QStandardPaths::writableLocation(
+                                        QStandardPaths::AppDataLocation).append("/.password-store")),
+    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
+    m_show_filename(QString())
 {}
 
 void Pass::initialize(QObject *window)
@@ -18,7 +21,13 @@ void Pass::initialize(QObject *window)
         qFatal("window is invalid. Abording.");
     }
 
-    Gpg::instance()->setWindow(window);
+    this->m_gpg = std::unique_ptr<Gpg>(new Gpg(window));
+
+    QObject::connect(this, &Pass::responsePassphraseDialogPropagate, this->m_gpg->passphrase_provider(), &UTPassphraseProvider::handleResponse);
+    QObject::connect(this->m_gpg.get(), &Gpg::importKeysFromFileResult, this, &Pass::importGPGKeyResult);
+    QObject::connect(this->m_gpg.get(), &Gpg::getKeysResult, this, &Pass::getAllGPGKeysResult);
+    QObject::connect(this->m_gpg.get(), &Gpg::deleteKeyResult, this, &Pass::deleteGPGKeyResult);
+    QObject::connect(this->m_gpg.get(), &Gpg::decryptResult, this, &Pass::showResult);
 
     QDir dir(m_password_store);
     if (!dir.exists()) {
@@ -27,38 +36,78 @@ void Pass::initialize(QObject *window)
     qInfo() << "Password Store is :" << m_password_store;
 }
 
-void Pass::show(QUrl url)
+bool Pass::show(QUrl url)
 {
-    qInfo() << "Decrypting";
-    auto decrypt_ret = Gpg::instance()->decryptFromFile(url.toLocalFile());
-    if (decrypt_ret.first) {
-        qInfo() << "Decrypt Failed";
-        emit decryptFailed();
-    } else if (decrypt_ret.second.isNull()) {
-        qInfo() << "Decrypt Canceled";
-        emit decryptCanceled();
-    } else {
-        qInfo() << "Decrypt OK";
-        emit decrypted(url.fileName(), decrypt_ret.second);
-    }
+    if (!this->m_sem->tryAcquire(1, 500)){ return false; }
+    auto path = url.toLocalFile();
+    qInfo() << "Staring decrypting job for " << path;
+    QFileInfo file_info(path);
+    this->m_show_filename = file_info.completeBaseName();
+    return this->m_gpg->decryptFromFile(path);
 }
 
-bool Pass::deleteGPGKey(QString id)
+void Pass::showResult(Error err, QString plain_text) {
+    qInfo() << "Result for decrypting job";
+    if (err) {
+        qInfo() << "Decrypt Failed";
+        emit showFailed(err.asString());
+    } else {
+        qInfo() << "Decrypt OK";
+        emit showSucceed(this->m_show_filename, plain_text);
+    }
+    this->m_show_filename = QString();
+    this->m_sem->release(1);
+}
+
+bool Pass::deleteGPGKey(Key key)
 {
-    qInfo() << "Deleting Key id " << id;
-    return !Gpg::instance()->deleteKeyId(id);
+    if (!this->m_sem->tryAcquire(1, 500)){ return false;}
+    qInfo() << "Deleting Key";
+    return this->m_gpg->deleteKey(key);
+}
+
+void Pass::deleteGPGKeyResult(Error err) {
+    if(err) {
+        emit deleteGPGKeyFailed(err.asString());
+    } else {
+        emit deleteGPGKeySucceed();
+    }
+    this->m_sem->release(1);
 }
 
 bool Pass::importGPGKey(QUrl url)
 {
+    if (!this->m_sem->tryAcquire(1, 500)){ return false;}
     qInfo() << "Importing Key from " << url;
-    return !Gpg::instance()->importKeysFromFile(url.toLocalFile());
+    return this->m_gpg->importKeysFromFile(url.toLocalFile());
 }
 
-QVariant Pass::getAllGPGKeys()
+void Pass::importGPGKeyResult(Error err) {
+    if(err) {
+        emit importGPGKeyFailed(err.asString());
+    } else {
+        emit importGPGKeySucceed();
+    }
+    this->m_sem->release(1);
+}
+
+bool Pass::getAllGPGKeys()
 {
+    if (!this->m_sem->tryAcquire(1, 500)){ return false; }
     qInfo() << "Getting all key form gpg ";
-    return QVariant::fromValue(PassKeyModel::keysToPassKey(
-                                   Gpg::instance()->getAllKeys().second)); // TODO Error handling
+    return this->m_gpg->getAllKeys();
 }
 
+void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info) {
+    if(err) {
+        emit getAllGPGKeysFailed(err.asString());
+    } else {
+        emit getAllGPGKeysSucceed(QVariant::fromValue(PassKeyModel::keysToPassKey(keys_info)));
+    }
+    this->m_sem->release(1);
+}
+
+void Pass::responsePassphraseDialog(bool cancel, QString passphrase) {
+    qDebug() << "responsePassphraseDialog";
+    emit responsePassphraseDialogPropagate(cancel, passphrase);
+}

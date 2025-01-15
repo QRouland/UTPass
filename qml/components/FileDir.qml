@@ -33,12 +33,14 @@ Component {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                if (fileIsDir) {
-                    folderModel.folder = folderModel.folder + "/" + fileName;
+                var path = folderModel.folder + "/" + fileName;
+                if (fileIsDir) { 
+                    folderModel.folder = path;
                     backAction.visible = true;
                     passwordListHeader.title = fileName;
                 } else {
-                    Pass.show(folderModel.folder + "/" + fileName);
+                    console.debug("pass show %1".arg(path))
+                    Pass.show(path);
                 }
             }
         }
@@ -50,15 +52,6 @@ Component {
             tBorderwidth: 0
             bBorderwidth: 1
             borderColor: LomiriColors.warmGrey
-        }
-
-        Component {
-            id: passwordPageDecryptError
-
-            ErrorDialog {
-                textError: i18n.tr("Decryption failed !")
-            }
-
         }
 
     }

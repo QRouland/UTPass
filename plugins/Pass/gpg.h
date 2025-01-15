@@ -1,61 +1,95 @@
 #ifndef GPG_H
 #define GPG_H
 
+#include "passkeymodel.h"
+#include "passphraseprovider.h"
 #include <memory>
 #include <QQuickWindow>
 #include <gpgme++/context.h>
 #include <qgpgme/changeownertrustjob.h>
+#include <QSemaphore>
+
+#include <gpgme.h>
+#include <qgpgme/importjob.h>
+#include <qgpgme/deletejob.h>
+#include <qgpgme/decryptjob.h>
+#include <qgpgme/encryptjob.h>
+#include <qgpgme/protocol.h>
+#include <qgpgme/keylistjob.h>
+#include <qgpgme/changeownertrustjob.h>
 
 
 using namespace GpgME;
+using namespace QGpgME;
 
-class Gpg
+class Gpg: public QObject
 {
-private:
-    Gpg();
+    Q_OBJECT
+    Q_PROPERTY(UTPassphraseProvider* passphrase_provider READ passphrase_provider MEMBER  m_passphrase_provider )
 
-    QObject *m_window;
+private slots:
+    void decryptResultSlot(
+        const DecryptionResult &result,
+        const QByteArray &plain_text,
+        const QString &auditLogAsHtml,
+        const Error &auditLogError
+    );
+    void getKeysJobResultSlot(
+        const GpgME::KeyListResult &result,
+        const std::vector<GpgME::Key> &keys,
+        const QString &auditLogAsHtml ,
+        const GpgME::Error &auditLogError
+    );
+
+    void importKeysFromFileSlot(
+        const GpgME::ImportResult &result,
+        const QString &auditLogAsHtml,
+        const GpgME::Error &auditLogError
+    );
+
+    void deleteKeySlot(
+        const GpgME::Error &result,
+        const QString &auditLogAsHtml,
+        const GpgME::Error &auditLogError
+    );
+
+signals:
+    void importKeysFromFileResult(Error err);
+    void getKeysResult(Error err, std::vector<GpgME::Key> keys);
+    void deleteKeyResult(Error err);
+    void decryptResult(Error err, QString plain_text);
+
+private:
+    UTPassphraseProvider* m_passphrase_provider;
 
     QString findCommandPath(const QString &command);
     QString initGpgHome();
     QString initGpgExec();
     void initGpgConfig();
+    Error getKey(QString uid,  bool remote = false,  bool include_sigs = false,
+                 bool validate = false);
 
 public:
-    static std::shared_ptr<Gpg> instance()
+    Gpg(QObject* window);
+    ~Gpg();
+
+    UTPassphraseProvider* passphrase_provider() const
     {
-        static std::shared_ptr<Gpg> s{new Gpg};
-        return s;
+        return m_passphrase_provider;
     }
-    Gpg(Gpg const &) = delete;
-    void operator=(Gpg const &) = delete;
 
-    void setWindow(QObject *window)
-    {
-        m_window = window;
-    };
+    Error importKeysFromFile(const QString path);
+    Error getKeys(const QString pattern_uid,  const bool remote = false,
+            const bool include_sigs = false,
+            const bool validate = false);
+    Error getAllKeys (bool remote = false, bool include_sigs = {}, bool
+                                                                      validate = false);
+    Error deleteKey(const Key key);
+    Error decrypt(const QByteArray cipher_text);
+    Error decryptFromFile(const QString path);
+    //Error encrypt (QString str,  QString uid,  bool ascii_armor = true,
+    //                                   bool text_mode = true);
 
-    QObject *getWindow()
-    {
-        return m_window;
-    };
-
-
-    QPair<Error, std::vector<Key >> getAllKeys(bool remote = false, bool include_sigs = {}, bool
-            validate = false);
-    QPair<Error, std::vector<Key >> getKeys( QString pattern_uid,  bool remote = false,
-            bool include_sigs = false,
-            bool validate = false);
-    QPair<Error, Key> getKey( QString uid,  bool remote = false,  bool include_sigs = false,
-                              bool validate = false);
-    QPair<Error, QString>  decrypt( QByteArray cipherText);
-    QPair<Error, QString> decryptFromFile( QString path);
-    QPair<Error, QByteArray> encrypt( QString str,  QString uid,  bool ascii_armor = true,
-                                      bool text_mode = true);
-    Error encryptToFile( QString str,  QString path,  QString uid,  bool ascii_armor = true,
-                         bool text_mode = true);
-    Error importKeysFromFile( QString path);
-    Error deleteKeyId( QString uid);
 };
 
 #endif

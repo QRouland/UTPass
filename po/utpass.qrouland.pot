@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-14 13:57+0100\n"
+"POT-Creation-Date: 2025-01-15 23:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: ../qml/components/FileDir.qml:59
-msgid "Decryption failed !"
-msgstr ""
 
 #: ../qml/dialogs/ErrorDialog.qml:12
 msgid "Error !"
@@ -83,19 +79,23 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:22
+#: ../qml/pages/PasswordList.qml:37
 msgid ""
 "No password found<br>You can import a password store by cloning or importing "
 "a zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:61
+#: ../qml/pages/PasswordList.qml:76
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:68 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/PasswordList.qml:83 ../qml/pages/headers/MainHeader.qml:9
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
+msgstr ""
+
+#: ../qml/pages/PasswordList.qml:96
+msgid "Decryption failed !"
 msgstr ""
 
 #: ../qml/pages/headers/MainHeader.qml:26 ../qml/pages/settings/Settings.qml:70

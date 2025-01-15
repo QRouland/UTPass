@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QDir>
 #include <QtCore/QStandardPaths>
+#include <QProcess>
 
 #include <gpgme.h>
 #include <gpgme++/data.h>
@@ -22,9 +23,11 @@
 #include <qgpgme/keylistjob.h>
 #include <qgpgme/changeownertrustjob.h>
 
+
 #include "gpg.h"
+#include "passkeymodel.h"
 #include "passphraseprovider.h"
-#include "qprocess.h"
+
 
 
 
@@ -32,9 +35,9 @@
 using namespace GpgME;
 using namespace QGpgME;
 
-Gpg::Gpg()
+Gpg::Gpg(QObject* windows)
 {
-    m_window = nullptr;
+    this->m_passphrase_provider = new UTPassphraseProvider(windows);
 
     Gpg::initGpgConfig();
 
@@ -48,6 +51,10 @@ Gpg::Gpg()
     qDebug() << "GNUPG Engine Version is :" << engineInfo(OpenPGP).version();
     qDebug() << "GNUPG Executable is :" << engineInfo(OpenPGP).fileName();
     qDebug() << "GNUPG Home is :" << engineInfo(OpenPGP).homeDirectory();
+}
+
+Gpg::~Gpg(){
+    delete this->m_passphrase_provider;
 }
 
 
@@ -124,37 +131,28 @@ void Gpg::initGpgConfig()
 }
 
 
-QPair<Error, QString> Gpg::decrypt(QByteArray cipherText)
+Error Gpg::decrypt(QByteArray cipher_text)
 {
     auto job = openpgp()->decryptJob();
+
     auto ctx = DecryptJob::context(job);
 
-    auto provider = new UTPassphraseProvider;
-    ctx->setPassphraseProvider(provider);
+    ctx->setPassphraseProvider(this->m_passphrase_provider);
     ctx->setPinentryMode(Context::PinentryLoopback);
 
-    QByteArray plain_text;
-    auto decResult = job->exec(cipherText, plain_text);
+    QObject::connect(job, &DecryptJob::result,
+                    this, &Gpg::decryptResultSlot);
 
-    delete job;
-    delete provider;
-
-    if (decResult.error()) {
-        qWarning() << "something gone wrong on decrypt";
-        qDebug() << "Code Error : " << decResult.error().code();
-        qDebug() << "Error str : " << decResult.error().asString();
-    }
-    return QPair<Error, QString>(decResult.error(), QString::fromUtf8(plain_text));
+    return job->start(cipher_text);
 }
 
-
-QPair<Error, QString> Gpg::decryptFromFile(QString path)
+Error Gpg::decryptFromFile(QString path)
 {
     qDebug() << "Decrypt from " << path;
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         qWarning() << "Can't open the File";
-        return QPair<Error, QString>(Error(), QString());;
+        return Error();
     }
     QByteArray cipherText = file.readAll();
     file.close();
@@ -162,76 +160,82 @@ QPair<Error, QString> Gpg::decryptFromFile(QString path)
 }
 
 
-QPair<Error, QByteArray> Gpg::encrypt(QString str, QString uid, bool ascii_armor, bool text_mode)
+
+void Gpg::decryptResultSlot(const GpgME::DecryptionResult &result, const QByteArray &plainText, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
 {
-
-    qDebug() << "Encrypt to QByteArray";
-    auto keys = getKeys(uid);
-    if (keys.first) {
-        return QPair<Error, QByteArray>(keys.first, QByteArray());
+    if (result.error()) {
+        qWarning() << "Something gone wrong on decrypt";
+        qDebug() << "Code Error : " << result.error().code();
+        qDebug() << "Error str : " << result.error().asString();
     }
-
-    auto job = std::unique_ptr<EncryptJob>(openpgp()->encryptJob(ascii_armor, text_mode));
-
-    QByteArray cipherText;
-    auto result = job->exec(keys.second, str.toUtf8(), Context::AlwaysTrust, cipherText);
-
-    qDebug() << "Encrypted to QByteArray";
-    return QPair<Error, QByteArray>(result.error(), cipherText);
+    emit decryptResult(result.error(), QString::fromUtf8(plainText));
 }
 
 
-Error Gpg::encryptToFile(QString str, QString path, QString uid, bool ascii_armor,
-                         bool text_mode)
-{
-    qDebug() << "Encrypting to file  " << path;
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Can't open the file to write it" ;
-        return Error();
-    }
-    auto encrypt_ret = encrypt(str, uid, ascii_armor, text_mode);
-    if (encrypt_ret.first) {
-        file.write(encrypt_ret.second);
-    }
-    qDebug() << "Encrypting to file  " << path;
-    return encrypt_ret.first;
-}
+// QPair<Error, QByteArray> Gpg::encrypt(QString str, QString uid, bool ascii_armor, bool text_mode)
+// {
+
+//     qDebug() << "Encrypt to QByteArray";
+//     auto keys = getKeys(uid);
+//     if (keys.first) {
+//         return QPair<Error, QByteArray>(keys.first, QByteArray());
+//     }
+
+//     auto job = std::unique_ptr<EncryptJob>(openpgp()->encryptJob(ascii_armor, text_mode));
+
+//     QByteArray cipherText;
+//     auto result = job->exec(keys.second, str.toUtf8(), Context::AlwaysTrust, cipherText);
+
+//     qDebug() << "Encrypted to QByteArray";
+//     return QPair<Error, QByteArray>(result.error(), cipherText);
+// }
 
 
-QPair<Error, std::vector< GpgME::Key >> Gpg::getAllKeys ( bool remote, const bool include_sigs,
+// Error Gpg::encryptToFile(QString str, QString path, QString uid, bool ascii_armor,
+//                          bool text_mode)
+// {
+//     qDebug() << "Encrypting to file  " << path;
+//     QFile file(path);
+//     if (!file.open(QIODevice::WriteOnly)) {
+//         qWarning() << "Can't open the file to write it" ;
+//         return Error();
+//     }
+//     auto encrypt_ret = encrypt(str, uid, ascii_armor, text_mode);
+//     if (encrypt_ret.first) {
+//         file.write(encrypt_ret.second);
+//     }
+//     qDebug() << "Encrypting to file  " << path;
+//     return encrypt_ret.first;
+// }
+
+
+Error Gpg::getAllKeys ( bool remote, const bool include_sigs,
         bool validate )
 {
     return getKeys(QString(""), remote, include_sigs, validate);
 }
 
-QPair<Error, std::vector<Key >> Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
+Error Gpg::getKeys(QString pattern_uid, bool remote, bool include_sigs,
         bool validate)
 {
     qDebug() << "Getting the keys " << pattern_uid;
-    auto job = std::unique_ptr<KeyListJob>(openpgp()->keyListJob(remote, include_sigs, validate));
+    auto job = openpgp()->keyListJob(remote, include_sigs, validate);
 
-    std::vector<Key> keys;
-    auto result = job->exec(QStringList() << pattern_uid, false, keys);
+    QObject::connect(job, &KeyListJob::result,
+                     this, &Gpg::getKeysJobResultSlot);
 
-    qDebug() << "Got the keys " << pattern_uid;
-    return QPair<Error, std::vector< Key >> (result.error(), keys);
+    return job->start(QStringList() << pattern_uid, false);
 }
 
-
-QPair<Error, Key> Gpg::getKey(QString uid, bool remote, bool include_sigs, bool validate)
+void Gpg::getKeysJobResultSlot(const GpgME::KeyListResult &result, const std::vector<GpgME::Key> &keys, const QString &auditLogAsHtml , const GpgME::Error &auditLogError)
 {
-    qDebug() << "Getting the key " << uid;
-    auto keys = getKeys(uid, remote, include_sigs, validate);
-
-    if (keys.first or keys.second.size() != 1) {
-        qWarning() << "Bad id";
-        return QPair<Error, Key>(keys.first, Key::null);
+    if (result.error()) {
+        qWarning() << "Something gone wrong on decrypt";
+        qDebug() << "Code Error : " << result.error().code();
+        qDebug() << "Error str : " << result.error().asString();
     }
-    qDebug() << "Got the key " << uid;
-    return QPair<Error, Key>(keys.first, keys.second.front());
+    emit getKeysResult(result.error(), keys);
 }
-
 
 Error Gpg::importKeysFromFile(QString path)
 {
@@ -242,51 +246,52 @@ Error Gpg::importKeysFromFile(QString path)
         qWarning() << "Can't open the File";
         return Error();
     }
+    auto data = file.readAll();
+    file.close();
 
     auto job = openpgp()->importJob();
-    auto ctx = ImportJob::context(job);
 
-    auto result = job->exec(file.readAll());
+    QObject::connect(job, &ImportJob::result,
+                     this, &Gpg::importKeysFromFileSlot);
 
+
+    return job->start(data);
+}
+
+void Gpg::importKeysFromFileSlot(const GpgME::ImportResult &result, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
+{
     qDebug() << "numImported" << result.numImported();
     qDebug() << "numSecretKeysImported" << result.numSecretKeysImported();
     qDebug() << "numSecretKeysConsidered" << result.numSecretKeysConsidered();
     qDebug() << "numSecretKeysUnchanged" << result.numSecretKeysUnchanged();
     qDebug() << "numUnchanged" << result.numUnchanged();
 
-    file.close();
-    delete job;
 
     if (result.error()) {
-        qWarning() << "Import go wrong";
+        qWarning() << "Something gone wrong on decrypt";
         qDebug() << "Code Error : " << result.error().code();
         qDebug() << "Error str : " << result.error().asString();
     }
-    qDebug() << "Imported the key file" << path;
-    return result.error();
+    emit importKeysFromFileResult(result.error());
 }
 
-Error Gpg::deleteKeyId(QString uid)
+Error Gpg::deleteKey(const Key key)
 {
-    qDebug() << "Deleting key id " << uid;
-    auto key = getKey(uid);
+    auto job = openpgp()->deleteJob();
 
-    if (key.first) {
-        return key.first;
-    }
+    QObject::connect(job, &DeleteJob::result,
+                     this, &Gpg::deleteKeySlot);
 
-    auto ctx = std::unique_ptr<Context>(Context::createForProtocol(OpenPGP));
-    auto err = ctx->deleteKey(key.second, true);
-
-    if (err) {
-        qWarning() << "Delete go wrong";
-        qDebug() << "Code Error : " << err.code();
-        qDebug() << "Error str : " << err.asString();
-        return err;
-    }
-
-    qDebug() << "Deleted key id" << uid;
-    return err;
+    return openpgp()->deleteJob()->start(key, true);
 }
 
+void Gpg::deleteKeySlot(const GpgME::Error &error, const QString &auditLogAsHtml, const GpgME::Error &auditLogError) {
+
+    if (error) {
+        qWarning() << "Something gone wrong on decrypt";
+        qDebug() << "Code Error : " << error.code();
+        qDebug() << "Error str : " << error.asString();
+    }
+    emit deleteKeyResult(error);
+}
 

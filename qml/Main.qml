@@ -10,8 +10,6 @@ MainView {
 
     id: root
 
-    signal responsePassphraseDialog(bool canceled, string passphrase)
-
     function initPass(rootView) {
         Pass.initialize(rootView);
         pageStack.push(Qt.resolvedUrl("pages/PasswordList.qml"));
@@ -19,30 +17,36 @@ MainView {
 
     function callPassphraseDialog(useridHint, description, previousWasBad) {
         //TODO use parameters to impove passphrase dialog
-        var passphraseDialog = PopupUtils.open(Qt.resolvedUrl("dialogs/PassphraseDialog.qml"));
-        passphraseDialog.activateFocus();
-        var validated = function validated(passphrase) {
-            responsePassphraseDialog(false, passphrase);
-        };
-        var canceled = function canceled() {
-            responsePassphraseDialog(true, "");
-        };
-        passphraseDialog.validated.connect(validated);
-        passphraseDialog.canceled.connect(canceled);
+        var pop = PopupUtils.open(passphraseDialog);
+        pop.activateFocus();
     }
 
     objectName: "mainView"
     applicationName: "utpass.qrouland"
-    automaticOrientation: false
-    width: units.gu(48)
-    height: units.gu(80)
+    automaticOrientation: true
+
+    width: units.gu(45)
+    height: units.gu(75)
 
     PageStack {
         id: pageStack
 
         anchors.fill: parent
-        Component.onCompleted: {
-        }
     }
 
+    Component {
+        id: passphraseDialog
+
+        PassphraseDialog {
+            onValidated: {
+                console.info("valided");
+                Pass.responsePassphraseDialog(false, passphrase);
+            }
+            onCanceled: {
+                console.info("canceled");
+                Pass.responsePassphraseDialog(true, "");
+            }
+        }
+
+    }
 }

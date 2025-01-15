@@ -9,14 +9,13 @@ using namespace GpgME;
 class UserIdModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString uid READ uid MEMBER m_uid CONSTANT)
-    Q_PROPERTY(QString name READ name MEMBER m_name CONSTANT)
-    Q_PROPERTY(QString email READ email MEMBER m_email CONSTANT)
+    Q_PROPERTY(QString uid READ uid CONSTANT)
+    Q_PROPERTY(QString name READ name CONSTANT)
+    Q_PROPERTY(QString email READ email CONSTANT)
 
+private:
     UserID m_user_id;
 public:
-
-
     UserIdModel(UserID key):
         m_user_id(key)
     {};
@@ -38,10 +37,11 @@ public:
 class PassKeyModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString uid READ uid MEMBER m_uid CONSTANT)
-    Q_PROPERTY(QList<QObject *> userIds READ userIds MEMBER m_user_ids CONSTANT)
-    Q_PROPERTY(bool isSecret READ isSecret MEMBER m_secret CONSTANT)
-    Q_PROPERTY(bool isExpired READ isExpired MEMBER m_expired CONSTANT)
+    Q_PROPERTY(Key key READ key MEMBER m_key CONSTANT)
+    Q_PROPERTY(QString uid READ uid CONSTANT)
+    Q_PROPERTY(QList<QObject *> userIds READ userIds CONSTANT)
+    Q_PROPERTY(bool isSecret READ isSecret CONSTANT)
+    Q_PROPERTY(bool isExpired READ isExpired CONSTANT)
 
     Key m_key;
 public:
@@ -56,6 +56,11 @@ public:
             ret.append(new PassKeyModel(k));
         });
         return ret;
+    };
+
+    Key key() const
+    {
+        return m_key;
     };
 
     QString uid() const

@@ -49,11 +49,11 @@ Page {
                 iconName: "back"
                 text: "Back"
                 onTriggered: {
-                    // passwordPage.plainText = "";
-                    // for (var object in objects) {
-                    //     object.text = "";
-                    //     object.destroy();
-                    // }
+                    passwordPage.plainText = null;
+                    for (var object in objects) {
+                        object.text = null;
+                        object.destroy();
+                    }
                     pageStack.pop();
                 }
             }
