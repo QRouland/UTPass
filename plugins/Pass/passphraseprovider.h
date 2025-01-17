@@ -15,9 +15,7 @@
  * @brief A passphrase provider for GPG operations that interacts with a QML dialog.
  *
  * This class implements the `PassphraseProvider` interface from GPGME and is responsible for
- * obtaining passphrases for GPG operations. It does so by triggering a QML dialog to prompt the user
- * for their passphrase. The response is then handled asynchronously, and the passphrase is returned to
- * the calling GPGME function.
+ * obtaining passphrases for GPG operations.
  */
 class UTPassphraseProvider : public QObject, public PassphraseProvider
 {

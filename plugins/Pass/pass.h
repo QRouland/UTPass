@@ -16,9 +16,6 @@ using namespace GpgME;
  *
  * This class provides functionalities for interacting with password storage, including
  * storing, showing, importing, and deleting passwords securely using GPG encryption.
- * It communicates asynchronously with GPG operations, using signals and slots to propagate results.
- * The class interacts with the `Gpg` class to perform GPG key operations and provides an interface
- * for the user to manage the passwords.
  */
 class Pass : public QObject
 {
@@ -82,6 +79,8 @@ signals:
      */
     void getAllGPGKeysSucceed(QVariant keys_info);
 
+
+
     /**
      * @brief Emitted when retrieving GPG keys fails.
      * @param message The error message describing the failure.
@@ -109,6 +108,11 @@ signals:
      */
     void showFailed(QString message);
 
+    /**
+     * @brief Emitted hen showing a password cancelled.
+     */
+    void showCancelled();
+
 private:
     QString m_password_store; /**< The path to the password store. */
     std::unique_ptr<Gpg> m_gpg; /**< The GPG instance used for encryption/decryption. */
@@ -120,11 +124,6 @@ public:
      * @brief Constructs the Pass object and initializes necessary resources.
      */
     Pass();
-
-    /**
-     * @brief Destructor for cleaning up resources used by the Pass object.
-     */
-    ~Pass() override = default;
 
     /**
      * @brief Gets the path to the password store.

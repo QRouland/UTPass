@@ -55,6 +55,10 @@ void Pass::showResult(Error err, QString plain_text)
     if (err) {
         qInfo() << "Decrypt Failed";
         emit showFailed(err.asString());
+
+    }  else if (err.isCanceled()){
+            qInfo() << "Decrypt Cancelled";
+            emit showCancelled();
     } else {
         qInfo() << "Decrypt OK";
         emit showSucceed(this->m_show_filename, plain_text);

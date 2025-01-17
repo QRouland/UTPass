@@ -4,9 +4,10 @@ set(PLUGIN "Git")
 set(
         SRC
         plugin.cpp
-        libgit.cpp
         git.cpp
         utils.h
+        jobs/clonejob.cpp
+        jobs/gitjob.cpp
 )
 
 set(CMAKE_AUTOMOC ON)

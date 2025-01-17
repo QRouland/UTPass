@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-15 23:39+0100\n"
+"POT-Creation-Date: 2025-01-17 10:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,27 +55,27 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../qml/pages/Info.qml:61
+#: ../qml/pages/Info.qml:62
 msgid "<b>Version</b>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:82
+#: ../qml/pages/Info.qml:83
 msgid "<b>Maintainer</>"
 msgstr ""
 
-#: ../qml/pages/Info.qml:109
+#: ../qml/pages/Info.qml:110
 msgid "Suggest improvement(s) or report a bug(s)"
 msgstr ""
 
-#: ../qml/pages/Info.qml:114
+#: ../qml/pages/Info.qml:115
 msgid "Access to the source code"
 msgstr ""
 
-#: ../qml/pages/Info.qml:122
+#: ../qml/pages/Info.qml:123
 msgid "Released under the terms of the GNU GPL v3"
 msgstr ""
 
-#: ../qml/pages/Info.qml:131 ../qml/pages/headers/MainHeader.qml:33
+#: ../qml/pages/Info.qml:132 ../qml/pages/headers/MainHeader.qml:33
 msgid "Info"
 msgstr ""
 
@@ -106,43 +106,6 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:36
-msgid "Repo Url"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:53
-msgid "Password"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:70
-msgid "Clone"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:90
-msgid ""
-"Importing a git repo will delete<br>any existing password store!"
-"<br>Continue ?"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:91
-#: ../qml/pages/settings/ImportZip.qml:62
-#: ../qml/pages/settings/InfoKeys.qml:131
-msgid "Yes"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:104
-msgid "An error occured during git clone !"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:113
-#: ../qml/pages/settings/ImportZip.qml:84
-msgid "Password store sucessfully imported !"
-msgstr ""
-
-#: ../qml/pages/settings/ImportGitClone.qml:125
-msgid "Git Clone Import"
-msgstr ""
-
 #: ../qml/pages/settings/ImportKeyFile.qml:57
 msgid "Key import failed !"
 msgstr ""
@@ -160,8 +123,19 @@ msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
 
+#: ../qml/pages/settings/ImportZip.qml:62
+#: ../qml/pages/settings/InfoKeys.qml:131
+#: ../qml/pages/settings/git/ImportGitClone.qml:54
+msgid "Yes"
+msgstr ""
+
 #: ../qml/pages/settings/ImportZip.qml:75
 msgid "Password store import failed !"
+msgstr ""
+
+#: ../qml/pages/settings/ImportZip.qml:84
+#: ../qml/pages/settings/git/ImportGitClone.qml:76
+msgid "Password store sucessfully imported !"
 msgstr ""
 
 #: ../qml/pages/settings/ImportZip.qml:96
@@ -222,4 +196,32 @@ msgstr ""
 
 #: ../qml/pages/settings/Settings.qml:62
 msgid "Warning: importing delete any exiting Password Store"
+msgstr ""
+
+#: ../qml/pages/settings/git/GitCloneHttp.qml:16
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:16
+msgid "Repo Url"
+msgstr ""
+
+#: ../qml/pages/settings/git/GitCloneHttp.qml:32
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:50
+msgid "Clone"
+msgstr ""
+
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:33
+msgid "Password"
+msgstr ""
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:53
+msgid ""
+"Importing a git repo will delete<br>any existing password store!"
+"<br>Continue ?"
+msgstr ""
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:67
+msgid "An error occured during git clone !"
+msgstr ""
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:88
+msgid "Git Clone Import"
 msgstr ""

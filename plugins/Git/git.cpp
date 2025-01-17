@@ -2,76 +2,68 @@
 #include <QtCore/QDir>
 #include <QDebug>
 #include <QStandardPaths>
-
+extern "C" {
+#include <git2.h>
+}
 
 #include "git.h"
-#include "libgit.h"
 #include "utils.h"
+#include "jobs/clonejob.h"
+#include "jobs/gitjob.h"
 
-
-QDir Git::cloneSetup()
+Git::Git():
+    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1)))
 {
-    QDir tmp_dir(QStandardPaths::writableLocation( QStandardPaths::CacheLocation).append("/clone"));
+    git_libgit2_init();
+}
 
-    tmp_dir.removeRecursively();
-    qDebug() << "Temp dir path is " << tmp_dir.absolutePath();
-
-    return tmp_dir;
+Git::~Git()
+{
+    git_libgit2_shutdown();
 }
 
 
-bool Git::cloneTearDown(QDir tmp_dir)
+bool Git::clone(QString url, QString path, cred_type mode)
 {
-    return tmp_dir.removeRecursively();
-}
-
-bool Git::moveToDestination(QString path, QDir tmp_dir)
-{
-    qDebug() << "Removing password_store " << path;
-    QDir destination_dir(path);
-    destination_dir.removeRecursively();
-
-    qDebug() << "Moving cloned content to destination dir";
-    QDir dir;
-    qDebug() <<  tmp_dir.absolutePath() << " to " << destination_dir.absolutePath();
-    return dir.rename(tmp_dir.absolutePath(), destination_dir.absolutePath()); // TODO Better error handling
-}
-
-bool Git::clone(QString url, QString path, mode_type mode) //, GitPlugin::RepoType type, QString pass)
-{
-    auto v =  overload {
-        [](const Unset & x)  { return "Unset"; },
-        [](const HTTP & x)   { return "HTTP"; },
-        [](const HTTPAuth & x)   { return "HTTPAuth"; },
-        [](const SSHAuth & x)   { return "SSHAuth"; },
-        [](const SSHKey & x)   { return "SSHKey"; },
-    };
-    qInfo() << "Cloning " << url << " to destination " << path << " using " << std::visit(v, mode);
-
-    LibGit::instance()->setMode(mode);
-    auto tmp_dir = this->cloneSetup();
-
-    qDebug() << "Cloning " << url << " to tmp dir " << tmp_dir.absolutePath();
-    auto ret = LibGit::instance()->clone(url, tmp_dir.absolutePath()); // TODO Better error handling
-
-    if (ret) {
-        this->moveToDestination(path, tmp_dir);
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qWarning() << "Can acquire git semaphore a command is already running ";
+        return false;
     }
-
-    this->cloneTearDown(tmp_dir);
-    LibGit::instance()->setMode(Unset());
-
-    return ret ;
+    auto v =  overload {
+      [](const HTTP & x)        { return "HTTP"; },
+        [](const HTTPUserPass & x)    { return "HTTPAuth"; },
+      [](const SSHPass & x)     { return "SSHAuth"; },
+      [](const SSHKey & x)      { return "SSHKey"; },
+    };
+    qDebug() << "Creating clone Job  " << url << " " << path << " " << std::visit(v, mode);
+    CloneJob *clone_job = new CloneJob(url, path, mode);
+    connect(clone_job, &CloneJob::resultReady, this, &Git::cloneResult);
+    connect(clone_job, &CloneJob::finished, clone_job, &QObject::deleteLater);
+    clone_job->start();
+    return true;
 }
 
 bool Git::cloneHttp(QString url, QString path)
 {
+    qInfo() << "Call clone command Http " << url << " " << path;
     HTTP mode = {};
     return this->clone(url, path, mode);
 }
 
 bool Git::cloneHttpPass(QString url, QString path, QString pass)
 {
-    HTTPAuth mode = { pass };
+    qInfo() << "Call clone command HttpPass " << url << " " << path;
+    HTTPUserPass mode = { pass };
     return this->clone(url, path, mode);
+}
+
+void Git::cloneResult(const bool err)
+{
+
+    if (err) {
+        emit cloneFailed(); // TODO error message
+    } else {
+        emit cloneSucceed();
+    }
+    this->m_sem->release();
 }

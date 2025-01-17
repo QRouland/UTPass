@@ -44,7 +44,7 @@ Page {
         }
 
         PageStackLink {
-            page: Qt.resolvedUrl("ImportGitClone.qml")
+            page: Qt.resolvedUrl("git/ImportGitClone.qml")
             text: i18n.tr('Import a Password Store using Git')
         }
 

@@ -2,13 +2,14 @@ import "../components"
 import Lomiri.Components 1.3
 import QtQuick 2.4
 import "headers"
+import Utils 1.0
 
 Page {
     id: infoPage
 
     Component.onCompleted: {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "../../manifest_.json", false);
+        xhr.open("GET", Utils.manifestPath(), false);
         xhr.send();
         var mJson = JSON.parse(xhr.responseText);
         manifestTitle.text = "<b>" + mJson.title + "</b>";

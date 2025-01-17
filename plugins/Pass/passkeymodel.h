@@ -11,8 +11,7 @@ using namespace GpgME;
  * @brief A model representing a user ID associated with a GPG key.
  *
  * This class encapsulates the user ID information (UID) for a GPG key, providing access
- * to the UID's identifier, name, and email. It is used as a model for user IDs in the
- * `PassKeyModel` class.
+ * to the UID's identifier, name, and email.
  */
 class UserIdModel : public QObject
 {

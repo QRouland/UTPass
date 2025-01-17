@@ -28,8 +28,7 @@ using namespace QGpgME;
  *
  * This class integrates with the GPGME (GnuPG Made Easy) library to provide functionalities
  * for interacting with GPG keys, including decrypting messages, importing keys from files,
- * listing keys, and deleting keys. The class also provides slots for handling results
- * of asynchronous GPG operations and communicates with the user via signals.
+ * listing keys, and deleting keys.
  */
 class Gpg: public QObject
 {

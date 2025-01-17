@@ -170,6 +170,7 @@ void Gpg::decryptResultSlot(const GpgME::DecryptionResult &result, const QByteAr
         qDebug() << "Code Error : " << result.error().code();
         qDebug() << "Error str : " << result.error().asString();
     }
+    qDebug() << "Cancelled : " << result.error().isCanceled();
     emit decryptResult(result.error(), QString::fromUtf8(plainText));
 }
 
