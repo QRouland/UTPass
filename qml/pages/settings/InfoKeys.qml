@@ -136,7 +136,7 @@ Page {
         id: infoKeysPageDeleteValidation
 
         SimpleValidationDialog {
-            text: i18n.tr("You're are about to delete<br>%1<br>.Continue ?").arg(infoKeysPage.currentKey.uid)
+            text: i18n.tr("You're are about to delete<br>%1.<br>Continue ?").arg(infoKeysPage.currentKey.uid)
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {

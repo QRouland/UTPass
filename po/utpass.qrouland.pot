@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 14:43+0100\n"
+"POT-Creation-Date: 2025-01-20 15:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -79,27 +79,27 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:43
+#: ../qml/pages/PasswordList.qml:44
 msgid "No password found"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:54
+#: ../qml/pages/PasswordList.qml:55
 msgid "You can import a password store by cloning or"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:60
+#: ../qml/pages/PasswordList.qml:61
 msgid "importing a password store zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:93
+#: ../qml/pages/PasswordList.qml:95
 msgid "Decryption failed !"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:107
+#: ../qml/pages/PasswordList.qml:109
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:114 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/PasswordList.qml:116 ../qml/pages/headers/MainHeader.qml:9
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""
@@ -117,26 +117,26 @@ msgstr ""
 msgid "Delete Password Store"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:57
+#: ../qml/pages/settings/DeleteRepo.qml:54
 msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:58
+#: ../qml/pages/settings/DeleteRepo.qml:55
 #: ../qml/pages/settings/ImportZip.qml:62
 #: ../qml/pages/settings/InfoKeys.qml:140
 #: ../qml/pages/settings/git/ImportGitClone.qml:55
 msgid "Yes"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:71
+#: ../qml/pages/settings/DeleteRepo.qml:68
 msgid "Password Store removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:80
+#: ../qml/pages/settings/DeleteRepo.qml:77
 msgid "Password Store deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:92
+#: ../qml/pages/settings/DeleteRepo.qml:89
 #: ../qml/pages/settings/InfoKeys.qml:182
 msgid "Info Keys"
 msgstr ""
@@ -184,7 +184,7 @@ msgid "Delete this key"
 msgstr ""
 
 #: ../qml/pages/settings/InfoKeys.qml:139
-msgid "You're are about to delete<br>%1<br>.Continue ?"
+msgid "You're are about to delete<br>%1.<br>Continue ?"
 msgstr ""
 
 #: ../qml/pages/settings/InfoKeys.qml:153

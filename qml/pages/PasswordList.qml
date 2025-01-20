@@ -33,6 +33,7 @@ Page {
         anchors.left: parent.left
         anchors.leftMargin: units.gu(2)
         anchors.rightMargin: units.gu(2)
+        visible: folderModel.count == 0
 
         Rectangle {
             width: parent.width
@@ -70,6 +71,7 @@ Page {
         anchors.right: parent.right
         anchors.left: parent.left
         spacing: 1
+        visible: folderModel.count != 0
 
         model: FolderListModel {
             id: folderModel

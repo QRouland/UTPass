@@ -23,7 +23,7 @@ void CloneJob::run()
 {
     auto tmp_dir = this->cloneSetup();
     auto err = this->clone(this->m_url,  tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
-    if (err) {
+    if (!err) {
         this->moveToDestination(tmp_dir, this->m_path);
     }
     this->cloneTearDown(tmp_dir);
