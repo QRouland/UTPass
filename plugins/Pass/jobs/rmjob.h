@@ -24,7 +24,7 @@ signals:
     /**
      * @brief Signal emitted when the rm operation is complete.
      *
-     * @param err A boolean indicating whether an error occurred during cloning.
+     * @param err A boolean indicating whether an error occurred during removing.
      *        `true` if an error occurred, `false` if the clone was successful.
      */
     void resultReady(const bool err);

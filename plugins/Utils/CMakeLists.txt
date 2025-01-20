@@ -5,6 +5,7 @@ set(
         SRC
         plugin.cpp
         utils.cpp
+        jobs/unzipjob.cpp
 )
 
 set(CMAKE_AUTOMOC ON)

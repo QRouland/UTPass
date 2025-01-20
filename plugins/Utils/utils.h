@@ -4,6 +4,8 @@
 #include <QObject>
 #include <QUrl>
 #include <QQuickWindow>
+#include <memory>
+#include <QSemaphore>
 
 /**
  * @class Utils
@@ -16,16 +18,34 @@ class Utils : public QObject
 {
     Q_OBJECT
 
-public:
+
+private slots:
     /**
-     * @brief Default constructor for the Utils class.
+     * @brief Slot to handle the result of a unzip operation.
+     * @param err True if an error occurred during the operation.
      */
-    Utils() = default;
+    void unzipResult(bool err);
+
+signals:
+    /**
+     * @brief Emitted when the archive is successfully extracted.
+     */
+    void unzipSucceed();
 
     /**
-     * @brief Default destructor for the Utils class.
+     * @brief Emitted when the unzipping operation fails.
+     * @param message The error message describing the failure.
      */
-    ~Utils() override = default;
+    void unzipFailed(QString message);
+
+private:
+    std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
+
+public:
+    /**
+     * @brief Constructor for the Utils class.
+     */
+    Utils();
 
     /**
      * @brief Unzips a ZIP file to the specified output directory.
@@ -39,25 +59,6 @@ public:
      */
     Q_INVOKABLE bool unzip(QUrl zip_url, QString dir_out);
 
-    /**
-     * @brief Removes a file at the specified URL.
-     *
-     * This method deletes a file at the specified URL.
-     *
-     * @param file_url The URL of the file to delete.
-     * @return `true` if the file was successfully removed, `false` otherwise.
-     */
-    Q_INVOKABLE bool rmFile(QUrl file_url);
-
-    /**
-     * @brief Removes a directory at the specified URL.
-     *
-     * This method deletes a directory at the specified URL, along with its contents.
-     *
-     * @param dir_url The URL of the directory to remove.
-     * @return `true` if the directory was successfully removed, `false` otherwise.
-     */
-    Q_INVOKABLE bool rmDir(QUrl dir_url);
 
 
     /**

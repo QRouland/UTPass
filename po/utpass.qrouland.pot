@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 15:00+0100\n"
+"POT-Creation-Date: 2025-01-20 15:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
 
 #: ../qml/pages/settings/DeleteRepo.qml:55
-#: ../qml/pages/settings/ImportZip.qml:62
+#: ../qml/pages/settings/ImportZip.qml:66
 #: ../qml/pages/settings/InfoKeys.qml:140
 #: ../qml/pages/settings/git/ImportGitClone.qml:55
 msgid "Yes"
@@ -153,21 +153,21 @@ msgstr ""
 msgid "GPG Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:61
+#: ../qml/pages/settings/ImportZip.qml:65
 msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:75
+#: ../qml/pages/settings/ImportZip.qml:79
 msgid "Password store import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:84
+#: ../qml/pages/settings/ImportZip.qml:88
 #: ../qml/pages/settings/git/ImportGitClone.qml:77
 msgid "Password store sucessfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:96
+#: ../qml/pages/settings/ImportZip.qml:100
 msgid "Zip Password Store Import"
 msgstr ""
 

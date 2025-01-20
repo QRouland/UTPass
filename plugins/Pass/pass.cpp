@@ -71,6 +71,9 @@ void Pass::showResult(Error err, QString plain_text)
 
 bool Pass::deletePasswordStore()
 {
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        return false;
+    }
     qInfo() << "Pass delete Password Store";
     auto job = new RmJob(this->password_store());
     qDebug() << "Delete Password Store at " << this->password_store();
@@ -82,6 +85,7 @@ bool Pass::deletePasswordStore()
 
 void Pass::deletePasswordStoreResult(bool err)
 {
+
     qDebug() << "Pass delete Password StoreResult";
     if (err) { //dir.removeRecursively()) {
         qInfo() << "Pass delete Password Store Failed";
@@ -91,6 +95,7 @@ void Pass::deletePasswordStoreResult(bool err)
         qInfo() << "Pass delete Password Store Succeed";
         emit deletePasswordStoreSucceed();
     }
+    this->m_sem->release(1);
 }
 
 

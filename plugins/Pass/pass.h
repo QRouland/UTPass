@@ -137,7 +137,7 @@ private:
 
 public:
     /**
-     * @brief Constructs the Pass object and initializes necessary resources.
+     * @brief Constructs the Pass object.
      */
     Pass();
 
