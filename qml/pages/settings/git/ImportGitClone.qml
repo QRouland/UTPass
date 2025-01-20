@@ -18,7 +18,7 @@ Page {
             PopupUtils.open(dialogGitCloneError);
         });
         PopupUtils.open(importGitCloneValidation, importGitClonePage);
-        importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttp.qml")
+        importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttp.qml");
     }
 
     Column {
@@ -44,6 +44,7 @@ Page {
 
             width: parent.width
         }
+
     }
 
     Component {

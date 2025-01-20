@@ -1,7 +1,7 @@
-import QtQuick 2.4
 import Git 1.0
 import Lomiri.Components 1.3
 import Pass 1.0
+import QtQuick 2.4
 
 Column {
     width: parent.width

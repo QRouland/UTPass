@@ -234,7 +234,7 @@ void Gpg::getKeysJobResultSlot(const GpgME::KeyListResult &result, const std::ve
                                const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
 {
     if (result.error()) {
-        qWarning() << "Something gone wrong on decrypt";
+        qWarning() << "Something gone wrong on getKeys";
         qDebug() << "Code Error : " << result.error().code();
         qDebug() << "Error str : " << result.error().asString();
     }
@@ -287,14 +287,13 @@ Error Gpg::deleteKey(const Key key)
     QObject::connect(job, &DeleteJob::result,
                      this, &Gpg::deleteKeySlot);
 
-    return openpgp()->deleteJob()->start(key, true);
+    return job->start(key, true);
 }
 
 void Gpg::deleteKeySlot(const GpgME::Error &error, const QString &auditLogAsHtml, const GpgME::Error &auditLogError)
 {
-
     if (error) {
-        qWarning() << "Something gone wrong on decrypt";
+        qWarning() << "Something gone wrong on deleteKey";
         qDebug() << "Code Error : " << error.code();
         qDebug() << "Error str : " << error.asString();
     }

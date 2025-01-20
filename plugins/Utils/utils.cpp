@@ -59,7 +59,8 @@ bool Utils::rmDir(QUrl dir_url)
     return dir.removeRecursively();
 }
 
-QString Utils::manifestPath(){
+QString Utils::manifestPath()
+{
     auto path = QDir(QDir::currentPath()).filePath("manifest_.json");
     qDebug() << "Manifest path : " << path;
     return path;

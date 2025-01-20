@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-17 10:40+0100\n"
+"POT-Creation-Date: 2025-01-20 11:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,7 +85,7 @@ msgid ""
 "a zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:71 ../qml/pages/settings/InfoKeys.qml:169
+#: ../qml/pages/PasswordList.qml:71 ../qml/pages/settings/InfoKeys.qml:171
 msgid "Decryption failed !"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgid ""
 msgstr ""
 
 #: ../qml/pages/settings/ImportZip.qml:62
-#: ../qml/pages/settings/InfoKeys.qml:131
+#: ../qml/pages/settings/InfoKeys.qml:137
 #: ../qml/pages/settings/git/ImportGitClone.qml:54
 msgid "Yes"
 msgstr ""
@@ -142,31 +142,31 @@ msgstr ""
 msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:48
+#: ../qml/pages/settings/InfoKeys.qml:54
 msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:82
+#: ../qml/pages/settings/InfoKeys.qml:88
 msgid "Users IDs : "
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:108
+#: ../qml/pages/settings/InfoKeys.qml:114
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:130
+#: ../qml/pages/settings/InfoKeys.qml:136
 msgid "You're are about to delete<br>%1<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:148
+#: ../qml/pages/settings/InfoKeys.qml:150
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:157
+#: ../qml/pages/settings/InfoKeys.qml:159
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:177
+#: ../qml/pages/settings/InfoKeys.qml:179
 msgid "Info Keys"
 msgstr ""
 

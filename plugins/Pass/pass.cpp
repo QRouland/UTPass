@@ -43,7 +43,7 @@ bool Pass::show(QUrl url)
         return false;
     }
     auto path = url.toLocalFile();
-    qInfo() << "Staring decrypting job for " << path;
+    qInfo() << "Pass show  " << path;
     QFileInfo file_info(path);
     this->m_show_filename = file_info.completeBaseName();
     return this->m_gpg->decryptFromFile(path);
@@ -51,36 +51,39 @@ bool Pass::show(QUrl url)
 
 void Pass::showResult(Error err, QString plain_text)
 {
-    qInfo() << "Result for decrypting job";
+    qDebug() << "Pass show Result";
     if (err) {
-        qInfo() << "Decrypt Failed";
+        qInfo() << "Pass show Failed";
         emit showFailed(err.asString());
 
-    }  else if (err.isCanceled()){
-            qInfo() << "Decrypt Cancelled";
-            emit showCancelled();
+    }  else if (err.isCanceled()) {
+        qInfo() << "Pass show Cancelled";
+        emit showCancelled();
     } else {
-        qInfo() << "Decrypt OK";
+        qInfo() << "Pass show Succeed";
         emit showSucceed(this->m_show_filename, plain_text);
     }
     this->m_show_filename = QString();
     this->m_sem->release(1);
 }
 
-bool Pass::deleteGPGKey(Key key)
+bool Pass::deleteGPGKey(PassKeyModel* key)
 {
     if (!this->m_sem->tryAcquire(1, 500)) {
         return false;
     }
-    qInfo() << "Deleting Key";
-    return this->m_gpg->deleteKey(key);
+    qInfo() << "Delete Key " << key->uid();
+    return this->m_gpg->deleteKey(key->key());
 }
 
 void Pass::deleteGPGKeyResult(Error err)
 {
+    qDebug() << "Delete Ke yResult";
     if (err) {
+        qInfo() << "Delete Key Failed";
         emit deleteGPGKeyFailed(err.asString());
     } else {
+        qInfo() << "Delete Key Succeed";
         emit deleteGPGKeySucceed();
     }
     this->m_sem->release(1);
@@ -91,15 +94,18 @@ bool Pass::importGPGKey(QUrl url)
     if (!this->m_sem->tryAcquire(1, 500)) {
         return false;
     }
-    qInfo() << "Importing Key from " << url;
+    qInfo() << "Import GPG Key from " << url;
     return this->m_gpg->importKeysFromFile(url.toLocalFile());
 }
 
 void Pass::importGPGKeyResult(Error err)
 {
+    qDebug() << "Import GPG Key Result";
     if (err) {
+        qInfo() << "Delete Key Failed";
         emit importGPGKeyFailed(err.asString());
     } else {
+        qInfo() << "Delete Key Succeed";
         emit importGPGKeySucceed();
     }
     this->m_sem->release(1);
@@ -110,15 +116,18 @@ bool Pass::getAllGPGKeys()
     if (!this->m_sem->tryAcquire(1, 500)) {
         return false;
     }
-    qInfo() << "Getting all key form gpg ";
+    qInfo() << "Get GPG keys";
     return this->m_gpg->getAllKeys();
 }
 
 void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info)
 {
+    qDebug() << "Get GPG keys Result";
     if (err) {
+        qInfo() << "Get GPG Failed";
         emit getAllGPGKeysFailed(err.asString());
     } else {
+        qInfo() << "Get GPG Succeed";
         emit getAllGPGKeysSucceed(QVariant::fromValue(PassKeyModel::keysToPassKey(keys_info)));
     }
     this->m_sem->release(1);
@@ -126,6 +135,6 @@ void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info)
 
 void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
 {
-    qDebug() << "responsePassphraseDialog";
+    qDebug() << "Propagate responsePassphraseDialog";
     emit responsePassphraseDialogPropagate(cancel, passphrase);
 }

@@ -79,8 +79,6 @@ signals:
      */
     void getAllGPGKeysSucceed(QVariant keys_info);
 
-
-
     /**
      * @brief Emitted when retrieving GPG keys fails.
      * @param message The error message describing the failure.
@@ -144,10 +142,10 @@ public:
 
     /**
      * @brief Deletes the specified GPG key.
-     * @param key The GPG key to delete.
+     * @param key The PassKeyModel to delete.
      * @return True if the operation was successful, false otherwise.
      */
-    Q_INVOKABLE bool deleteGPGKey(Key key);
+    Q_INVOKABLE bool deleteGPGKey(PassKeyModel* key);
 
     /**
      * @brief Imports a GPG key from the given URL.

@@ -30,10 +30,10 @@ bool Git::clone(QString url, QString path, cred_type mode)
         return false;
     }
     auto v =  overload {
-      [](const HTTP & x)        { return "HTTP"; },
+        [](const HTTP & x)        { return "HTTP"; },
         [](const HTTPUserPass & x)    { return "HTTPAuth"; },
-      [](const SSHPass & x)     { return "SSHAuth"; },
-      [](const SSHKey & x)      { return "SSHKey"; },
+        [](const SSHPass & x)     { return "SSHAuth"; },
+        [](const SSHKey & x)      { return "SSHKey"; },
     };
     qDebug() << "Creating clone Job  " << url << " " << path << " " << std::visit(v, mode);
     CloneJob *clone_job = new CloneJob(url, path, mode);

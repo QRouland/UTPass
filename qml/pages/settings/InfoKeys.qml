@@ -9,7 +9,7 @@ import QtQuick 2.4
 Page {
     id: infoKeysPage
 
-    property string currentKey
+    property QtObject currentKey
 
     Component.onCompleted: {
         Pass.onGetAllGPGKeysSucceed.connect(function(keys_info) {
@@ -17,6 +17,12 @@ Page {
         });
         Pass.getAllGPGKeysFailed.connect(function(message) {
             PopupUtils.open(infoKeysPageGetAllError);
+        });
+        Pass.deleteGPGKeySucceed.connect(function(keys_info) {
+            PopupUtils.open(infoKeysPageDeleteSuccess);
+        });
+        Pass.deleteGPGKeyFailed.connect(function(message) {
+            PopupUtils.open(infoKeysPageDeleteError);
         });
         Pass.getAllGPGKeys();
     }
@@ -108,7 +114,7 @@ Page {
                 text: i18n.tr("Delete this key")
                 color: theme.palette.normal.negative
                 onClicked: {
-                    infoKeysPage.currentKey = model.modelData.uid;
+                    infoKeysPage.currentKey = model.modelData;
                     PopupUtils.open(infoKeysPageDeleteValidation, infoKeysPage);
                 }
             }
@@ -127,15 +133,11 @@ Page {
         id: infoKeysPageDeleteValidation
 
         SimpleValidationDialog {
-            text: i18n.tr("You're are about to delete<br>%1<br>Continue ?").arg(infoKeysPage.currentKey)
+            text: i18n.tr("You're are about to delete<br>%1<br>Continue ?").arg(infoKeysPage.currentKey.uid)
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {
                 var status = Pass.deleteGPGKey(infoKeysPage.currentKey);
-                if (status)
-                    PopupUtils.open(infoKeysPageDeleteSuccess);
-                else
-                    PopupUtils.open(infoKeysPageDeleteError);
             }
         }
 

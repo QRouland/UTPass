@@ -19,7 +19,8 @@ CloneJob::CloneJob(QString url, QString path, cred_type cred):
 }
 
 
-void CloneJob::run() {
+void CloneJob::run()
+{
     auto tmp_dir = this->cloneSetup();
     auto err = this->clone(this->m_url,  tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
     if (err) {
