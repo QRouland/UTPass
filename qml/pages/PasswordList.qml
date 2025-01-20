@@ -26,17 +26,39 @@ Page {
         });
     }
 
-    Rectangle {
+    Column {
         anchors.top: passwordListHeader.bottom
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        visible: folderModel.count == 0
+        anchors.leftMargin: units.gu(2)
+        anchors.rightMargin: units.gu(2)
+
+        Rectangle {
+            width: parent.width
+            height: units.gu(1)
+        }
 
         Text {
-            text: i18n.tr("No password found<br>You can import a password store by cloning or importing a zip in the settings")
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
+            text: i18n.tr("No password found")
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Rectangle {
+            width: parent.width
+            height: units.gu(1)
+        }
+
+        Text {
+            text: i18n.tr("You can import a password store by cloning or")
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Text {
+            text: i18n.tr("importing a password store zip in the settings")
+            width: parent.width
             horizontalAlignment: Text.AlignHCenter
         }
 

@@ -12,7 +12,7 @@ Page {
     property QtObject currentKey
 
     Component.onCompleted: {
-        Pass.onGetAllGPGKeysSucceed.connect(function(keys_info) {
+        Pass.getAllGPGKeysSucceed.connect(function(keys_info) {
             infoKeysListView.model = keys_info;
         });
         Pass.getAllGPGKeysFailed.connect(function(message) {
@@ -34,6 +34,8 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
+        anchors.leftMargin: units.gu(2)
+        anchors.rightMargin: units.gu(2)
 
         delegate: Grid {
             columns: 1
@@ -111,6 +113,7 @@ Page {
             Button {
                 id: buttonDeleteKey
 
+                width: parent.width
                 text: i18n.tr("Delete this key")
                 color: theme.palette.normal.negative
                 onClicked: {
@@ -133,7 +136,7 @@ Page {
         id: infoKeysPageDeleteValidation
 
         SimpleValidationDialog {
-            text: i18n.tr("You're are about to delete<br>%1<br>Continue ?").arg(infoKeysPage.currentKey.uid)
+            text: i18n.tr("You're are about to delete<br>%1<br>.Continue ?").arg(infoKeysPage.currentKey.uid)
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {
@@ -168,7 +171,7 @@ Page {
         id: infoKeysPageGetAllError
 
         ErrorDialog {
-            textError: i18n.tr("Decryption failed !")
+            textError: i18n.tr("An Error occured getting GPG keys !")
         }
 
     }

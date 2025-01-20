@@ -49,6 +49,12 @@ private slots:
      */
     void getAllGPGKeysResult(Error err, std::vector<GpgME::Key> keys_info);
 
+    /**
+     * @brief Slot to handle the result of a delete Password Store operation.
+     * @param err True if an error occurred during the operation.
+     */
+    void deletePasswordStoreResult(bool err);
+
 signals:
     // GPG-related signals
     /**
@@ -111,6 +117,18 @@ signals:
      */
     void showCancelled();
 
+
+    /**
+     * @brief Emitted when the password store is successfully deleted.
+     */
+    void deletePasswordStoreSucceed();
+
+    /**
+     * @brief Emitted when deleting the password store fails.
+     * @param message The error message describing the failure.
+     */
+    void deletePasswordStoreFailed(QString message);
+
 private:
     QString m_password_store; /**< The path to the password store. */
     std::unique_ptr<Gpg> m_gpg; /**< The GPG instance used for encryption/decryption. */
@@ -141,22 +159,22 @@ public:
     // GPG-related methods
 
     /**
-     * @brief Deletes the specified GPG key.
+     * @brief Launch the job to delete the specified GPG key.
      * @param key The PassKeyModel to delete.
-     * @return True if the operation was successful, false otherwise.
+     * @return True if the job was start successfully, false otherwise.
      */
     Q_INVOKABLE bool deleteGPGKey(PassKeyModel* key);
 
     /**
-     * @brief Imports a GPG key from the given URL.
+     * @brief Launch the job to import a GPG key from the given URL.
      * @param url The URL to import the GPG key from.
-     * @return True if the operation was successful, false otherwise.
+     * @return True if the job was start was successfully, false otherwise.
      */
     Q_INVOKABLE bool importGPGKey(QUrl url);
 
     /**
-     * @brief Retrieves all GPG keys.
-     * @return True if the operation was successful, false otherwise.
+     * @brief  Launch the to retrieve all GPG keys.
+     * @return True if the job was start was successfully, false otherwise.
      */
     Q_INVOKABLE bool getAllGPGKeys();
 
@@ -170,11 +188,17 @@ public:
     // Password store-related methods
 
     /**
-     * @brief Shows the password associated with the specified URL.
+     * @brief Launch the job to shows the password associated with the specified URL.
      * @param url The URL pointing to the password store entry.
-     * @return True if the operation was successful, false otherwise.
+     * @return True if the job was start successfully, false otherwise.
      */
     Q_INVOKABLE bool show(QUrl url);
+
+    /**
+     * @brief Launch the job to delete the password store.
+     * @return True if  if the job was start successfully, false otherwise.
+     */
+    Q_INVOKABLE bool deletePasswordStore();
 };
 
 #endif

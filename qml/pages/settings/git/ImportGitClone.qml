@@ -11,10 +11,10 @@ Page {
     id: importGitClonePage
 
     Component.onCompleted: {
-        Git.onCloneSucceed.connect(function() {
+        Git.cloneSucceed.connect(function() {
             PopupUtils.open(dialogGitCloneSuccess);
         });
-        Git.onCloneFailed.connect(function() {
+        Git.cloneFailed.connect(function() {
             PopupUtils.open(dialogGitCloneError);
         });
         PopupUtils.open(importGitCloneValidation, importGitClonePage);

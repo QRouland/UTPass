@@ -2,6 +2,7 @@
 #include <QtCore/QStandardPaths>
 #include <QtCore/QDir>
 
+#include "jobs/rmjob.h"
 #include "pass.h"
 #include "gpg.h"
 #include "passkeymodel.h"
@@ -49,6 +50,7 @@ bool Pass::show(QUrl url)
     return this->m_gpg->decryptFromFile(path);
 }
 
+
 void Pass::showResult(Error err, QString plain_text)
 {
     qDebug() << "Pass show Result";
@@ -66,6 +68,31 @@ void Pass::showResult(Error err, QString plain_text)
     this->m_show_filename = QString();
     this->m_sem->release(1);
 }
+
+bool Pass::deletePasswordStore()
+{
+    qInfo() << "Pass delete Password Store";
+    auto job = new RmJob(this->password_store());
+    qDebug() << "Delete Password Store at " << this->password_store();
+    connect(job, &RmJob::resultReady, this, &Pass::deletePasswordStoreResult);
+    connect(job, &RmJob::finished, job, &QObject::deleteLater);
+    job->start();
+    return true;
+}
+
+void Pass::deletePasswordStoreResult(bool err)
+{
+    qDebug() << "Pass delete Password StoreResult";
+    if (err) { //dir.removeRecursively()) {
+        qInfo() << "Pass delete Password Store Failed";
+        emit deletePasswordStoreFailed("failed to delete password store");
+
+    } else {
+        qInfo() << "Pass delete Password Store Succeed";
+        emit deletePasswordStoreSucceed();
+    }
+}
+
 
 bool Pass::deleteGPGKey(PassKeyModel* key)
 {

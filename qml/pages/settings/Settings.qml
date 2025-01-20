@@ -53,6 +53,11 @@ Page {
             text: i18n.tr('Import a Password Store Zip')
         }
 
+        PageStackLink {
+            page: Qt.resolvedUrl("DeleteRepo.qml")
+            text: i18n.tr('Delete Password Store')
+        }
+
         Text {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

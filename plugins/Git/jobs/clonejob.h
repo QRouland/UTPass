@@ -11,8 +11,6 @@ extern "C" {
  * @class CloneJob
  * @brief A class to handle cloning Git repositories in a separate thread.
  *
- * The CloneJob runs a cloning process in a separate thread and emits
- * signals to indicate the success or failure of the operation.
  */
 class CloneJob : public GitJob
 {
@@ -21,9 +19,8 @@ class CloneJob : public GitJob
     /**
      * @brief The main function that performs the cloning operation.
      *
-     * This function overrides the `run()` method from the `QThread` class. It is
-     * executed when the thread is started, and it handles the process of cloning
-     * a repository from the specified URL to the target path.
+     * Handles the process of cloning a repository from the specified URL
+     * to the target path.
      */
     void run() override;
 
@@ -31,8 +28,7 @@ signals:
     /**
      * @brief Signal emitted when the cloning operation is complete.
      *
-     * This signal is emitted once the cloning operation finishes. It notifies
-     * the caller whether an error occurred during the cloning process.
+     * This signal is emitted once the cloning operation finishes.
      *
      * @param err A boolean indicating whether an error occurred during cloning.
      *        `true` if an error occurred, `false` if the clone was successful.
@@ -47,8 +43,6 @@ private:
      * @brief Prepares the temporary directory for cloning.
      *
      * This method sets up the required directory structure for cloning a repository.
-     * It is called before the cloning process begins to ensure that a suitable
-     * location exists for the repository to be cloned into.
      *
      * @return A `QDir` object representing the prepared temporary directory.
      */

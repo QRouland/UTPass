@@ -8,6 +8,7 @@ set(
         gpg.cpp
         passkeymodel.h
         passphraseprovider.h
+        jobs/rmjob.cpp
 )
 
 set(CMAKE_AUTOMOC ON)

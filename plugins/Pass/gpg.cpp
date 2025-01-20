@@ -25,7 +25,6 @@
 
 
 #include "gpg.h"
-#include "passkeymodel.h"
 #include "passphraseprovider.h"
 
 

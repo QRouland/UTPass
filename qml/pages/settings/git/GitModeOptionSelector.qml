@@ -11,12 +11,12 @@ OptionSelector {
     onDelegateClicked: function(i) {
         if (i === 0)
             timer.setTimeout(function() {
-                importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttp.qml");
-            }, 500);
+            importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttp.qml");
+        }, 500);
         else if (i === 1)
             timer.setTimeout(function() {
-                importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttpAuth.qml");
-            }, 500);
+            importGitCloneForm.source = Qt.resolvedUrl("GitCloneHttpAuth.qml");
+        }, 500);
     }
 
     Timer {

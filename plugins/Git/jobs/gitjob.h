@@ -30,10 +30,8 @@ typedef std::variant<HTTP, HTTPUserPass, SSHPass, SSHKey> cred_type;
  * @class GitJob
  * @brief A class that manages Git-related tasks using libgit2.
  *
- * The GitJob class is used to perform Git operations, such as cloning repositories,
- * in a separate thread. It utilizes libgit2 for interacting with Git repositories.
- * The class handles credentials for repository access and allows the user to specify
- * the type of credentials to use.
+ * The GitJob class is used abstraction class to perform Git operations, such as cloning repositories,
+ * in a separate thread using libgit2 for interacting with Git repositories.
  */
 class GitJob : public QThread
 {
