@@ -6,34 +6,37 @@ scripts:
   style: >-
     echo 'Running Astyle :' && astyle --options=.astylerc --recursive '*.cpp,*.h' --exclude=build && echo 'Running QmlFormat' && find . -name "*.qml" -exec qmlformat -i {} \; && echo 'Success'
 
-skip_review: true
-
 
 dependencies_target:
-- libgpgmepp-dev
-- libgpgme-dev
 - libgit2-dev
 - libquazip5-dev
-- gpg-agent
-- gpgconf
+- libgpgmepp-dev
+- libgpgme-dev
 - gpg
-- fakechroot:all
+
+libraries:
+  rnp:
+    builder: cmake
+    make_jobs: 2
+    dependencies_target:
+    - libbz2-dev
+    - zlib1g-dev
+    - libjson-c-dev
+    build_args: [
+        -DCRYPTO_BACKEND=openssl
+    ]
 
 install_lib:
-- "libgpg-error.so.0.28.0"
-- "libassuan.so*"
-- "libgpgme.so*"
-- "libgpgmepp.so*"
-- "libqgpgme.so*"
 - "libgit2.so*"
-- "libquazip5.so*"
 - "libmbedtls.so*"
 - "libmbedx509.so*"
 - "libmbedcrypto.so*"
 - "libhttp_parser.so*"
 - "libssh2.so*"
+- "libquazip5.so*"
+- "libgpg-error.so.0.28.0"
+- "libassuan.so*"
+- "libgpgme.so*"
+- "libgpgmepp.so*"
+- "libqgpgme.so*"
 
-install_bin:
-- "fakechroot"
-- "gpg-agent"
-- "gpg"
