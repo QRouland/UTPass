@@ -21,11 +21,16 @@ MainView {
         pop.activateFocus();
     }
 
+
     objectName: "mainView"
     applicationName: "utpass.qrouland"
     automaticOrientation: true
     width: units.gu(45)
     height: units.gu(75)
+
+    Component.onCompleted: {
+        myWorker.sendMessage("Hello World !")
+    }
 
     PageStack {
         id: pageStack

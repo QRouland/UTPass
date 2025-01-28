@@ -14,6 +14,7 @@ Column {
         verticalAlignment: Text.AlignVCenter
         width: parent.width
         text: i18n.tr('Repo Url')
+        color: theme.palette.normal.backgroundText
     }
 
     TextField {
@@ -22,6 +23,13 @@ Column {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         width: parent.width
+        placeholderText: "http(s)://<hostname>"
+    }
+
+    Rectangle {
+        width: parent.width
+        height: units.gu(1)
+        color: theme.palette.normal.background
     }
 
     Button {

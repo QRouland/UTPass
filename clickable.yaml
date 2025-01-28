@@ -6,7 +6,7 @@ scripts:
   style: >-
     echo 'Running Astyle :' && astyle --options=.astylerc --recursive '*.cpp,*.h' --exclude=build && echo 'Running QmlFormat' && find . -name "*.qml" -exec qmlformat -i {} \; && echo 'Success'
 
-
+skip_review: true
 
 
 dependencies_target:
@@ -14,7 +14,10 @@ dependencies_target:
 - libgpgme-dev
 - libgit2-dev
 - libquazip5-dev
+- gpg-agent
+- gpgconf
 - gpg
+- fakechroot:all
 
 install_lib:
 - "libgpg-error.so.0.28.0"
@@ -31,4 +34,6 @@ install_lib:
 - "libssh2.so*"
 
 install_bin:
+- "fakechroot"
+- "gpg-agent"
 - "gpg"

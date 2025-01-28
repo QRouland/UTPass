@@ -14,6 +14,7 @@ Column {
         verticalAlignment: Text.AlignVCenter
         width: parent.width
         text: i18n.tr('Repo Url')
+        color: theme.palette.normal.backgroundText
     }
 
     TextField {
@@ -22,6 +23,7 @@ Column {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         width: parent.width
+        placeholderText: "http(s)://<username>@<hostname>"
     }
 
     Text {
@@ -31,6 +33,7 @@ Column {
         verticalAlignment: Text.AlignVCenter
         width: parent.width
         text: i18n.tr('Password')
+        color: theme.palette.normal.backgroundText
     }
 
     TextField {
@@ -40,6 +43,13 @@ Column {
         verticalAlignment: Text.AlignVCenter
         width: parent.width
         echoMode: TextInput.Password
+        placeholderText: i18n.tr('Password')
+    }
+
+    Rectangle {
+        width: parent.width
+        height: units.gu(1)
+        color: theme.palette.normal.background
     }
 
     Button {

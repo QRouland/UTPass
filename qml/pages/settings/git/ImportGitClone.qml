@@ -33,6 +33,7 @@ Page {
         Rectangle {
             width: parent.width
             height: units.gu(1)
+            color: theme.palette.normal.background
         }
 
         GitModeOptionSelector {

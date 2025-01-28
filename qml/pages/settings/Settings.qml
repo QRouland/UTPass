@@ -63,7 +63,7 @@ Page {
             verticalAlignment: Text.AlignVCenter
             width: parent.width
             height: units.gu(4)
-            color: LomiriColors.red
+            color: theme.palette.normal.negative
             text: i18n.tr('Warning: importing delete any exiting Password Store')
         }
 

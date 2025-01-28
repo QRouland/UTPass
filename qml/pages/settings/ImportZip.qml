@@ -13,16 +13,6 @@ Page {
     property var activeTransfer
 
     Component.onCompleted: {
-        Utils.unzipSucceed.connect(function() {
-            PopupUtils.open(dialogImportZipPageSuccess);
-            // Utils.rmFile(importZipPage.activeTransfer.items[0].url);
-            importZipPage.activeTransfer = null;
-        });
-        Utils.unzipFailed.connect(function(message) {
-            PopupUtils.open(dialogImportZipPageError);
-            // Utils.rmFile(importZipPage.activeTransfer.items[0].url);
-            importZipPage.activeTransfer = null;
-        });
         PopupUtils.open(importZipPageImportValidation, importZipPage);
     }
 
@@ -43,6 +33,14 @@ Page {
                     console.log("Charged");
                     console.log(importZipPage.activeTransfer.items[0].url);
                     var status = Utils.unzip(importZipPage.activeTransfer.items[0].url, Pass.getPasswordStore());
+                    Utils.unzipSucceed.connect(function() {
+                        importZipPage.activeTransfer = null;
+                        PopupUtils.open(dialogImportZipPageSuccess);
+                    });
+                    Utils.unzipFailed.connect(function(message) {
+                        importZipPage.activeTransfer = null;
+                        PopupUtils.open(dialogImportZipPageError);
+                    });
                 }
             });
         }

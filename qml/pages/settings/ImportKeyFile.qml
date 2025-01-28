@@ -29,12 +29,14 @@ Page {
                     console.log("Charged");
                     console.log(importKeyFilePage.activeTransfer.items[0].url);
                     var status = Pass.importGPGKey(importKeyFilePage.activeTransfer.items[0].url);
-                    Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
-                    if (status)
+                    Pass.importGPGKeySucceed.connect(function() {
+                        importKeyFilePage.activeTransfer = null;
                         PopupUtils.open(dialogImportKeyPageSucess);
-                    else
+                    });
+                    Pass.importGPGKeyFailed.connect(function(message) {
+                        importKeyFilePage.activeTransfer = null;
                         PopupUtils.open(dialogImportKeyPageError);
-                    importKeyFilePage.activeTransfer = null;
+                    });
                 }
             });
         }

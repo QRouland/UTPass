@@ -38,29 +38,34 @@ Page {
         Rectangle {
             width: parent.width
             height: units.gu(1)
+            color: theme.palette.normal.background
         }
 
         Text {
             text: i18n.tr("No password found")
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            color: theme.palette.normal.backgroundText
         }
 
         Rectangle {
             width: parent.width
             height: units.gu(1)
+            color: theme.palette.normal.background
         }
 
         Text {
             text: i18n.tr("You can import a password store by cloning or")
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            color: theme.palette.normal.backgroundText
         }
 
         Text {
             text: i18n.tr("importing a password store zip in the settings")
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
+            color: theme.palette.normal.backgroundText
         }
 
     }

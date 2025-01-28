@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-20 15:56+0100\n"
+"POT-Creation-Date: 2025-01-28 09:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,12 +38,12 @@ msgid "passphrase"
 msgstr ""
 
 #: ../qml/dialogs/PassphraseDialog.qml:29
-#: ../qml/dialogs/SimpleValidationDialog.qml:9
+#: ../qml/dialogs/SimpleValidationDialog.qml:8
 msgid "Ok"
 msgstr ""
 
 #: ../qml/dialogs/PassphraseDialog.qml:41
-#: ../qml/dialogs/SimpleValidationDialog.qml:34
+#: ../qml/dialogs/SimpleValidationDialog.qml:29
 msgid "Cancel"
 msgstr ""
 
@@ -79,27 +79,27 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:44
+#: ../qml/pages/PasswordList.qml:45
 msgid "No password found"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:55
+#: ../qml/pages/PasswordList.qml:58
 msgid "You can import a password store by cloning or"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:61
+#: ../qml/pages/PasswordList.qml:65
 msgid "importing a password store zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:95
+#: ../qml/pages/PasswordList.qml:100
 msgid "Decryption failed !"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:109
+#: ../qml/pages/PasswordList.qml:114
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:116 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/PasswordList.qml:121 ../qml/pages/headers/MainHeader.qml:9
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""
@@ -112,90 +112,94 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:41
+#: ../qml/pages/settings/DeleteRepo.qml:43
 #: ../qml/pages/settings/Settings.qml:58
 msgid "Delete Password Store"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:54
+#: ../qml/pages/settings/DeleteRepo.qml:56
 msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:55
-#: ../qml/pages/settings/ImportZip.qml:66
-#: ../qml/pages/settings/InfoKeys.qml:140
-#: ../qml/pages/settings/git/ImportGitClone.qml:55
+#: ../qml/pages/settings/DeleteRepo.qml:57
+#: ../qml/pages/settings/ImportZip.qml:64
+#: ../qml/pages/settings/InfoKeys.qml:170
+#: ../qml/pages/settings/git/ImportGitClone.qml:56
 msgid "Yes"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:68
+#: ../qml/pages/settings/DeleteRepo.qml:70
 msgid "Password Store removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:77
+#: ../qml/pages/settings/DeleteRepo.qml:79
 msgid "Password Store deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:89
-#: ../qml/pages/settings/InfoKeys.qml:182
+#: ../qml/pages/settings/DeleteRepo.qml:91
+#: ../qml/pages/settings/InfoKeys.qml:212
 msgid "Info Keys"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:57
+#: ../qml/pages/settings/ImportKeyFile.qml:59
 msgid "Key import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:66
+#: ../qml/pages/settings/ImportKeyFile.qml:68
 msgid "Key successfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:77
+#: ../qml/pages/settings/ImportKeyFile.qml:79
 msgid "GPG Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:65
+#: ../qml/pages/settings/ImportZip.qml:63
 msgid ""
 "Importing a new zip will delete<br>any existing password store!<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:79
+#: ../qml/pages/settings/ImportZip.qml:77
 msgid "Password store import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:88
-#: ../qml/pages/settings/git/ImportGitClone.qml:77
+#: ../qml/pages/settings/ImportZip.qml:86
+#: ../qml/pages/settings/git/ImportGitClone.qml:78
 msgid "Password store sucessfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportZip.qml:100
+#: ../qml/pages/settings/ImportZip.qml:98
 msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:56
+#: ../qml/pages/settings/InfoKeys.qml:49
+msgid "No key found"
+msgstr ""
+
+#: ../qml/pages/settings/InfoKeys.qml:85
 msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:90
+#: ../qml/pages/settings/InfoKeys.qml:120
 msgid "Users IDs : "
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:117
+#: ../qml/pages/settings/InfoKeys.qml:147
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:139
+#: ../qml/pages/settings/InfoKeys.qml:169
 msgid "You're are about to delete<br>%1.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:153
+#: ../qml/pages/settings/InfoKeys.qml:183
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:162
+#: ../qml/pages/settings/InfoKeys.qml:192
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:174
+#: ../qml/pages/settings/InfoKeys.qml:204
 msgid "An Error occured getting GPG keys !"
 msgstr ""
 
@@ -232,25 +236,26 @@ msgstr ""
 msgid "Repo Url"
 msgstr ""
 
-#: ../qml/pages/settings/git/GitCloneHttp.qml:32
-#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:50
+#: ../qml/pages/settings/git/GitCloneHttp.qml:40
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:60
 msgid "Clone"
 msgstr ""
 
-#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:33
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:35
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:46
 msgid "Password"
 msgstr ""
 
-#: ../qml/pages/settings/git/ImportGitClone.qml:54
+#: ../qml/pages/settings/git/ImportGitClone.qml:55
 msgid ""
 "Importing a git repo will delete<br>any existing password store!"
 "<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/git/ImportGitClone.qml:68
+#: ../qml/pages/settings/git/ImportGitClone.qml:69
 msgid "An error occured during git clone !"
 msgstr ""
 
-#: ../qml/pages/settings/git/ImportGitClone.qml:89
+#: ../qml/pages/settings/git/ImportGitClone.qml:90
 msgid "Git Clone Import"
 msgstr ""

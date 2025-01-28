@@ -8,12 +8,15 @@ import QtQuick 2.4
 
 Page {
     id: infoKeysPage
-
-    property QtObject currentKey
+    property list<QtObject> __keys
+    property QtObject __currentKey
 
     Component.onCompleted: {
         Pass.getAllGPGKeysSucceed.connect(function(keys_info) {
-            infoKeysListView.model = keys_info;
+            infoKeysPage.__keys = keys_info;
+            for (var i = 0; i < keys_info.length; ++i) {
+                console.debug("is secret " + keys_info[i].isSecret)
+            }
         });
         Pass.getAllGPGKeysFailed.connect(function(message) {
             PopupUtils.open(infoKeysPageGetAllError);
@@ -27,6 +30,30 @@ Page {
         Pass.getAllGPGKeys();
     }
 
+    Column {
+        anchors.top: infoKeysHeader.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.leftMargin: units.gu(2)
+        anchors.rightMargin: units.gu(2)
+        visible: infoKeysPage.__keys.length === 0
+
+        Rectangle {
+            width: parent.width
+            height: units.gu(1)
+            color: theme.palette.normal.background
+        }
+
+        Text {
+            text: i18n.tr("No key found")
+            width: parent.width
+            horizontalAlignment: Text.AlignHCenter
+            color: theme.palette.normal.backgroundText
+        }
+
+    }
+
     ListView {
         id: infoKeysListView
 
@@ -36,6 +63,8 @@ Page {
         anchors.left: parent.left
         anchors.leftMargin: units.gu(2)
         anchors.rightMargin: units.gu(2)
+        visible: infoKeysPage.__keys.length !== 0
+        model: infoKeysPage.__keys
 
         delegate: Grid {
             columns: 1
@@ -79,6 +108,7 @@ Page {
                         userIdsModel.append({
                             "model": model.modelData.userIds[i]
                         });
+
                     }
                 }
             }
@@ -117,7 +147,7 @@ Page {
                 text: i18n.tr("Delete this key")
                 color: theme.palette.normal.negative
                 onClicked: {
-                    infoKeysPage.currentKey = model.modelData;
+                    infoKeysPage.__currentKey = model.modelData;
                     PopupUtils.open(infoKeysPageDeleteValidation, infoKeysPage);
                 }
             }
@@ -136,11 +166,11 @@ Page {
         id: infoKeysPageDeleteValidation
 
         SimpleValidationDialog {
-            text: i18n.tr("You're are about to delete<br>%1.<br>Continue ?").arg(infoKeysPage.currentKey.uid)
+            text: i18n.tr("You're are about to delete<br>%1.<br>Continue ?").arg(infoKeysPage.__currentKey.uid)
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {
-                var status = Pass.deleteGPGKey(infoKeysPage.currentKey);
+                var status = Pass.deleteGPGKey(infoKeysPage.__currentKey);
             }
         }
 
