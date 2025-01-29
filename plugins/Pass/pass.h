@@ -1,12 +1,16 @@
 #ifndef PASS_H
 #define PASS_H
 
+#include "passkeymodel.h"
+#include <QDebug>
 #include <QObject>
 #include <QUrl>
 #include <QVariant>
 #include <gpgme++/context.h>
-
-#include "gpg.h"
+#include <QSemaphore>
+extern "C" {
+#include <rnp/rnp.h>
+}
 
 using namespace GpgME;
 
@@ -20,7 +24,8 @@ using namespace GpgME;
 class Pass : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString password_store READ password_store MEMBER m_password_store CONSTANT)
+    Q_PROPERTY(QString password_store  MEMBER m_password_store READ password_store WRITE set_password_store )
+    Q_PROPERTY(QString gpg_home  MEMBER m_gpg_home READ gpg_home WRITE set_gpg_home )
 
 private slots:
     /**
@@ -37,11 +42,16 @@ private slots:
     void deleteGPGKeyResult(Error err);
 
     /**
-     * @brief Slot to handle the result of a GPG key import operation.
+     * @brief Slot to handle the error result of a GPG key import operation.
      * @param err The error that occurred during the operation.
      */
-    void importGPGKeyResult(Error err);
+    void slotImportGPGKeyError(rnp_result_t err);
 
+    /**
+     * @brief Slot to handle the succeed result of a GPG key import operation.
+     * @param err The error that occurred during the operation.
+     */
+    void slotImportGPGKeySucceed();
     /**
      * @brief Slot to handle the result of retrieving all GPG keys.
      * @param err The error that occurred during the operation.
@@ -131,7 +141,8 @@ signals:
 
 private:
     QString m_password_store; /**< The path to the password store. */
-    std::unique_ptr<Gpg> m_gpg; /**< The GPG instance used for encryption/decryption. */
+    QString m_gpg_home; /**< The path to the gpg home. */
+    PassphraseProvider* m_passphrase_provider; /**< Semaphore for managing concurrent operations. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
     QString m_show_filename; /**< The filename associated with the password to show. */
 
@@ -147,8 +158,49 @@ public:
      */
     QString password_store() const
     {
-        return m_password_store;
+        return this->m_password_store;
     };
+
+    /**
+     * @brief Set the path to the password store.
+     * @param The path to the password store.
+     */
+    void set_password_store(QString password_store)
+    {
+        qInfo() << "Password Store changed to :" << password_store;
+        this->m_password_store = password_store;
+    };
+
+    /**
+     * @brief Gets the path to the gpg home.
+     * @return The path to the gpg home.
+     */
+    QString gpg_home() const
+    {
+        return this->m_gpg_home;
+    };
+
+    /**
+     * @brief Set the path to the gpg hom.
+     * @param The path to the gpg hom
+     */
+    void set_gpg_home(QString gpg_home)
+    {
+        qInfo() << "GNUPG Home changed to :" << gpg_home;
+        this->m_gpg_home = gpg_home;
+    };
+
+    /**
+     * @brief Sets the window passphrase provider used for GPG authentication.
+     *
+     * PassphraseProvider will be deleted with destructor.
+     *
+     * @param The window used by passphrase provider.
+     */
+    void set_passphrase_provider(PassphraseProvider* passphrase_provider)
+    {
+        this->m_passphrase_provider = passphrase_provider;
+    }
 
     /**
      * @brief Initializes the Pass object with the given window.

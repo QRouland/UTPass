@@ -1,7 +1,7 @@
 #ifndef GITJOB_H
 #define GITJOB_H
 
-#include "qthread.h"
+#include <QThread>
 extern "C" {
 #include <git2.h>
 }

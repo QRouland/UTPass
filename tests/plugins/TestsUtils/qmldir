@@ -1,2 +1,2 @@
-module TestUtils
-plugin TestUtils
+module TestsUtils
+plugin TestsUtils

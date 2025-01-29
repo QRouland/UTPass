@@ -5,10 +5,10 @@ set(
         SRC
         plugin.cpp
         pass.cpp
-        gpg.cpp
         passkeymodel.h
-        passphraseprovider.h
         jobs/rmjob.cpp
+        jobs/rnpjob.cpp
+        jobs/importkeyjob.cpp
 )
 
 set(CMAKE_AUTOMOC ON)
@@ -31,10 +31,15 @@ qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
 set(RNP_BUILD_DIR "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/rnp/install")
 
+find_package(OpenSSL REQUIRED)
+
 INCLUDE_DIRECTORIES(${RNP_BUILD_DIR}/include)
 
 add_library(rnp STATIC IMPORTED)
 set_property(TARGET rnp PROPERTY IMPORTED_LOCATION "${RNP_BUILD_DIR}/lib/librnp.a")
+
+add_library(sexpp STATIC IMPORTED)
+set_property(TARGET sexpp PROPERTY IMPORTED_LOCATION "${RNP_BUILD_DIR}/lib/libsexpp.a")
 
 add_library(gpgerror SHARED IMPORTED)
 set_property(TARGET gpgerror PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libgpg-error.so.0.28.0")
@@ -52,8 +57,7 @@ add_library(libqgpgme SHARED IMPORTED)
 set_property(TARGET libqgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libqgpgme.so")
 
 
-target_link_libraries(${PLUGIN} rnp gpgerror libassuan libgpgme libgpgmepp libqgpgme)
-
+target_link_libraries(${PLUGIN} rnp sexpp gpgerror libassuan libgpgme libgpgmepp libqgpgme OpenSSL::Crypto)
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
 install(TARGETS ${PLUGIN} DESTINATION ${QT_IMPORTS_DIR}/${PLUGIN}/)

@@ -2,13 +2,16 @@
 #define UTPASSPHRASEPROVIDER_H
 
 #include <QDebug>
+#include <gpg-error.h>
+#include <memory>
 #include <stdio.h>
 #include <QObject>
 #include <QQmlProperty>
 #include <QEventLoop>
 #include <QSemaphore>
 #include <gpgme++/interfaces/passphraseprovider.h>
-#include "gpg.h"
+
+using namespace  GpgME;
 
 /**
  * @class UTPassphraseProvider
@@ -17,7 +20,7 @@
  * This class implements the `PassphraseProvider` interface from GPGME and is responsible for
  * obtaining passphrases for GPG operations.
  */
-class UTPassphraseProvider : public QObject, public PassphraseProvider
+class UTPassphraseProvider : public QObject, public GpgME::PassphraseProvider
 {
     Q_OBJECT
 

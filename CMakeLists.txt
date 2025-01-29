@@ -39,9 +39,13 @@ if(NOT TESTS_PATH)
     set(TESTS_PATH "./tests")
 endif()
 
-configure_file(main.in.cpp main.cpp)
+if(TESTS_RUNNER)
+    configure_file(tests.in.cpp tests.cpp)
+    add_executable(${PROJECT_NAME} tests.cpp)
+else()
+    add_executable(${PROJECT_NAME} main.cpp)
+endif()
 
-add_executable(${PROJECT_NAME} main.cpp)
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick QuickTest)
 
 if(TESTS_RUNNER)

@@ -1,6 +1,6 @@
 import QtQuick 2.9
 import QtTest 1.2
-import TestUtils 1.0
+import TestsUtils 1.0
 import Utils 1.0
 
 TestCase {
