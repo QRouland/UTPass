@@ -7,13 +7,14 @@
 
 class TesTPassphraseProvider : public QObject, public GpgME::PassphraseProvider
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     char *getPassphrase(const char *useridHint,
                         const char *description,
                         bool previousWasBad,
-                        bool &canceled) override {
+                        bool &canceled) override
+    {
 
         char *ret;
         gpgrt_asprintf(&ret, "%s", "utpasspassphrase");

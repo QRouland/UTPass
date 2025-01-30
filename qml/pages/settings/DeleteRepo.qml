@@ -29,7 +29,6 @@ Page {
         anchors.rightMargin: units.gu(2)
         spacing: units.gu(1)
 
-
         Rectangle {
             width: parent.width
             height: units.gu(1)

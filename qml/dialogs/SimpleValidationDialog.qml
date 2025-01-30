@@ -11,7 +11,6 @@ Dialog {
     signal validated()
     signal canceled()
 
-
     Button {
         id: continueButton
 

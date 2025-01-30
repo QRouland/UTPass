@@ -49,15 +49,19 @@ private slots:
 
     /**
      * @brief Slot to handle the succeed result of a GPG key import operation.
-     * @param err The error that occurred during the operation.
      */
     void slotImportGPGKeySucceed();
+
     /**
      * @brief Slot to handle the result of retrieving all GPG keys.
      * @param err The error that occurred during the operation.
-     * @param keys_info The list of GPG keys retrieved.
      */
-    void getAllGPGKeysResult(Error err, std::vector<GpgME::Key> keys_info);
+    void slotGetAllGPGKeysError(rnp_result_t err);
+
+    /**
+     * @brief Slot to handle the succeed result of a GPG key get all keys operation.
+     */
+    void slotGetAllGPGKeysSucceed(QSet<QString> result);
 
     /**
      * @brief Slot to handle the result of a delete Password Store operation.
@@ -93,7 +97,7 @@ signals:
      * @brief Emitted when all GPG keys are successfully retrieved.
      * @param keys_info The list of retrieved keys.
      */
-    void getAllGPGKeysSucceed(QVariant keys_info);
+    void getAllGPGKeysSucceed(QList<QString> keys_info);
 
     /**
      * @brief Emitted when retrieving GPG keys fails.
@@ -142,9 +146,20 @@ signals:
 private:
     QString m_password_store; /**< The path to the password store. */
     QString m_gpg_home; /**< The path to the gpg home. */
-    PassphraseProvider* m_passphrase_provider; /**< Semaphore for managing concurrent operations. */
+    PassphraseProvider *m_passphrase_provider; /**< Semaphore for managing concurrent operations. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
     QString m_show_filename; /**< The filename associated with the password to show. */
+
+
+    /**
+     * @brief Initialize gpg home.
+     */
+    void initGpgHome();
+
+    /**
+     * @brief Initialize password store.
+     */
+    void initPasswordStore();
 
 public:
     /**
@@ -167,7 +182,7 @@ public:
      */
     void set_password_store(QString password_store)
     {
-        qInfo() << "Password Store changed to :" << password_store;
+        qInfo() << "[Pass] Password Store changed to :" << password_store;
         this->m_password_store = password_store;
     };
 
@@ -186,7 +201,7 @@ public:
      */
     void set_gpg_home(QString gpg_home)
     {
-        qInfo() << "GNUPG Home changed to :" << gpg_home;
+        qInfo() << "[Pass] GPG Home changed to :" << gpg_home;
         this->m_gpg_home = gpg_home;
     };
 

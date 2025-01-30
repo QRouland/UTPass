@@ -20,19 +20,22 @@ class ImportKeyJob : public RnpJob
      */
     void run() override;
 
+signals:
+    void resultSuccess();
 
 private:
     QString m_key_file_path; ///< The path of the key file to import.
 
 public:
     /**
-     * @brief Constructor for the RmJob class.
+     * @brief Constructor for the ImportKeyJob class.
      *
      * Initializes the ImportKeyJob with the file to import.
      *
+     * @param rnp_homedir Rnp home dir that contains the keyrings.
      * @param path Path of the key file to import.
      */
-    ImportKeyJob(QDir rnp_homedir, QString key_file_path);
+    ImportKeyJob(QDir rnp_homedir, QString path);
 };
 
 #endif // IMPORTKEYJOB_H

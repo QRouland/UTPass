@@ -2,6 +2,7 @@
 #include <QtCore/QStandardPaths>
 #include <QtCore/QDir>
 
+#include "jobs/getkeysjob.h"
 #include "jobs/importkeyjob.h"
 #include "pass.h"
 
@@ -11,33 +12,46 @@ Pass::Pass():
     m_password_store (QStandardPaths::writableLocation(
                           QStandardPaths::AppDataLocation).append("/.password-store")),
     m_gpg_home (QStandardPaths::writableLocation(
-                     QStandardPaths::AppDataLocation).append("/.rnp")),
+                    QStandardPaths::AppDataLocation).append("/.rnp")),
     m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
     m_show_filename(QString())
 {
-    qRegisterMetaType<rnp_result_t>("rnp_result_t");
+
 }
 
 void Pass::initialize(QObject *window)
 {
     if (!window) {
-        qWarning("Window should not be null unless your in testing");
+        qWarning("[Pass] Window should be null only for testing");
     }
+    this->initGpgHome();
+    this->initPasswordStore();
+}
 
-    // this->m_gpg = std::unique_ptr<Gpg>(new Gpg(window));
-    // UTPassphraseProvider *passphrase_provider = dynamic_cast<UTPassphraseProvider*>(this->m_gpg->passphrase_provider());
-    // QObject::connect(this, &Pass::responsePassphraseDialogPropagate, passphrase_provider,
-    //                  &UTPassphraseProvider::handleResponse);
 
-    // QObject::connect(this->m_gpg.get(), &Gpg::getKeysResult, this, &Pass::getAllGPGKeysResult);
-    // QObject::connect(this->m_gpg.get(), &Gpg::deleteKeyResult, this, &Pass::deleteGPGKeyResult);
-    // QObject::connect(this->m_gpg.get(), &Gpg::decryptResult, this, &Pass::showResult);
+void Pass::initGpgHome()
+{
+    // delete gpghome from previous version using GPGME
+    QString path = QStandardPaths::writableLocation(
+                       QStandardPaths::AppDataLocation).append("/.gpghome");
+    QDir dir(path);
+    dir.removeRecursively();
 
-    QDir dir(m_password_store);
-    if (!dir.exists()) {
-        dir.mkpath(".");
+    // create gpghome for rnp
+    QDir dir_gpg_home(this->m_gpg_home);
+    if (!dir_gpg_home.exists()) {
+        dir_gpg_home.mkpath(".");
     }
-    qInfo() << "Password Store is :" << m_password_store;
+    qInfo() << "[Pass] GPG Home is :" << m_gpg_home;
+}
+
+void Pass::initPasswordStore()
+{
+    QDir dir_password_store(this->m_password_store);
+    if (!dir_password_store.exists()) {
+        dir_password_store.mkpath(".");
+    }
+    qInfo() << "[Pass] Password Store is :" << m_password_store;
 }
 
 // bool Pass::show(QUrl url)
@@ -125,9 +139,9 @@ void Pass::initialize(QObject *window)
 
 bool Pass::importGPGKey(QUrl url)
 {
-    qInfo() << "Import GPG Key from " << url;
+    qInfo() << "[Pass] Import GPG Key from " << url;
     if (!this->m_sem->tryAcquire(1, 500)) {
-        qInfo() << "A job is already running";
+        qInfo() << "[Pass] A job is already running";
         return false;
     }
     auto job = new ImportKeyJob(this->m_gpg_home, url.toLocalFile());
@@ -140,26 +154,46 @@ bool Pass::importGPGKey(QUrl url)
 
 void Pass::slotImportGPGKeyError(rnp_result_t err)
 {
-    qDebug() << "Import GPG Key Failed";
+    qInfo() << "[Pass] Import GPG Key Failed";
     emit importGPGKeyFailed(rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
 void Pass::slotImportGPGKeySucceed()
 {
-    qDebug() << "Import GPG Key Failed";
+    qInfo() << "[Pass] Import GPG Key Succesfull";
     emit importGPGKeySucceed();
     this->m_sem->release(1);
 }
 
-// bool Pass::getAllGPGKeys()
-// {
-//     if (!this->m_sem->tryAcquire(1, 500)) {
-//         return false;
-//     }
-//     qInfo() << "Get GPG keys";
-//     return this->m_gpg->getAllKeys();
-// }
+bool Pass::getAllGPGKeys()
+{
+    qInfo() << "[Pass] Get all GPG Keys";
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qInfo() << "[Pass] A job is already running";
+        return false;
+    }
+    auto job = new GetKeysJob(this->m_gpg_home);
+    QObject::connect(job, &GetKeysJob::resultError, this, &Pass::slotGetAllGPGKeysError);
+    QObject::connect(job, &GetKeysJob::resultSuccess, this, &Pass::slotGetAllGPGKeysSucceed);
+    connect(job, &ImportKeyJob::finished, job, &QObject::deleteLater);
+    job->start();
+    return true;
+}
+
+void Pass::slotGetAllGPGKeysError(rnp_result_t err)
+{
+    qInfo() << "[Pass] Get all GPG Keys Failed";
+    emit getAllGPGKeysFailed(rnp_result_to_string(err));
+    this->m_sem->release(1);
+}
+
+void Pass::slotGetAllGPGKeysSucceed(QSet<QString> result)
+{
+    qInfo() << "[Pass] Get all GPG Keys Succeed";
+    emit getAllGPGKeysSucceed(result.values());
+    this->m_sem->release(1);
+}
 
 // void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info)
 // {

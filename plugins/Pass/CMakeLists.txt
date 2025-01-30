@@ -8,6 +8,7 @@ set(
         passkeymodel.h
         jobs/rmjob.cpp
         jobs/rnpjob.cpp
+        jobs/getkeysjob.cpp
         jobs/importkeyjob.cpp
 )
 
@@ -32,6 +33,7 @@ qt5_use_modules(${PLUGIN} Qml Quick DBus)
 set(RNP_BUILD_DIR "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/rnp/install")
 
 find_package(OpenSSL REQUIRED)
+find_package(JSON-C 0.11)
 
 INCLUDE_DIRECTORIES(${RNP_BUILD_DIR}/include)
 
@@ -57,7 +59,7 @@ add_library(libqgpgme SHARED IMPORTED)
 set_property(TARGET libqgpgme PROPERTY IMPORTED_LOCATION "/usr/lib/${ARCH_TRIPLET}/libqgpgme.so")
 
 
-target_link_libraries(${PLUGIN} rnp sexpp gpgerror libassuan libgpgme libgpgmepp libqgpgme OpenSSL::Crypto)
+target_link_libraries(${PLUGIN} rnp sexpp gpgerror libassuan libgpgme libgpgmepp libqgpgme OpenSSL::Crypto JSON-C::JSON-C)
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
 install(TARGETS ${PLUGIN} DESTINATION ${QT_IMPORTS_DIR}/${PLUGIN}/)

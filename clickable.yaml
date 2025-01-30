@@ -12,6 +12,7 @@ dependencies_target:
 - libquazip5-dev
 - libgpgmepp-dev
 - libgpgme-dev
+- libjson-c-dev
 - gpg
 
 libraries:

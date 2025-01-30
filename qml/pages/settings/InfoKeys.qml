@@ -8,6 +8,7 @@ import QtQuick 2.4
 
 Page {
     id: infoKeysPage
+
     property list<QtObject> __keys
     property QtObject __currentKey
 
@@ -15,7 +16,7 @@ Page {
         Pass.getAllGPGKeysSucceed.connect(function(keys_info) {
             infoKeysPage.__keys = keys_info;
             for (var i = 0; i < keys_info.length; ++i) {
-                console.debug("is secret " + keys_info[i].isSecret)
+                console.debug("is secret " + keys_info[i].isSecret);
             }
         });
         Pass.getAllGPGKeysFailed.connect(function(message) {
@@ -108,7 +109,6 @@ Page {
                         userIdsModel.append({
                             "model": model.modelData.userIds[i]
                         });
-
                     }
                 }
             }

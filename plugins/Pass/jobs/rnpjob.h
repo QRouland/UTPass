@@ -9,10 +9,10 @@ extern "C" {
 #include <variant>
 
 
-#define terminateWithError(ret)                              \
+#define terminateOnError(ret)                              \
 if(ret != RNP_SUCCESS) {                                        \
-    qDebug() << "Err : " << ret;                                \
-    qDebug() << "Err Msg : " << rnp_result_to_string(ret);      \
+    qDebug() << "[RnpJob] Err : " << ret;                                \
+    qDebug() << "[RnpJob] Err Msg : " << rnp_result_to_string(ret);      \
     emit resultError(ret);                                      \
     return;                                                     \
 }                                                               \
@@ -30,16 +30,16 @@ class RnpJob : public QThread
 
 signals:
     void resultError(const rnp_result_t err);
-    void resultSuccess();
 
 private:
     static bool passProvider(rnp_ffi_t        ffi,
-                         void *           app_ctx,
-                         rnp_key_handle_t key,
-                         const char *     pgp_context,
-                         char             buf[],
-                         size_t           buf_len);
+                             void            *app_ctx,
+                             rnp_key_handle_t key,
+                             const char      *pgp_context,
+                             char             buf[],
+                             size_t           buf_len);
     QDir m_rnp_homedir; ///< rmp ffi.
+    void load_key_file(QSet<QString> *fingerprints, const QString path, const uint32_t flags);
 
 protected:
     rnp_ffi_t m_ffi; ///< rmp ffi.
@@ -49,7 +49,8 @@ protected:
      *
      * @return The path to public keys keyring
      */
-    QString pubringPath() {
+    QString pubringPath()
+    {
         return this->m_rnp_homedir.filePath("pubring.pgp");
     }
 
@@ -58,16 +59,22 @@ protected:
      *
      * @return The path to secret keys keyring
      */
-    QString secringPath() {
+    QString secringPath()
+    {
         return this->m_rnp_homedir.filePath("secring.pgp");
     }
 
+    void load_sec_keyring(QSet<QString> *fingerprints);
+    void load_pub_keyring(QSet<QString> *fingerprints);
+    void load_full_keyring(QSet<QString> *fingerprints);
 
 public:
     /**
      * @brief Constructor for the RnpJob class.
      *
      * Initializes the RnpJob instance.
+     *
+     * @param rnp_homedir Rnp home dir that contains the keyrings.
      */
     RnpJob(QDir rnp_homedir);
 

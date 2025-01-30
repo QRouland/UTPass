@@ -3,9 +3,9 @@ import QtQuick 2.9
 import QtTest 1.2
 
 TestCase {
-    function test_import_key(){
+    function test_import_key() {
         var homedir = TestUtils.getTempPath();
-        Pass
+        Pass;
         verify(false);
     }
 
