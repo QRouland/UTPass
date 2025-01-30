@@ -97,7 +97,7 @@ signals:
      * @brief Emitted when all GPG keys are successfully retrieved.
      * @param keys_info The list of retrieved keys.
      */
-    void getAllGPGKeysSucceed(QList<QString> keys_info);
+    void getAllGPGKeysSucceed(QObject* keys_info);
 
     /**
      * @brief Emitted when retrieving GPG keys fails.
@@ -146,9 +146,9 @@ signals:
 private:
     QString m_password_store; /**< The path to the password store. */
     QString m_gpg_home; /**< The path to the gpg home. */
-    PassphraseProvider *m_passphrase_provider; /**< Semaphore for managing concurrent operations. */
+    std::unique_ptr<PassKeyringModel> m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
+    PassphraseProvider *m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
-    QString m_show_filename; /**< The filename associated with the password to show. */
 
 
     /**

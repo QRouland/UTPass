@@ -13,8 +13,7 @@ Pass::Pass():
                           QStandardPaths::AppDataLocation).append("/.password-store")),
     m_gpg_home (QStandardPaths::writableLocation(
                     QStandardPaths::AppDataLocation).append("/.rnp")),
-    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
-    m_show_filename(QString())
+    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1)))
 {
 
 }
@@ -173,6 +172,7 @@ bool Pass::getAllGPGKeys()
         qInfo() << "[Pass] A job is already running";
         return false;
     }
+    this->m_keyring_model = nullptr;
     auto job = new GetKeysJob(this->m_gpg_home);
     QObject::connect(job, &GetKeysJob::resultError, this, &Pass::slotGetAllGPGKeysError);
     QObject::connect(job, &GetKeysJob::resultSuccess, this, &Pass::slotGetAllGPGKeysSucceed);
@@ -184,6 +184,7 @@ bool Pass::getAllGPGKeys()
 void Pass::slotGetAllGPGKeysError(rnp_result_t err)
 {
     qInfo() << "[Pass] Get all GPG Keys Failed";
+    this->m_keyring_model = nullptr;
     emit getAllGPGKeysFailed(rnp_result_to_string(err));
     this->m_sem->release(1);
 }
@@ -191,22 +192,10 @@ void Pass::slotGetAllGPGKeysError(rnp_result_t err)
 void Pass::slotGetAllGPGKeysSucceed(QSet<QString> result)
 {
     qInfo() << "[Pass] Get all GPG Keys Succeed";
-    emit getAllGPGKeysSucceed(result.values());
+    this->m_keyring_model = std::unique_ptr<PassKeyringModel>(new PassKeyringModel(result));
+    emit getAllGPGKeysSucceed(this->m_keyring_model.get());
     this->m_sem->release(1);
 }
-
-// void Pass::getAllGPGKeysResult(Error err,  std::vector<GpgME::Key> keys_info)
-// {
-//     qDebug() << "Get GPG keys Result";
-//     if (err) {
-//         qInfo() << "Get GPG Failed";
-//         emit getAllGPGKeysFailed(err.asString());
-//     } else {
-//         qInfo() << "Get GPG Succeed";
-//         emit getAllGPGKeysSucceed(QVariant::fromValue(PassKeyModel::keysToPassKey(keys_info)));
-//     }
-//     this->m_sem->release(1);
-// }
 
 // void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
 // {

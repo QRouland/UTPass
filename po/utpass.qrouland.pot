@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-30 16:16+0100\n"
+"POT-Creation-Date: 2025-01-30 22:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid "Ok"
 msgstr ""
 
 #: ../qml/dialogs/PassphraseDialog.qml:41
-#: ../qml/dialogs/SimpleValidationDialog.qml:29
+#: ../qml/dialogs/SimpleValidationDialog.qml:28
 msgid "Cancel"
 msgstr ""
 
@@ -112,31 +112,31 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:43
+#: ../qml/pages/settings/DeleteRepo.qml:42
 #: ../qml/pages/settings/Settings.qml:58
 msgid "Delete Password Store"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:56
+#: ../qml/pages/settings/DeleteRepo.qml:55
 msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:57
+#: ../qml/pages/settings/DeleteRepo.qml:56
 #: ../qml/pages/settings/ImportZip.qml:64
 #: ../qml/pages/settings/InfoKeys.qml:170
 #: ../qml/pages/settings/git/ImportGitClone.qml:56
 msgid "Yes"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:70
+#: ../qml/pages/settings/DeleteRepo.qml:69
 msgid "Password Store removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:79
+#: ../qml/pages/settings/DeleteRepo.qml:78
 msgid "Password Store deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/DeleteRepo.qml:91
+#: ../qml/pages/settings/DeleteRepo.qml:90
 #: ../qml/pages/settings/InfoKeys.qml:212
 msgid "Info Keys"
 msgstr ""
@@ -171,11 +171,11 @@ msgstr ""
 msgid "Zip Password Store Import"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:49
+#: ../qml/pages/settings/InfoKeys.qml:50
 msgid "No key found"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:85
+#: ../qml/pages/settings/InfoKeys.qml:86
 msgid "Key ID :"
 msgstr ""
 
