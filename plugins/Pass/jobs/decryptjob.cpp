@@ -9,6 +9,7 @@ DecryptJob::DecryptJob(QString path, QString keyfile):
 
 void DecryptJob::run()
 {
+    this->load_sec_keyring();
     rnp_input_from_path(&keyfile, "secring.pgp"));
     qFatal("To be implemented !")
 }

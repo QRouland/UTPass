@@ -6,7 +6,7 @@
 
 /**
  * @class RmJob
- * @brief A class to handle removing recursively a path in a separate thread.
+ * @brief A job to handle the recursive removal of a path in a separate thread.
  *
  */
 class RmJob : public QThread
@@ -14,31 +14,37 @@ class RmJob : public QThread
     Q_OBJECT
 
     /**
-     * @brief The main function that performs the rm operation.
+     * @brief Executes the recursive remove operation.
      *
-     * Handles the process of removing recursively a target path.
+     * This method performs the recursive removal of the specified target path.
+     * The operation is performed in the background to prevent blocking of the main
+     * application thread.
      */
     void run() override;
 
 signals:
     /**
-     * @brief Signal emitted when the rm operation is complete.
+     * @brief Emitted when the remove operation completes.
      *
-     * @param err A boolean indicating whether an error occurred during removing.
-     *        `true` if an error occurred, `false` if the clone was successful.
+     * This signal is emitted once the removal process is complete, indicating
+     * whether the operation succeeded or failed.
+     *
+     * @param err A boolean indicating whether an error occurred during the removal.
+     *        `true` if an error occurred, `false` if the operation was successful.
      */
     void resultReady(const bool err);
 
 private:
-    QString m_path; ///< The path to be removed.
+    QString m_path; /**< The path to be removed. */
 
 public:
     /**
-     * @brief Constructor for the RmJob class.
+     * @brief Constructs an RmJob object with the specified path.
      *
-     * Initializes the RmJob with the specified path to be removed.
+     * This constructor initializes the job with the path of the directory or file to be
+     * removed. The job will be executed in a separate thread when started.
      *
-     * @param path Path to be remove.
+     * @param path The path to the file or directory that should be removed.
      */
     RmJob(QString path);
 };

@@ -140,7 +140,7 @@ bool Pass::importGPGKey(QUrl url)
 {
     qInfo() << "[Pass] Import GPG Key from " << url;
     if (!this->m_sem->tryAcquire(1, 500)) {
-        qInfo() << "[Pass] A job is already running";
+        qInfo() << "[Pass] A command is already running";
         return false;
     }
     auto job = new ImportKeyJob(this->m_gpg_home, url.toLocalFile());
@@ -169,7 +169,7 @@ bool Pass::getAllGPGKeys()
 {
     qInfo() << "[Pass] Get all GPG Keys";
     if (!this->m_sem->tryAcquire(1, 500)) {
-        qInfo() << "[Pass] A job is already running";
+        qInfo() << "[Pass] A command is already running";
         return false;
     }
     this->m_keyring_model = nullptr;
@@ -189,7 +189,7 @@ void Pass::slotGetAllGPGKeysError(rnp_result_t err)
     this->m_sem->release(1);
 }
 
-void Pass::slotGetAllGPGKeysSucceed(QSet<QString> result)
+void Pass::slotGetAllGPGKeysSucceed(QList<QJsonDocument> result)
 {
     qInfo() << "[Pass] Get all GPG Keys Succeed";
     this->m_keyring_model = std::unique_ptr<PassKeyringModel>(new PassKeyringModel(result));

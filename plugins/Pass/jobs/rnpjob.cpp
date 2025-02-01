@@ -13,13 +13,13 @@ RnpJob::RnpJob(QDir rnp_homedir):
     m_rnp_homedir(rnp_homedir)
 {
     qRegisterMetaType<rnp_result_t>("rnp_result_t");
-    qRegisterMetaType<QSet<QString >> ("QSet<QString>");
-
+    qRegisterMetaType<QList<QJsonDocument >> ("QList<QJsonDocument>");
+    qRegisterMetaType<QString *>("QString*");
 
     auto ret = rnp_ffi_create(&this->m_ffi,
                               RNP_KEYSTORE_GPG,
                               RNP_KEYSTORE_GPG);
-    if(ret != RNP_SUCCESS) {
+    if (ret != RNP_SUCCESS) {
         qDebug() << "[RnpJob] Err : " << ret;
         qFatal("Error on rnp ffi init!");
     }
@@ -28,7 +28,7 @@ RnpJob::RnpJob(QDir rnp_homedir):
 RnpJob::~RnpJob()
 {
     auto ret = rnp_ffi_destroy(this->m_ffi);
-    if(ret != RNP_SUCCESS) {
+    if (ret != RNP_SUCCESS) {
         qDebug() << "[RnpJob] Err : " << ret;
         qFatal("Something go wrong on rnp ffi detroy");
     }
@@ -50,7 +50,7 @@ bool RnpJob::passProvider(rnp_ffi_t        ffi,
 }
 
 
-void RnpJob::load_key_file(QSet<QString> *fingerprints, const QString path, const uint32_t flags)
+void RnpJob::load_key_file(QSet<QString> *result_fingerprints, const QString path, const uint32_t flags)
 {
     qDebug() << "[RnpJob] load keyring at" << path;
     rnp_input_t input = NULL;
@@ -62,15 +62,14 @@ void RnpJob::load_key_file(QSet<QString> *fingerprints, const QString path, cons
                                   input,
                                   flags,
                                   &json);
-            if (ret != RNP_SUCCESS) {
-
-            }
         }
         QJsonDocument json_document = QJsonDocument::fromJson(json);
         qDebug() << "[RnpJob] json" << json_document;
-        foreach (const QJsonValue fingerprint,  json_document.object()["keys"].toArray()) {
-            qDebug() << "[RnpJob] Add fingerprint" << fingerprint["fingerprint"].toString();
-            fingerprints->insert(fingerprint["fingerprint"].toString());
+        if(result_fingerprints) {
+            foreach (const QJsonValue fingerprint,  json_document.object()["keys"].toArray()) {
+                qDebug() << "[RnpJob] Add fingerprint" << fingerprint["fingerprint"].toString();
+                result_fingerprints->insert(fingerprint["fingerprint"].toString());
+            }
         }
 
         rnp_input_destroy(input);
@@ -83,21 +82,21 @@ void RnpJob::load_key_file(QSet<QString> *fingerprints, const QString path, cons
 }
 
 
-void RnpJob::load_pub_keyring(QSet<QString> *fingerprints)
+void RnpJob::load_pub_keyring(QSet<QString> *result_fingerprints = NULL)
 {
-    this->load_key_file(fingerprints, this->pubringPath(), RNP_LOAD_SAVE_PUBLIC_KEYS);
-    qDebug() << "[RnpJob] pub fingerprints" << *fingerprints;
+    this->load_key_file(result_fingerprints, this->pubringPath(), RNP_LOAD_SAVE_PUBLIC_KEYS);
+    qDebug() << "[RnpJob] pub fingerprints" << *result_fingerprints;
 }
 
-void RnpJob::load_sec_keyring(QSet<QString> *fingerprints)
+void RnpJob::load_sec_keyring(QSet<QString> *result_fingerprints = NULL)
 {
-    this->load_key_file(fingerprints, this->secringPath(),  RNP_LOAD_SAVE_SECRET_KEYS);
-    qDebug() << "[RnpJob] sec fingerprints" << *fingerprints;
+    this->load_key_file(result_fingerprints, this->secringPath(),  RNP_LOAD_SAVE_SECRET_KEYS);
+    qDebug() << "[RnpJob] sec fingerprints" << *result_fingerprints;
 }
 
-void RnpJob::load_full_keyring(QSet<QString> *fingerprints)
+void RnpJob::load_full_keyring(QSet<QString> *result_fingerprints = NULL)
 {
-    this->load_pub_keyring(fingerprints);
-    this->load_sec_keyring(fingerprints);
-    qDebug() << "[RnpJob] full fingerprints" << *fingerprints;
+    this->load_pub_keyring(result_fingerprints);
+    this->load_sec_keyring(result_fingerprints);
+    qDebug() << "[RnpJob] full fingerprints" << *result_fingerprints;
 }

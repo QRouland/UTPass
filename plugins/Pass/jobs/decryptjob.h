@@ -1,47 +1,54 @@
 #ifndef DECRYPTJOB_H
 #define DECRYPTJOB_H
 
+#include "rnpjob.h"
 #include <QThread>
 #include <QDir>
 
 /**
  * @class DecryptJob
- * @brief A class to handle decrypt a file in a separate thread.
+ * @brief A job to handle the decryption of a file in a separate thread.
  *
  */
-class DecryptJob : public QThread
+class DecryptJob : public RnpJob
 {
     Q_OBJECT
 
     /**
-     * @brief The main function that performs the decrypt operation.
+     * @brief Executes the decryption operation.
      *
-     * Handles the process of removing recursively a target path.
+     * This method performs the actual decryption of the encrypted file specified during
+     * object construction. The operation is carried out in a separate background thread
+     * to prevent blocking the main application thread.
      */
     void run() override;
 
 signals:
     /**
-     * @brief Signal emitted when the decrypt operation is complete.
+     * @brief Emitted when the decryption operation is complete.
      *
-     * @param err A boolean indicating whether an error occurred during removing.
-     *        `true` if an error occurred, `false` if the clone was successful.
+     * This signal is emitted once the decryption operation finishes, providing the results.
+     * It indicates whether the decryption was successful and provides the clear-text output
+     * if the decryption was successful.
+     *
+     * @param encrypted_file_path The path to the encrypted file that was decrypted.
+     * @param clear_txt The decrypted content in clear-text. If an error occurs, this may be empty.
      */
-    void resultReady(const bool err);
+    void resultReady(QString encrypted_file_path, QString clear_txt);
 
 private:
-    QString m_encryped_file_path; ///< The path of the encrypted file.
-    QString m_keyfile_path; ///< The path of the key file.
+    QString m_encrypted_file_path; /**< The path to the encrypted file that is to be decrypted. */
 
 public:
     /**
-     * @brief Constructor for the RmJob class.
+     * @brief Constructs a DecryptJob object with the specified encrypted file.
      *
-     * Initializes the DecryptJob with the specified file to decrypt.
+     * This constructor initializes the DecryptJob with the encrypted file path. The decryption
+     * operation will be executed in a background thread when the job is started.
      *
-     * @param path Path of the file to decrypt.
+     * @param path The path to the encrypted file that needs to be decrypted.
      */
     DecryptJob(QString path);
 };
 
-#endif // DECRYPTJO_H
+#endif // DECRYPTJOB_H

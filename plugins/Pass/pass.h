@@ -61,7 +61,7 @@ private slots:
     /**
      * @brief Slot to handle the succeed result of a GPG key get all keys operation.
      */
-    void slotGetAllGPGKeysSucceed(QSet<QString> result);
+    void slotGetAllGPGKeysSucceed(QList<QJsonDocument> result);
 
     /**
      * @brief Slot to handle the result of a delete Password Store operation.
@@ -146,7 +146,8 @@ signals:
 private:
     QString m_password_store; /**< The path to the password store. */
     QString m_gpg_home; /**< The path to the gpg home. */
-    std::unique_ptr<PassKeyringModel> m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
+    std::unique_ptr<PassKeyringModel>
+    m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
     PassphraseProvider *m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
 

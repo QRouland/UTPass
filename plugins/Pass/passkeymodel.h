@@ -3,185 +3,133 @@
 
 #include <QDebug>
 #include <QObject>
+#include <QJsonDocument>
+#include <QJsonArray>
 #include <QSet>
-#include <gpgme++/key.h>
-
-using namespace GpgME;
-
-/**
- * @class UserIdModel
- * @brief A model representing a user ID associated with a GPG key.
- *
- * This class encapsulates the user ID information (UID) for a GPG key, providing access
- * to the UID's identifier, name, and email.
- */
-class UserIdModel : public QObject
-{
-    Q_OBJECT
-    Q_PROPERTY(QString uid READ uid CONSTANT)
-    Q_PROPERTY(QString name READ name CONSTANT)
-    Q_PROPERTY(QString email READ email CONSTANT)
-
-private:
-    UserID m_user_id; /**< The GPG UserID associated with the model. */
-
-public:
-    /**
-     * @brief Constructs a UserIdModel for the given UserID.
-     * @param key The GPG UserID to model.
-     */
-    UserIdModel(UserID key) : m_user_id(key) {}
-
-    /**
-     * @brief Gets the unique identifier (UID) for this user ID.
-     * @return The UID as a QString.
-     */
-    QString uid() const
-    {
-        return QString::fromUtf8(m_user_id.id());
-    };
-
-    /**
-     * @brief Gets the name associated with this user ID.
-     * @return The name as a QString.
-     */
-    QString name() const
-    {
-        return QString::fromUtf8(m_user_id.name());
-    };
-
-    /**
-     * @brief Gets the email associated with this user ID.
-     * @return The email as a QString.
-     */
-    QString email() const
-    {
-        return QString::fromUtf8(m_user_id.email());
-    };
-};
 
 /**
  * @class PassKeyModel
- * @brief A model representing a GPG key.
+ * @brief A model representing a GPG (GNU Privacy Guard) key.
  *
- * This class encapsulates the properties of a GPG key, including its key ID, associated
- * user IDs, secret key status, and expiration status. It is used as a model for managing
- * GPG keys within an application, providing access to the key's data and its associated user IDs.
+ * This class encapsulates the properties of a GPG key, such as its key ID, associated
+ * user IDs, secret key status, and expiration status. It is used within an application
+ * to manage and represent GPG keys, providing easy access to key data and related user information.
+ *
+ * This class supports properties such as the key's fingerprint, key ID, user IDs, and whether
+ * the key has a secret key associated with it.
  */
 class PassKeyModel : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString fingeprint READ fingeprint MEMBER m_fingeprint CONSTANT)
-    // Q_PROPERTY(QString uid READ uid CONSTANT)
-    // Q_PROPERTY(QList<QObject *> userIds READ userIds CONSTANT)
-    // Q_PROPERTY(bool isSecret READ isSecret CONSTANT)
-    // Q_PROPERTY(bool isExpired READ isExpired CONSTANT)
+
+    Q_PROPERTY(QString fingerprint MEMBER m_fingerprint CONSTANT)
+    Q_PROPERTY(QString keyid MEMBER m_keyid CONSTANT)
+    Q_PROPERTY(QVariant userids MEMBER m_userids CONSTANT)
+    Q_PROPERTY(bool hasSecret MEMBER m_hasSecret CONSTANT)
 
 private:
-    QString m_fingeprint; /**< The key fingeprint. */
+    QString m_fingerprint; /**< The fingerprint of the GPG key, used to uniquely identify the key. */
+    QString m_keyid; /**< The unique ID associated with the GPG key. */
+    QVariant m_userids; /**< A list of user IDs associated with the GPG key. */
+    bool m_hasSecret; /**< Indicates whether the GPG key has an associated secret key. */
 
 public:
     /**
-     * @brief Constructs a PassKeyModel for the given GPG key.
-     * @param key The GPG key to model.
+     * @brief Constructs a PassKeyModel object using the provided GPG key information.
+     *
+     * This constructor initializes the PassKeyModel based on a JSON document containing GPG key data.
+     * The key data typically includes the key's fingerprint, key ID, associated user IDs, and secret key status.
+     *
+     * @param key_info A JSON document containing the GPG key data.
      */
-    PassKeyModel(QString fingeprint) : m_fingeprint(fingeprint) {}
-
-
-    QString fingeprint() const
+    PassKeyModel(QJsonDocument key_info)
     {
-        return m_fingeprint;
-    };
+        this->m_fingerprint = key_info["fingerprint"].toString();
+        qDebug() << "fingerprint : " << this->m_fingerprint;
 
-    // /**
-    //  * @brief Gets the GPG key associated with this model.
-    //  * @return The GPG key.
-    //  */
-    // Key key() const
-    // {
-    //     return m_key;
-    // };
+        this->m_keyid = key_info["keyid"].toString();
+        qDebug() << "keyid : " << this->m_keyid;
 
-    // /**
-    //  * @brief Gets the unique identifier (UID) for this GPG key.
-    //  * @return The UID as a QString.
-    //  */
-    // QString uid() const
-    // {
-    //     return QString::fromUtf8(m_key.keyID());
-    // };
+        auto user_ids_json_array = key_info["userids"].toArray();
+        auto userids = QList<QString>();
+        for (auto i = user_ids_json_array.begin(), end = user_ids_json_array.end(); i != end; ++i) {
+            userids.append((*i).toString());
+        }
+        this->m_userids = QVariant(userids);
+        qDebug() << "userids : " << this->m_userids;
 
-    // /**
-    //  * @brief Gets the list of user IDs associated with this GPG key.
-    //  * @return A list of UserIdModel objects representing the user IDs.
-    //  */
-    // QList<QObject *> userIds() const
-    // {
-    //     auto user_ids = m_key.userIDs();
-    //     QList<QObject *> ret;
-    //     std::for_each(user_ids.begin(), user_ids.end(), [&ret](UserID k) {
-    //         ret.append(new UserIdModel(k));
-    //     });
-    //     return ret;
-    // };
-
-    // /**
-    //  * @brief Checks if the GPG key is a secret key.
-    //  * @return True if the key is a secret key, false otherwise.
-    //  */
-    // bool isSecret() const
-    // {
-    //     return m_key.hasSecret();
-    // };
-
-    // /**
-    //  * @brief Checks if the GPG key is expired.
-    //  * @return True if the key is expired, false otherwise.
-    //  */
-    // bool isExpired() const
-    // {
-    //     return m_key.isExpired();
-    // };
+        this->m_hasSecret = key_info["secret key"]["present"].toBool();
+        qDebug() << "hasSecret : " << this->m_hasSecret;
+    }
 };
 
 
 /**
- * @class PassKeyModel
- * @brief A model representing a GPG key.
+ * @class PassKeyringModel
+ * @brief A model representing a collection of GPG keys.
  *
- * This class encapsulates the properties of a GPG key, including its key ID, associated
- * user IDs, secret key status, and expiration status. It is used as a model for managing
- * GPG keys within an application, providing access to the key's data and its associated user IDs.
+ * This class serves as a container for multiple GPG keys, typically representing an entire
+ * keyring. It provides functionality to manage and retrieve keys, such as fetching all keys
+ * in the keyring and determining the length of the keyring.
+ *
+ * The class also includes logic to distinguish between primary and sub keys, with an option
+ * to ignore subkeys if desired.
  */
 class PassKeyringModel : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QList<QObject *> keys MEMBER m_keys CONSTANT)
     Q_PROPERTY(int length READ length CONSTANT)
 
 private:
-    QList<PassKeyModel*> m_keys;
+    QList<QObject *> m_keys; /**< A list of PassKeyModel objects representing the keys in the keyring. */
 
 public:
     /**
-     * @brief Constructs a PassKeyModel for the given GPG key.
-     * @param key The GPG key to model.
+     * @brief Constructs a PassKeyringModel from a list of GPG key JSON documents.
+     *
+     * This constructor initializes the PassKeyringModel by parsing a list of JSON documents
+     * that represent multiple GPG keys. It filters out subkeys and only retains primary keys
+     * for inclusion in the keyring.
+     *
+     * @param key_infos A list of JSON documents representing GPG keys.
      */
-    PassKeyringModel(QSet<QString> fingeprints)
+    PassKeyringModel(QList<QJsonDocument> key_infos)
     {
-        QSet<QString>::iterator i;
-        for (auto i = fingeprints.begin(), end = fingeprints.end(); i != end; ++i) {
-            this->m_keys.append(new PassKeyModel(*i));
+        for (auto i = key_infos.begin(), end = key_infos.end(); i != end; ++i) {
+            qDebug() << *i;
+
+            // Ignore subkeys and only add primary keys to the model.
+            if ((*i)["primary key grip"].isUndefined()) {
+                this->m_keys.append(new PassKeyModel(*i));
+            } else {
+                qDebug() << "Subkey info " << (*i)["keyid"].toString() << "ignored";
+            }
         }
-        qDebug() << "Test : " << this->m_keys;
     }
 
-    ~PassKeyringModel() {
+    /**
+     * @brief Destructor for PassKeyringModel.
+     *
+     * Cleans up dynamically allocated PassKeyModel objects within the keyring.
+     */
+    ~PassKeyringModel()
+    {
         qDeleteAll(this->m_keys);
     }
 
-    int length() {
-        qDebug() << "Test2 : " << this->m_keys.length();
+    /**
+     * @brief Retrieves the number of keys in the keyring.
+     *
+     * This function returns the number of primary keys present in the keyring.
+     *
+     * @return The number of keys in the keyring.
+     */
+    int length()
+    {
         return this->m_keys.length();
     }
 };
+
 #endif
