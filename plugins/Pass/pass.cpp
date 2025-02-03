@@ -6,8 +6,7 @@
 #include "jobs/getkeysjob.h"
 #include "jobs/importkeyjob.h"
 #include "pass.h"
-#include "passphraseprovider2.h"
-//#include "passphraseprovider2.h"
+#include "passphraseprovider.h"
 
 
 
@@ -18,12 +17,15 @@ Pass::Pass():
                     QStandardPaths::AppDataLocation).append("/.rnp")),
     m_passphrase_provider(&UTPassphraseProvider::get_pass_provider),
     m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1)))
-{}
-
-void Pass::initialize(QObject *window)
 {
     this->initGpgHome();
     this->initPasswordStore();
+    QObject::connect(this, &Pass::responsePassphraseDialogPropagate,
+                     &UTPassphraseProvider::instance(), &UTPassphraseProvider::handleResponse);
+}
+
+void Pass::initialize(QObject *window)
+{
     if (!window) {
         qWarning("[Pass] Window should be null only for testing");
     } else {
@@ -202,8 +204,8 @@ void Pass::slotGetAllGPGKeysSucceed(QList<QJsonDocument> result)
     this->m_sem->release(1);
 }
 
-// void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
-// {
-//     qDebug() << "Propagate responsePassphraseDialog";
-//     emit responsePassphraseDialogPropagate(cancel, passphrase);
-// }
+void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
+{
+    qDebug() << "Propagate responsePassphraseDialog";
+    emit responsePassphraseDialogPropagate(cancel, passphrase);
+}

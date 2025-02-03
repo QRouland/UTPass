@@ -1,15 +1,17 @@
 #ifndef PASS_H
 #define PASS_H
 
-#include "passkeymodel.h"
+
 #include <QDebug>
 #include <QObject>
 #include <QUrl>
 #include <QVariant>
 #include <QSemaphore>
+#include <memory>
 extern "C" {
 #include <rnp/rnp.h>
 }
+#include "passkeyringmodel.h"
 /**
  * @class Pass
  * @brief A class for managing password storage using GPG encryption.
@@ -144,8 +146,7 @@ signals:
 private:
     QString m_password_store; /**< The path to the password store. */
     QString m_gpg_home; /**< The path to the gpg home. */
-    std::unique_ptr<PassKeyringModel>
-    m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
+    std::unique_ptr<PassKeyringModel> m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
     rnp_password_cb m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
 

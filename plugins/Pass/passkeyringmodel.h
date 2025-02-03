@@ -1,5 +1,5 @@
-#ifndef PASSKEYMODEL_H
-#define PASSKEYMODEL_H
+#ifndef PASSKEYRINGMODEL_H
+#define PASSKEYRINGMODEL_H
 
 #include <QDebug>
 #include <QObject>
@@ -126,4 +126,4 @@ public:
     }
 };
 
-#endif
+#endif // PASSKEYRINGMODEL_H

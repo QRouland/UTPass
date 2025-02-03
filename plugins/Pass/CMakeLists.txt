@@ -5,8 +5,8 @@ set(
         SRC
         plugin.cpp
         pass.cpp
-        passkeymodel.h
-        passphraseprovider2.h
+        passkeyringmodel.h
+        passphraseprovider.h
         jobs/rmjob.cpp
         jobs/rnpjob.cpp
         jobs/getkeysjob.cpp
@@ -32,22 +32,22 @@ qt5_use_modules(${PLUGIN} Qml Quick DBus)
 
 
 set(RNP_INSTALL_DIR "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/rnp/install")
+set(BOTAN_INSTALL_DIR "${CMAKE_SOURCE_DIR}/build/${ARCH_TRIPLET}/botan/install")
 
-find_package(OpenSSL REQUIRED)
 find_package(JSON-C 0.11)
 
 INCLUDE_DIRECTORIES(${RNP_INSTALL_DIR}/include)
 
-# add_library(rnp STATIC IMPORTED)
-# set_property(TARGET rnp PROPERTY IMPORTED_LOCATION "${RNP_BUILD_DIR}/lib/librnp.a")
+add_library(rnp STATIC IMPORTED)
+set_property(TARGET rnp PROPERTY IMPORTED_LOCATION "${RNP_INSTALL_DIR}/lib/librnp.a")
 
-# add_library(sexpp STATIC IMPORTED)
-# set_property(TARGET sexpp PROPERTY IMPORTED_LOCATION "${RNP_BUILD_DIR}/lib/libsexpp.a")
+add_library(sexpp STATIC IMPORTED)
+set_property(TARGET sexpp PROPERTY IMPORTED_LOCATION "${RNP_INSTALL_DIR}/lib/libsexpp.a")
 
-add_library(rnp SHARED IMPORTED)
-set_property(TARGET rnp PROPERTY IMPORTED_LOCATION "${RNP_INSTALL_DIR}/lib/librnp.so")
+add_library(botan STATIC IMPORTED)
+set_property(TARGET botan PROPERTY IMPORTED_LOCATION "${BOTAN_INSTALL_DIR}/lib/libbotan-2.a")
 
-target_link_libraries(${PLUGIN} rnp OpenSSL::Crypto JSON-C::JSON-C)
+target_link_libraries(${PLUGIN} rnp sexpp botan JSON-C::JSON-C)
 
 set(QT_IMPORTS_DIR "/lib/${ARCH_TRIPLET}")
 install(TARGETS ${PLUGIN} DESTINATION ${QT_IMPORTS_DIR}/${PLUGIN}/)

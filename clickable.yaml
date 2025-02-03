@@ -30,7 +30,7 @@ libraries:
     - libbz2-dev
     - zlib1g-dev
     - libjson-c-dev
-    build_args: -DBUILD_SHARED_LIBS=on -DBUILD_TESTING=off -DCRYPTO_BACKEND=botan
+    build_args: -DBUILD_TESTING=off -DCRYPTO_BACKEND=botan
 
 
 install_lib:
@@ -41,6 +41,4 @@ install_lib:
 - "libhttp_parser.so*"
 - "libssh2.so*"
 - "libquazip5.so*"
-- "librnp.so*"
-- "libbotan-2.so*"
 
