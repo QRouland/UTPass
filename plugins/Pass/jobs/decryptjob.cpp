@@ -1,7 +1,13 @@
 #include "decryptjob.h"
+#include "qdebug.h"
+extern "C" {
+#include <rnp/rnp.h>
+#include <rnp/rnp_err.h>
+}
 
-DecryptJob::DecryptJob(QString path, QString keyfile):
-    m_path(path)
+DecryptJob::DecryptJob(QDir rnp_homedir, QString path):
+    RnpJob(rnp_homedir),
+    m_encrypted_file_path(path)
 {
     this->setObjectName("DecryptJob");
 }
@@ -9,7 +15,33 @@ DecryptJob::DecryptJob(QString path, QString keyfile):
 
 void DecryptJob::run()
 {
-    this->load_sec_keyring();
-    rnp_input_from_path(&keyfile, "secring.pgp"));
-    qFatal("To be implemented !")
+    qDebug() << "[DecryptJob] Starting";
+    this->load_sec_keyring(NULL);
+
+    rnp_input_t  input = NULL;
+    rnp_output_t output = NULL;
+    uint8_t *    buf = NULL;
+    size_t       buf_len = 0;
+
+    auto ret = rnp_input_from_path(&input, this->m_encrypted_file_path.toLocal8Bit().data());
+    if (ret == RNP_SUCCESS) {
+        ret = rnp_output_to_memory(&output, 0);
+    }
+    if (ret == RNP_SUCCESS) {
+        ret = rnp_decrypt(this->m_ffi, input, output);
+    }
+    if (ret == RNP_SUCCESS) {
+        ret = rnp_output_memory_get_buf(output, &buf, &buf_len, false);
+    }
+    if (ret == RNP_SUCCESS) {
+        emit resultSuccess(this->m_encrypted_file_path, QString::fromUtf8((char*)buf));
+    }
+
+    rnp_input_destroy(input);
+    rnp_output_destroy(output);
+
+    terminateOnError(ret);
+
+    emit resultSuccess(this->m_encrypted_file_path, QString::fromUtf8((char*)buf));
+    qDebug() << "[DecryptJob] Finished Successfully ";
 }

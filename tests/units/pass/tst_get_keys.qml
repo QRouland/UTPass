@@ -9,13 +9,11 @@ PassTestCase {
     function init_data() {
         return [{
             "spy": getAllGPGKeysSucceed,
-            "signal": Pass.getAllGPGKeysSucceed,
             "err_msg": null,
             "add_home_gpg_data": false,
             "keys": []
         }, {
             "spy": getAllGPGKeysSucceed,
-            "signal": Pass.getAllGPGKeysSucceed,
             "err_msg": null,
             "add_home_gpg_data": true,
             "keys": [{
@@ -32,7 +30,7 @@ PassTestCase {
             TestsUtils.copyFolder(Qt.resolvedUrl("../../assets/gpghome"), Qt.resolvedUrl(gpg_home));
 
         var keys;
-        data.signal.connect(function(keys_info) {
+        Pass.getAllGPGKeysSucceed.connect(function(keys_info) {
             keys = keys_info;
         });
         Pass.getAllGPGKeys();

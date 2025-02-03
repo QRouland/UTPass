@@ -11,12 +11,6 @@
  * @class PassKeyModel
  * @brief A model representing a GPG (GNU Privacy Guard) key.
  *
- * This class encapsulates the properties of a GPG key, such as its key ID, associated
- * user IDs, secret key status, and expiration status. It is used within an application
- * to manage and represent GPG keys, providing easy access to key data and related user information.
- *
- * This class supports properties such as the key's fingerprint, key ID, user IDs, and whether
- * the key has a secret key associated with it.
  */
 class PassKeyModel : public QObject
 {

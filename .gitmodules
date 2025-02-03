@@ -1,3 +1,6 @@
 [submodule "libs/rnp"]
 	path = libs/rnp
 	url = https://github.com/rnpgp/rnp
+[submodule "libs/botan"]
+	path = libs/botan
+	url = https://github.com/randombit/botan

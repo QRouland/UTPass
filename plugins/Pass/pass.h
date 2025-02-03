@@ -6,14 +6,10 @@
 #include <QObject>
 #include <QUrl>
 #include <QVariant>
-#include <gpgme++/context.h>
 #include <QSemaphore>
 extern "C" {
 #include <rnp/rnp.h>
 }
-
-using namespace GpgME;
-
 /**
  * @class Pass
  * @brief A class for managing password storage using GPG encryption.
@@ -33,13 +29,15 @@ private slots:
      * @param err The error that occurred during the operation.
      * @param plain_text The decrypted plain text (password).
      */
-    void showResult(Error err, QString plain_text);
+    void slotShowError(rnp_result_t err);
+
+    void slotShowSucceed(QString encrypted_file_path, QString plain_text);
 
     /**
      * @brief Slot to handle the result of a GPG key deletion operation.
      * @param err The error that occurred during the operation.
      */
-    void deleteGPGKeyResult(Error err);
+    // void deleteGPGKeyResult(Error err);
 
     /**
      * @brief Slot to handle the error result of a GPG key import operation.
@@ -148,7 +146,7 @@ private:
     QString m_gpg_home; /**< The path to the gpg home. */
     std::unique_ptr<PassKeyringModel>
     m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
-    PassphraseProvider *m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
+    rnp_password_cb m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
 
 
@@ -206,14 +204,8 @@ public:
         this->m_gpg_home = gpg_home;
     };
 
-    /**
-     * @brief Sets the window passphrase provider used for GPG authentication.
-     *
-     * PassphraseProvider will be deleted with destructor.
-     *
-     * @param The window used by passphrase provider.
-     */
-    void set_passphrase_provider(PassphraseProvider* passphrase_provider)
+
+    void set_passphrase_provider(rnp_password_cb passphrase_provider)
     {
         this->m_passphrase_provider = passphrase_provider;
     }

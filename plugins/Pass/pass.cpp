@@ -2,9 +2,12 @@
 #include <QtCore/QStandardPaths>
 #include <QtCore/QDir>
 
+#include "jobs/decryptjob.h"
 #include "jobs/getkeysjob.h"
 #include "jobs/importkeyjob.h"
 #include "pass.h"
+#include "passphraseprovider2.h"
+//#include "passphraseprovider2.h"
 
 
 
@@ -13,18 +16,19 @@ Pass::Pass():
                           QStandardPaths::AppDataLocation).append("/.password-store")),
     m_gpg_home (QStandardPaths::writableLocation(
                     QStandardPaths::AppDataLocation).append("/.rnp")),
+    m_passphrase_provider(&UTPassphraseProvider::get_pass_provider),
     m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1)))
-{
-
-}
+{}
 
 void Pass::initialize(QObject *window)
 {
-    if (!window) {
-        qWarning("[Pass] Window should be null only for testing");
-    }
     this->initGpgHome();
     this->initPasswordStore();
+    if (!window) {
+        qWarning("[Pass] Window should be null only for testing");
+    } else {
+        UTPassphraseProvider::instance().setWindow(window);
+    }
 }
 
 
@@ -53,36 +57,37 @@ void Pass::initPasswordStore()
     qInfo() << "[Pass] Password Store is :" << m_password_store;
 }
 
-// bool Pass::show(QUrl url)
-// {
-//     if (!this->m_sem->tryAcquire(1, 500)) {
-//         return false;
-//     }
-//     auto path = url.toLocalFile();
-//     qInfo() << "Pass show  " << path;
-//     QFileInfo file_info(path);
-//     this->m_show_filename = file_info.completeBaseName();
-//     return this->m_gpg->decryptFromFile(path);
-// }
+bool Pass::show(QUrl url)
+{
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qInfo() << "[Pass] A command is already running";
+        return false;
+    }
+    auto job = new DecryptJob(this->m_gpg_home, url.toLocalFile());
+    job->setPassProvider(this->m_passphrase_provider);
+    QObject::connect(job, &DecryptJob::resultError, this, &Pass::slotShowError);
+    QObject::connect(job, &DecryptJob::resultSuccess, this, &Pass::slotShowSucceed);
+    connect(job, &DecryptJob::finished, job, &QObject::deleteLater);
+    job->start();
+    return true;
+}
 
 
-// void Pass::showResult(Error err, QString plain_text)
-// {
-//     qDebug() << "Pass show Result";
-//     if (err) {
-//         qInfo() << "Pass show Failed";
-//         emit showFailed(err.asString());
+void Pass::slotShowError(rnp_result_t err)
+{
+    qInfo() << "[Pass] Show Failed";
+    emit showFailed(rnp_result_to_string(err));
+    this->m_sem->release(1);
+}
 
-//     }  else if (err.isCanceled()) {
-//         qInfo() << "Pass show Cancelled";
-//         emit showCancelled();
-//     } else {
-//         qInfo() << "Pass show Succeed";
-//         emit showSucceed(this->m_show_filename, plain_text);
-//     }
-//     this->m_show_filename = QString();
-//     this->m_sem->release(1);
-// }
+
+void Pass::slotShowSucceed(QString encrypted_file_path, QString plain_text)
+{
+    qDebug() << "[Pass] Show Succeed";
+    QFileInfo file_info(encrypted_file_path);
+    emit showSucceed(file_info.completeBaseName(), plain_text);
+    this->m_sem->release(1);
+}
 
 // bool Pass::deletePasswordStore()
 // {

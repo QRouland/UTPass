@@ -70,7 +70,7 @@ void TestsUtils::copyFolder(QUrl sourceFolderUrl, QUrl destFolderUrl)
 
 QObject *TestsUtils::getTestPassphraseProvider()
 {
-    return this->m_passphrase_povider.get();
+    return &TesTPassphraseProvider::instance();
 }
 
 

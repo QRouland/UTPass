@@ -153,6 +153,11 @@ public:
      * the RNP FFI handle.
      */
     ~RnpJob();
+
+
+    void setPassProvider(rnp_password_cb pass_provider_cb) {
+        rnp_ffi_set_pass_provider(this->m_ffi, pass_provider_cb, NULL);
+    }
 };
 
 #endif // RNPJOB_H

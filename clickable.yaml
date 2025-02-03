@@ -10,12 +10,19 @@ scripts:
 dependencies_target:
 - libgit2-dev
 - libquazip5-dev
-- libgpgmepp-dev
-- libgpgme-dev
 - libjson-c-dev
-- gpg
 
 libraries:
+  botan:
+      builder: custom
+      make_jobs: 2
+      dependencies_host:
+      - python
+      prebuild:
+      - $SRC_DIR/configure.py --cpu $ARCH --prefix $INSTALL_DIR --with-build-dir $BUILD_DIR
+      build:
+      - make
+      - make install
   rnp:
     builder: cmake
     make_jobs: 2
@@ -23,9 +30,8 @@ libraries:
     - libbz2-dev
     - zlib1g-dev
     - libjson-c-dev
-    build_args: [
-        -DCRYPTO_BACKEND=openssl
-    ]
+    build_args: -DBUILD_SHARED_LIBS=on -DBUILD_TESTING=off -DCRYPTO_BACKEND=botan
+
 
 install_lib:
 - "libgit2.so*"
@@ -35,9 +41,6 @@ install_lib:
 - "libhttp_parser.so*"
 - "libssh2.so*"
 - "libquazip5.so*"
-- "libgpg-error.so.0.28.0"
-- "libassuan.so*"
-- "libgpgme.so*"
-- "libgpgmepp.so*"
-- "libqgpgme.so*"
+- "librnp.so*"
+- "libbotan-2.so*"
 

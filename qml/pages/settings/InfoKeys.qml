@@ -14,10 +14,7 @@ Page {
 
     Component.onCompleted: {
         Pass.getAllGPGKeysSucceed.connect(function(keys_info) {
-            infoKeysPage.__keys = keys_info;
-            for (var i = 0; i < keys_info.length; ++i) {
-                console.debug("is secret " + keys_info[i].isSecret);
-            }
+            infoKeysPage.__keys = keys_info.keys;
         });
         Pass.getAllGPGKeysFailed.connect(function(message) {
             PopupUtils.open(infoKeysPageGetAllError);
@@ -91,7 +88,7 @@ Page {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: model.modelData.uid
+                text: model.modelData.keyid
                 color: theme.palette.normal.backgroundText
             }
 
@@ -105,9 +102,9 @@ Page {
                 id: userIdsModel
 
                 Component.onCompleted: {
-                    for (var i = 0; i < model.modelData.userIds.length; ++i) {
+                    for (var i = 0; i < model.modelData.userids.length; ++i) {
                         userIdsModel.append({
-                            "model": model.modelData.userIds[i]
+                            "model": model.modelData.userids[i]
                         });
                     }
                 }

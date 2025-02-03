@@ -34,7 +34,7 @@ signals:
      * @param encrypted_file_path The path to the encrypted file that was decrypted.
      * @param clear_txt The decrypted content in clear-text. If an error occurs, this may be empty.
      */
-    void resultReady(QString encrypted_file_path, QString clear_txt);
+    void resultSuccess(QString encrypted_file_path, QString clear_txt);
 
 private:
     QString m_encrypted_file_path; /**< The path to the encrypted file that is to be decrypted. */
@@ -46,9 +46,10 @@ public:
      * This constructor initializes the DecryptJob with the encrypted file path. The decryption
      * operation will be executed in a background thread when the job is started.
      *
+     * @param rnp_homedir The directory containing the keyrings.
      * @param path The path to the encrypted file that needs to be decrypted.
      */
-    DecryptJob(QString path);
+    DecryptJob(QDir rnp_homedir, QString path);
 };
 
 #endif // DECRYPTJOB_H

@@ -11,9 +11,6 @@ class TestsUtils : public QObject
 {
     Q_OBJECT
 
-private:
-    std::unique_ptr<TesTPassphraseProvider> m_passphrase_povider;
-
 public:
     TestsUtils();
     ~TestsUtils() override = default;

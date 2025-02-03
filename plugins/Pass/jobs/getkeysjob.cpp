@@ -32,13 +32,14 @@ void GetKeysJob::run()
     QSet<QString> fingerprints = QSet<QString>();
     this->load_full_keyring(&fingerprints);
 
+    //Get infos keys
     auto key_infos = QList<QJsonDocument>();
     QList<QJsonDocument>::iterator i;
     for (auto i = fingerprints.begin(), end = fingerprints.end(); i != end; ++i) {
         key_infos.append(this->fingerprint_map_key_info(*i));
     }
 
-    //Get all infos keys
+    // Emit result
     emit resultSuccess(key_infos);
     qDebug() << "[GetKeysJob] Finished Successfully ";
 }

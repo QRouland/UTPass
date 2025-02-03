@@ -52,7 +52,7 @@ bool RnpJob::passProvider(rnp_ffi_t        ffi,
 
 void RnpJob::load_key_file(QSet<QString> *result_fingerprints, const QString path, const uint32_t flags)
 {
-    qDebug() << "[RnpJob] load keyring at" << path;
+    qDebug() << "[RnpJob] Load keyring at" << path;
     rnp_input_t input = NULL;
     if (QFileInfo::exists(this->pubringPath())) {
         auto ret = rnp_input_from_path(&input, path.toLocal8Bit().constData());
@@ -75,9 +75,9 @@ void RnpJob::load_key_file(QSet<QString> *result_fingerprints, const QString pat
         rnp_input_destroy(input);
         rnp_buffer_destroy(json);
         terminateOnError(ret);
-        qDebug() << "[RnpJob] keyring loaded successfully";
+        qDebug() << "[RnpJob] Keyring loaded successfully";
     } else {
-        qDebug() << "[RnpJob] No keyring" << path << "not found";
+        qDebug() << "[RnpJob] Keyring" << path << "not found";
     }
 }
 
@@ -85,18 +85,15 @@ void RnpJob::load_key_file(QSet<QString> *result_fingerprints, const QString pat
 void RnpJob::load_pub_keyring(QSet<QString> *result_fingerprints = NULL)
 {
     this->load_key_file(result_fingerprints, this->pubringPath(), RNP_LOAD_SAVE_PUBLIC_KEYS);
-    qDebug() << "[RnpJob] pub fingerprints" << *result_fingerprints;
 }
 
 void RnpJob::load_sec_keyring(QSet<QString> *result_fingerprints = NULL)
 {
     this->load_key_file(result_fingerprints, this->secringPath(),  RNP_LOAD_SAVE_SECRET_KEYS);
-    qDebug() << "[RnpJob] sec fingerprints" << *result_fingerprints;
 }
 
 void RnpJob::load_full_keyring(QSet<QString> *result_fingerprints = NULL)
 {
     this->load_pub_keyring(result_fingerprints);
     this->load_sec_keyring(result_fingerprints);
-    qDebug() << "[RnpJob] full fingerprints" << *result_fingerprints;
 }

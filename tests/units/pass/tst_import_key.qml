@@ -8,30 +8,27 @@ PassTestCase {
         return [{
             "file": Qt.resolvedUrl("../../assets/gpg/test_key.gpg"),
             "spy": importGPGKeySucceed,
-            "signal": Pass.importGPGKeySucceed,
             "err_msg": null
         }, {
             "file": Qt.resolvedUrl("../../assets/gpg/test_key_do_not_exist.gpg"),
             "spy": importGPGKeyFailed,
-            "signal": Pass.importGPGKeyFailed,
             "err_msg": "Error reading file"
         }, {
             "file": Qt.resolvedUrl("../../assets/gpg/test_key_invalid.gpg"),
             "spy": importGPGKeyFailed,
-            "signal": Pass.importGPGKeyFailed,
             "err_msg": "Bad state"
         }];
     }
 
     function test_import_key(data) {
         var err_msg;
-        data.signal.connect(function(message) {
+        Pass.importGPGKeyFailed.connect(function(message) {
             err_msg = message;
         });
         Pass.importGPGKey(data.file);
         data.spy.wait();
         if (data.err_msg) {
-            verify(err_msg === data.err_msg, "Should return arg msg %1 but return %2".arg(data.err_msg).arg(err_msg));
+            verify(err_msg === data.err_msg, "Should return %1 but return %2".arg(data.err_msg).arg(err_msg));
         } else {
             console.info(Qt.resolvedUrl("%1/pubkeyring.pgp".arg(gpg_home)));
             verify(TestsUtils.fileExists(Qt.resolvedUrl("%1/pubring.pgp".arg(gpg_home))), "%1/pubring.pgp should be created".arg(gpg_home));
