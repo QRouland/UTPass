@@ -16,12 +16,13 @@ DecryptJob::DecryptJob(QDir rnp_homedir, QString path):
 void DecryptJob::run()
 {
     qDebug() << "[DecryptJob] Starting";
-    this->load_sec_keyring(NULL);
+    this->loadFullKeyring(NULL);
 
     rnp_input_t  input = NULL;
     rnp_output_t output = NULL;
-    uint8_t *    buf = NULL;
+    uint8_t     *buf = NULL;
     size_t       buf_len = 0;
+    QString data = QString::Null();
 
     auto ret = rnp_input_from_path(&input, this->m_encrypted_file_path.toLocal8Bit().data());
     if (ret == RNP_SUCCESS) {
@@ -34,14 +35,13 @@ void DecryptJob::run()
         ret = rnp_output_memory_get_buf(output, &buf, &buf_len, false);
     }
     if (ret == RNP_SUCCESS) {
-        emit resultSuccess(this->m_encrypted_file_path, QString::fromUtf8((char*)buf));
+        data = QString::fromUtf8((char*)buf);
     }
 
     rnp_input_destroy(input);
     rnp_output_destroy(output);
 
     terminateOnError(ret);
-
-    emit resultSuccess(this->m_encrypted_file_path, QString::fromUtf8((char*)buf));
+    emit resultSuccess(this->m_encrypted_file_path, data);
     qDebug() << "[DecryptJob] Finished Successfully ";
 }

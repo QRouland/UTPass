@@ -16,14 +16,14 @@ if(ret != RNP_SUCCESS) {                                    \
         return;                                                 \
 } \
 
-    /**
+/**
  * @class RnpJob
  * @brief A base class that manages OpenPGP-related tasks using the librnp library.
  *
  * The RnpJob class serves as an abstraction for performing OpenPGP (RNP) operations, such as
  * encryption, decryption, and key management, using the RNP library.
  */
-    class RnpJob : public QThread
+class RnpJob : public QThread
 {
     Q_OBJECT
 
@@ -73,7 +73,19 @@ private:
      * @param path The path to the key file.
      * @param flags Flags specifying options for loading keys (e.g., overwrite, secret keys, etc.).
      */
-    void load_key_file(QSet<QString> *result_fingerprints, const QString path, const uint32_t flags);
+    void loadKeyFile(QSet<QString> *result_fingerprints, const QString path, const uint32_t flags);
+
+    /**
+     * @brief Saves keys to the keyring file in the specified directory.
+     *
+     * This method saves a keyring to a file. It allows you to specify options such as overwriting
+     * existing files or including secret keys.
+     *
+     * @param path The path to the keyring file where the keys should be saved.
+     * @param flags Flags specifying options for saving the keys (e.g., overwrite, include secret keys, etc.).
+     */
+    void saveKeyFile(const QString path, const uint32_t flags);
+
 
 protected:
     rnp_ffi_t m_ffi; /**< RNP FFI (Foreign Function Interface) handle, used for interacting with the RNP library. */
@@ -105,34 +117,43 @@ protected:
     }
 
     /**
-     * @brief Loads the secret keyring into the RNP system.
-     *
-     * This method loads the secret keyring file (secring.pgp) into the system, adding keys
-     * to the keyring based on their fingerprints.
+     * @brief Loads the secret keyring into RNP.
      *
      * @param result_fingerprints A set that will hold the fingerprints of the loaded secret keys.
      */
-    void load_sec_keyring(QSet<QString> *result_fingerprints);
+    void loadSecKeyring(QSet<QString> *result_fingerprints);
 
     /**
-     * @brief Loads the public keyring into the RNP system.
-     *
-     * This method loads the public keyring file (pubring.pgp) into the system, adding keys
-     * to the keyring based on their fingerprints.
+     * @brief Loads the public keyring into RNP.
      *
      * @param result_fingerprints A set that will hold the fingerprints of the loaded public keys.
      */
-    void load_pub_keyring(QSet<QString> *result_fingerprints);
+    void loadPubKeyring(QSet<QString> *result_fingerprints);
 
     /**
-     * @brief Loads both the public and secret keyrings into the RNP system.
-     *
-     * This method loads both the public and secret keyring files into the system, adding keys
-     * to the keyring based on their fingerprints. It is a combined operation for full keyring loading.
+     * @brief Loads both the public and secret keyrings into RNP.
      *
      * @param result_fingerprints A set that will hold the fingerprints of all loaded keys.
      */
-    void load_full_keyring(QSet<QString> *result_fingerprints);
+    void loadFullKeyring(QSet<QString> *result_fingerprints);
+
+    /**
+     * @brief Saves the secret keyring to the RNP homedir.
+     *
+     */
+    void saveSecKeyring();
+
+    /**
+     * @brief Saves the public keyring to the RNP homedir.
+     *
+     */
+    void savePubKeyring();
+
+    /**
+     * @brief Saves both the public and secret keyrings to the RNP homedir.
+     *
+     */
+    void saveFullKeyring();
 
 public:
     /**
@@ -155,7 +176,8 @@ public:
     ~RnpJob();
 
 
-    void setPassProvider(rnp_password_cb pass_provider_cb) {
+    void setPassProvider(rnp_password_cb pass_provider_cb)
+    {
         rnp_ffi_set_pass_provider(this->m_ffi, pass_provider_cb, NULL);
     }
 };

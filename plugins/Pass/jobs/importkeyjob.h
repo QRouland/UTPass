@@ -16,8 +16,7 @@ class ImportKeyJob : public RnpJob
      * @brief Executes the key import operation.
      *
      * This function handles the actual process of importing the GPG key file into the
-     * keyring. It is executed in a separate thread to prevent UI freezing or blocking
-     * of the main application thread during the import.
+     * keyring.
      */
     void run() override;
 

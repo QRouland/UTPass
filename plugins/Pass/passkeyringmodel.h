@@ -39,10 +39,10 @@ public:
     PassKeyModel(QJsonDocument key_info)
     {
         this->m_fingerprint = key_info["fingerprint"].toString();
-        qDebug() << "fingerprint : " << this->m_fingerprint;
+        qDebug() << "[PassKeyModel] fingerprint : " << this->m_fingerprint;
 
         this->m_keyid = key_info["keyid"].toString();
-        qDebug() << "keyid : " << this->m_keyid;
+        qDebug() << "[PassKeyModel] keyid : " << this->m_keyid;
 
         auto user_ids_json_array = key_info["userids"].toArray();
         auto userids = QList<QString>();
@@ -50,10 +50,10 @@ public:
             userids.append((*i).toString());
         }
         this->m_userids = QVariant(userids);
-        qDebug() << "userids : " << this->m_userids;
+        qDebug() << "[PassKeyModel] userids : " << this->m_userids;
 
         this->m_hasSecret = key_info["secret key"]["present"].toBool();
-        qDebug() << "hasSecret : " << this->m_hasSecret;
+        qDebug() << "[PassKeyModel] hasSecret : " << this->m_hasSecret;
     }
 };
 
@@ -92,13 +92,13 @@ public:
     PassKeyringModel(QList<QJsonDocument> key_infos)
     {
         for (auto i = key_infos.begin(), end = key_infos.end(); i != end; ++i) {
-            qDebug() << *i;
+            qDebug() << "[PassKeyringModel]" << *i;
 
             // Ignore subkeys and only add primary keys to the model.
             if ((*i)["primary key grip"].isUndefined()) {
                 this->m_keys.append(new PassKeyModel(*i));
             } else {
-                qDebug() << "Subkey info " << (*i)["keyid"].toString() << "ignored";
+                qDebug() << "[PassKeyringModel] Subkey info " << (*i)["keyid"].toString() << "ignored";
             }
         }
     }

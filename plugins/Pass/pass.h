@@ -35,11 +35,9 @@ private slots:
 
     void slotShowSucceed(QString encrypted_file_path, QString plain_text);
 
-    /**
-     * @brief Slot to handle the result of a GPG key deletion operation.
-     * @param err The error that occurred during the operation.
-     */
-    // void deleteGPGKeyResult(Error err);
+    void slotDeleteGPGKeyError(rnp_result_t err);
+
+    void slotDeleteGPGKeySucceed();
 
     /**
      * @brief Slot to handle the error result of a GPG key import operation.
@@ -67,7 +65,7 @@ private slots:
      * @brief Slot to handle the result of a delete Password Store operation.
      * @param err True if an error occurred during the operation.
      */
-    void deletePasswordStoreResult(bool err);
+    void slotDeletePasswordStoreResult(bool err);
 
 signals:
     // GPG-related signals
@@ -146,7 +144,8 @@ signals:
 private:
     QString m_password_store; /**< The path to the password store. */
     QString m_gpg_home; /**< The path to the gpg home. */
-    std::unique_ptr<PassKeyringModel> m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
+    std::unique_ptr<PassKeyringModel>
+    m_keyring_model; /**< Meta data on the keyring uid, name, secrecy ... of the availble keys. */
     rnp_password_cb m_passphrase_provider; /**< Pointer on passphrase povider for operations using secret keys. */
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
 

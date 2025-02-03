@@ -66,8 +66,8 @@ private:
      */
     explicit UTPassphraseProvider(QObject * parent = nullptr)
         : m_sem(std::make_unique<QSemaphore>(1)),
-        m_passphrase(QString::Null()),
-        m_canceled(true)
+          m_passphrase(QString::Null()),
+          m_canceled(true)
     {}
 
     QObject *m_window; /**< The window object that triggers the QML dialog. */
@@ -85,7 +85,7 @@ public:
      *
      * @return The singleton instance of UTPassphraseProvider.
      */
-    static UTPassphraseProvider& instance()
+    static UTPassphraseProvider &instance()
     {
         static UTPassphraseProvider instance;
         return instance;
@@ -125,11 +125,11 @@ public:
      */
     static bool
     get_pass_provider(  rnp_ffi_t        ffi,
-                      void *           app_ctx,
-                      rnp_key_handle_t key,
-                      const char *     pgp_context,
-                      char             buf[],
-                      size_t           buf_len)
+                        void            *app_ctx,
+                        rnp_key_handle_t key,
+                        const char      *pgp_context,
+                        char             buf[],
+                        size_t           buf_len)
     {
         qDebug() << "[UTPassphraseProvider] Call the getPassphrase";
 
@@ -138,8 +138,7 @@ public:
             return false;
         }
 
-        if (!UTPassphraseProvider::instance().m_sem->tryAcquire(1, 500))
-        {
+        if (!UTPassphraseProvider::instance().m_sem->tryAcquire(1, 500)) {
             qWarning() << "[UTPassphraseProvider] Aborting : Cannot acquire UTPassphraseProvider semaphore";
             return false;
         }
@@ -153,7 +152,7 @@ public:
             Q_ARG(QVariant, "useridHint"),      // TODO
             Q_ARG(QVariant, "description"),     // TODO
             Q_ARG(QVariant, "previousWasBad")   // TODO
-            );
+        );
 
         qDebug() << "[UTPassphraseProvider] Waiting for response";
 
@@ -163,7 +162,7 @@ public:
 
         qDebug() << "[UTPassphraseProvider] Prepare Returns";
         auto ret = false;
-        if(!UTPassphraseProvider::instance().m_canceled) {
+        if (!UTPassphraseProvider::instance().m_canceled) {
             strncpy(buf, UTPassphraseProvider::instance().m_passphrase.toLocal8Bit().data(), buf_len);
             ret = true;
         };
@@ -182,7 +181,8 @@ public:
      *
      * @param window The window object to set.
      */
-    void setWindow(QObject* window){
+    void setWindow(QObject* window)
+    {
         this->m_window = window;
     }
 };

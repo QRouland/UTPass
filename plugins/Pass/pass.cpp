@@ -3,8 +3,10 @@
 #include <QtCore/QDir>
 
 #include "jobs/decryptjob.h"
+#include "jobs/deletekeyjob.h"
 #include "jobs/getkeysjob.h"
 #include "jobs/importkeyjob.h"
+#include "jobs/rmjob.h"
 #include "pass.h"
 #include "passphraseprovider.h"
 
@@ -91,57 +93,62 @@ void Pass::slotShowSucceed(QString encrypted_file_path, QString plain_text)
     this->m_sem->release(1);
 }
 
-// bool Pass::deletePasswordStore()
-// {
-//     if (!this->m_sem->tryAcquire(1, 500)) {
-//         return false;
-//     }
-//     qInfo() << "Pass delete Password Store";
-//     auto job = new RmJob(this->password_store());
-//     qDebug() << "Delete Password Store at " << this->password_store();
-//     connect(job, &RmJob::resultReady, this, &Pass::deletePasswordStoreResult);
-//     connect(job, &RmJob::finished, job, &QObject::deleteLater);
-//     job->start();
-//     return true;
-// }
+bool Pass::deletePasswordStore()
+{
+    qInfo() << "[Pass] Delete Password Store at" << this->password_store();
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qInfo() << "[Pass] A command is already running";
+        return false;
+    }
+    auto job = new RmJob(this->password_store());
+    connect(job, &RmJob::resultReady, this, &Pass::slotDeletePasswordStoreResult);
+    connect(job, &RmJob::finished, job, &QObject::deleteLater);
+    job->start();
+    return true;
+}
 
-// void Pass::deletePasswordStoreResult(bool err)
-// {
-
-//     qDebug() << "Pass delete Password StoreResult";
-//     if (err) { //dir.removeRecursively()) {
-//         qInfo() << "Pass delete Password Store Failed";
-//         emit deletePasswordStoreFailed("failed to delete password store");
-
-//     } else {
-//         qInfo() << "Pass delete Password Store Succeed";
-//         emit deletePasswordStoreSucceed();
-//     }
-//     this->m_sem->release(1);
-// }
+void Pass::slotDeletePasswordStoreResult(bool err)
+{
+    if (err) {
+        qInfo() << "[Pass]  delete Password Store Failed";
+        emit deletePasswordStoreFailed("failed to delete password store");
+    } else {
+        qInfo() << "[Pass] Delete Password Store Succeed";
+        emit deletePasswordStoreSucceed();
+    }
+    this->m_sem->release(1);
+}
 
 
-// bool Pass::deleteGPGKey(PassKeyModel* key)
-// {
-//     if (!this->m_sem->tryAcquire(1, 500)) {
-//         return false;
-//     }
-//     qInfo() << "Delete Key " << key->uid();
-//     return this->m_gpg->deleteKey(key->key());
-// }
+bool Pass::deleteGPGKey(PassKeyModel* key)
+{
+    qInfo() << "[Pass] Delete GPG key fingerprint " << key->property("keyid").toString();
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qInfo() << "[Pass] A command is already running";
+        return false;
+    }
+    auto job = new DeleteKeyJob(this->m_gpg_home, key->property("fingerprint").toString());
+    QObject::connect(job, &DeleteKeyJob::resultError, this, &Pass::slotDeleteGPGKeyError);
+    QObject::connect(job, &DeleteKeyJob::resultSuccess, this, &Pass::slotDeleteGPGKeySucceed);
+    connect(job, &DeleteKeyJob::finished, job, &QObject::deleteLater);
+    job->start();
+    return true;
+}
 
-// void Pass::deleteGPGKeyResult(Error err)
-// {
-//     qDebug() << "Delete Ke yResult";
-//     if (err) {
-//         qInfo() << "Delete Key Failed";
-//         emit deleteGPGKeyFailed(err.asString());
-//     } else {
-//         qInfo() << "Delete Key Succeed";
-//         emit deleteGPGKeySucceed();
-//     }
-//     this->m_sem->release(1);
-// }
+void Pass::slotDeleteGPGKeyError(rnp_result_t err)
+{
+    qInfo() << "[Pass] Delete GPG key Failed";
+    emit deleteGPGKeyFailed(rnp_result_to_string(err));
+    this->m_sem->release(1);
+}
+
+void Pass::slotDeleteGPGKeySucceed()
+{
+    qInfo() << "[Pass] Delete GPG key Succesfull";
+    emit deleteGPGKeySucceed();
+    this->m_sem->release(1);
+}
+
 
 bool Pass::importGPGKey(QUrl url)
 {
@@ -206,6 +213,6 @@ void Pass::slotGetAllGPGKeysSucceed(QList<QJsonDocument> result)
 
 void Pass::responsePassphraseDialog(bool cancel, QString passphrase)
 {
-    qDebug() << "Propagate responsePassphraseDialog";
+    qDebug() << "[Pass] Propagate responsePassphraseDialog to UTPassphraseProvider";
     emit responsePassphraseDialogPropagate(cancel, passphrase);
 }

@@ -16,8 +16,7 @@ class GetKeysJob : public RnpJob
     /**
      * @brief Executes the process of fetching all GPG keys.
      *
-     * This function performs the task of retrieving all keys from the keyrings. It is executed
-     * in a separate thread to avoid blocking the main application thread.
+     * This function performs the task of retrieving all keys from the keyrings.
      */
     void run() override;
 

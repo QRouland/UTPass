@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-03 19:54+0100\n"
+"POT-Creation-Date: 2025-02-03 21:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 
 #: ../qml/pages/settings/DeleteRepo.qml:56
 #: ../qml/pages/settings/ImportZip.qml:64
-#: ../qml/pages/settings/InfoKeys.qml:167
+#: ../qml/pages/settings/InfoKeys.qml:170
 #: ../qml/pages/settings/git/ImportGitClone.qml:56
 msgid "Yes"
 msgstr ""
@@ -137,7 +137,7 @@ msgid "Password Store deleted !"
 msgstr ""
 
 #: ../qml/pages/settings/DeleteRepo.qml:90
-#: ../qml/pages/settings/InfoKeys.qml:209
+#: ../qml/pages/settings/InfoKeys.qml:212
 msgid "Info Keys"
 msgstr ""
 
@@ -179,27 +179,27 @@ msgstr ""
 msgid "Key ID :"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:117
+#: ../qml/pages/settings/InfoKeys.qml:120
 msgid "Users IDs : "
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:144
+#: ../qml/pages/settings/InfoKeys.qml:147
 msgid "Delete this key"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:166
+#: ../qml/pages/settings/InfoKeys.qml:169
 msgid "You're are about to delete<br>%1.<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:180
+#: ../qml/pages/settings/InfoKeys.qml:183
 msgid "Key removal failed !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:189
+#: ../qml/pages/settings/InfoKeys.qml:192
 msgid "Key successfully deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/InfoKeys.qml:201
+#: ../qml/pages/settings/InfoKeys.qml:204
 msgid "An Error occured getting GPG keys !"
 msgstr ""
 

@@ -17,8 +17,6 @@ class RmJob : public QThread
      * @brief Executes the recursive remove operation.
      *
      * This method performs the recursive removal of the specified target path.
-     * The operation is performed in the background to prevent blocking of the main
-     * application thread.
      */
     void run() override;
 

@@ -7,11 +7,12 @@ set(
         pass.cpp
         passkeyringmodel.h
         passphraseprovider.h
-        jobs/rmjob.cpp
-        jobs/rnpjob.cpp
+        jobs/decryptjob.cpp
+        jobs/deletekeyjob.cpp
         jobs/getkeysjob.cpp
         jobs/importkeyjob.cpp
-        jobs/decryptjob.cpp
+        jobs/rmjob.cpp
+        jobs/rnpjob.cpp
 )
 
 set(CMAKE_AUTOMOC ON)

@@ -18,8 +18,7 @@ class DecryptJob : public RnpJob
      * @brief Executes the decryption operation.
      *
      * This method performs the actual decryption of the encrypted file specified during
-     * object construction. The operation is carried out in a separate background thread
-     * to prevent blocking the main application thread.
+     * object construction.
      */
     void run() override;
 

@@ -17,7 +17,7 @@ private:
 public:
     ~TesTPassphraseProvider() = default;
 
-    static TesTPassphraseProvider& instance()
+    static TesTPassphraseProvider &instance()
     {
         static TesTPassphraseProvider instance;
         return instance;
@@ -26,15 +26,16 @@ public:
     void operator=(TesTPassphraseProvider const &) = delete;
 
 
-static bool
-example_pass_provider(rnp_ffi_t        ffi,
-                      void *           app_ctx,
-                      rnp_key_handle_t key,
-                      const char *     pgp_context,
-                      char             buf[],
-                      size_t           buf_len)
-{        strncpy(buf, "utpasspassphrase", buf_len);
+    static bool
+    example_pass_provider(rnp_ffi_t        ffi,
+                          void            *app_ctx,
+                          rnp_key_handle_t key,
+                          const char      *pgp_context,
+                          char             buf[],
+                          size_t           buf_len)
+    {
+        strncpy(buf, "utpasspassphrase", buf_len);
         return true;
-}
+    }
 };
 #endif

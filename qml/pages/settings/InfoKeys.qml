@@ -88,7 +88,13 @@ Page {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: model.modelData.keyid
+                text: {
+                    if (!model.modelData) {
+                        "";
+                    } else {
+                        model.modelData.keyid;
+                    }
+                }
                 color: theme.palette.normal.backgroundText
             }
 
@@ -102,10 +108,12 @@ Page {
                 id: userIdsModel
 
                 Component.onCompleted: {
-                    for (var i = 0; i < model.modelData.userids.length; ++i) {
-                        userIdsModel.append({
-                            "model": model.modelData.userids[i]
-                        });
+                    if (model.modelData) {
+                        for (var i = 0; i < model.modelData.userids.length; ++i) {
+                            userIdsModel.append({
+                                "model": model.modelData.userids[i]
+                            });
+                        }
                     }
                 }
             }
@@ -125,7 +133,7 @@ Page {
                     width: parent.width
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    text: modelData.uid
+                    text: modelData
                     color: theme.palette.normal.backgroundText
                 }
 
@@ -163,7 +171,7 @@ Page {
         id: infoKeysPageDeleteValidation
 
         SimpleValidationDialog {
-            text: i18n.tr("You're are about to delete<br>%1.<br>Continue ?").arg(infoKeysPage.__currentKey.uid)
+            text: i18n.tr("You're are about to delete<br>%1.<br>Continue ?").arg(infoKeysPage.__currentKey.keyid)
             continueText: i18n.tr("Yes")
             continueColor: theme.palette.normal.negative
             onValidated: {

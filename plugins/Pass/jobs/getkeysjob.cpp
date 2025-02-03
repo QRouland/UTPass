@@ -30,7 +30,7 @@ void GetKeysJob::run()
 
     // Loading keyring
     QSet<QString> fingerprints = QSet<QString>();
-    this->load_full_keyring(&fingerprints);
+    this->loadFullKeyring(&fingerprints);
 
     //Get infos keys
     auto key_infos = QList<QJsonDocument>();
