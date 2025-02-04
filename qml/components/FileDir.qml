@@ -14,7 +14,7 @@ Component {
         color: theme.palette.normal.background
 
         Text {
-            text: fileBaseName
+            text: fileIsDir ? fileName : fileName.slice(0, -4) // remove .gpg if it's a file
             anchors.left: parent.left
             anchors.leftMargin: units.gu(2)
             anchors.verticalCenter: parent.verticalCenter
