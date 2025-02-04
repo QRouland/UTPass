@@ -26,6 +26,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
+        color: theme.palette.normal.background
 
         Flow {
             id: container
