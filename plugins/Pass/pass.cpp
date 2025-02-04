@@ -109,6 +109,7 @@ bool Pass::deletePasswordStore()
 
 void Pass::slotDeletePasswordStoreResult(bool err)
 {
+    this->initPasswordStore(); // reinit an empty password-store
     if (err) {
         qInfo() << "[Pass]  delete Password Store Failed";
         emit deletePasswordStoreFailed("failed to delete password store");

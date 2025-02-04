@@ -87,8 +87,8 @@ Page {
         SuccessDialog {
             textSuccess: i18n.tr("Password store sucessfully imported !")
             onDialogClosed: {
-                pageStack.pop();
-                pageStack.pop();
+                pageStack.clear();
+                pageStack.push(Qt.resolvedUrl("../PasswordList.qml"));
             }
         }
 

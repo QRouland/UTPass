@@ -121,7 +121,7 @@ Page {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                text: i18n.tr('Users IDs : ')
+                text: i18n.tr('User IDs : ')
                 color: theme.palette.normal.backgroundText
             }
 
