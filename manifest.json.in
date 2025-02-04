@@ -10,7 +10,7 @@
             "content-hub": "UTPass.contenthub"
         }
     },
-    "version": "0.0.3",
+    "version": "0.0.4-dev",
     "maintainer": "Quentin Rouland <quentin@qrouland.com>",
     "framework" : "ubuntu-sdk-20.04"
 }
