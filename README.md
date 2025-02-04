@@ -47,11 +47,9 @@ See [Contributing wiki page](https://github.com/QRouland/UTPass/wiki/Contributin
 
 Some useful links related to UTPass development :
 * [Ubports](https://ubports.com/) : Ubuntu Touch Community
-* [ZX2C4’s pass command line application](https://www.passwordstore.org/) : the standard unix password manager.
+* [ZX2C4’s pass command line application](https://www.passwordstore.org/) : The standard unix password manager.
 * [Clickable](https://github.com/bhdouglass/clickable) : Compile, build, and deploy Ubuntu Touch click packages
-* [GnuPG](https://gnupg.org/): The GNU Privacy Guard
-* [Gpgme](https://www.gnupg.org/software/gpgme/index.html) : GnuPG Made Easy (GPGME) is a library designed to make access to GnuPG easier for applications
-
+* [Rnp](https://github.com/rnpgp/rnp) : High performance C++ OpenPGP library used by Mozilla Thunderbird 
 
 ## License
 
