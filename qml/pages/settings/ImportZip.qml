@@ -32,15 +32,15 @@ Page {
                 if (importZipPage.activeTransfer.state === ContentTransfer.Charged) {
                     console.log("Charged");
                     console.log(importZipPage.activeTransfer.items[0].url);
-                    var status = Utils.unzip(importZipPage.activeTransfer.items[0].url, Pass.getPasswordStore());
+                    var status = Utils.unzip(importZipPage.activeTransfer.items[0].url, Pass.password_store);
                     Utils.unzipSucceed.connect(function() {
-                        importZipPage.activeTransfer = null;
                         Utils.rmFile(importZipPage.activeTransfer.items[0].url);
+                        importZipPage.activeTransfer = null;
                         PopupUtils.open(dialogImportZipPageSuccess);
                     });
                     Utils.unzipFailed.connect(function() {
-                        importZipPage.activeTransfer = null;
                         Utils.rmFile(importZipPage.activeTransfer.items[0].url);
+                        importZipPage.activeTransfer = null;
                         PopupUtils.open(dialogImportZipPageError);
                     });
                 }

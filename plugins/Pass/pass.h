@@ -22,8 +22,8 @@ extern "C" {
 class Pass : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString password_store  MEMBER m_password_store READ password_store WRITE set_password_store )
-    Q_PROPERTY(QString gpg_home  MEMBER m_gpg_home READ gpg_home WRITE set_gpg_home )
+    Q_PROPERTY(QString password_store MEMBER m_password_store WRITE set_password_store )
+    Q_PROPERTY(QString gpg_home  MEMBER m_gpg_home WRITE set_gpg_home )
 
 private slots:
     /**
@@ -167,15 +167,6 @@ public:
     Pass();
 
     /**
-     * @brief Gets the path to the password store.
-     * @return The path to the password store.
-     */
-    QString password_store() const
-    {
-        return this->m_password_store;
-    };
-
-    /**
      * @brief Set the path to the password store.
      * @param The path to the password store.
      */
@@ -183,15 +174,6 @@ public:
     {
         qInfo() << "[Pass] Password Store changed to :" << password_store;
         this->m_password_store = password_store;
-    };
-
-    /**
-     * @brief Gets the path to the gpg home.
-     * @return The path to the gpg home.
-     */
-    QString gpg_home() const
-    {
-        return this->m_gpg_home;
     };
 
     /**

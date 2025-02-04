@@ -52,6 +52,5 @@ void UnzipJob::run()
     qDebug() <<  dir_import_path << " to " << this->m_dir_out;
     auto ret = dir.rename(dir_import_path, this->m_dir_out.absolutePath());
     tmp_dir.removeRecursively();;
-    emit resultReady(ret);
-
+    emit resultReady(!ret);
 }

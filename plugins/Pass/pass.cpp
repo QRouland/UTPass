@@ -95,12 +95,12 @@ void Pass::slotShowSucceed(QString encrypted_file_path, QString plain_text)
 
 bool Pass::deletePasswordStore()
 {
-    qInfo() << "[Pass] Delete Password Store at" << this->password_store();
+    qInfo() << "[Pass] Delete Password Store at" << this->m_password_store;
     if (!this->m_sem->tryAcquire(1, 500)) {
         qInfo() << "[Pass] A command is already running";
         return false;
     }
-    auto job = new RmJob(this->password_store());
+    auto job = new RmJob(this->m_password_store);
     connect(job, &RmJob::resultReady, this, &Pass::slotDeletePasswordStoreResult);
     connect(job, &RmJob::finished, job, &QObject::deleteLater);
     job->start();

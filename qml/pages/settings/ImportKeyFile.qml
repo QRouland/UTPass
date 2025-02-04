@@ -30,13 +30,13 @@ Page {
                     console.log(importKeyFilePage.activeTransfer.items[0].url);
                     var status = Pass.importGPGKey(importKeyFilePage.activeTransfer.items[0].url);
                     Pass.importGPGKeySucceed.connect(function() {
-                        importKeyFilePage.activeTransfer = null;
                         Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
+                        importKeyFilePage.activeTransfer = null;
                         PopupUtils.open(dialogImportKeyPageSucess);
                     });
                     Pass.importGPGKeyFailed.connect(function(message) {
-                        importKeyFilePage.activeTransfer = null;
                         Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
+                        importKeyFilePage.activeTransfer = null;
                         PopupUtils.open(dialogImportKeyPageError);
                     });
                 }
