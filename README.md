@@ -20,10 +20,13 @@ Assuming that there are already passwords in another device using [ZX2C4’s pas
 
 Export gpg private keys in order to decrypt passwords:
 ```
-gpg --output keys.gpg --export-secret-keys
+gpg --output keys.gpg --export-secret-keys <key>
 ```
 
-Export passwords, assuming they reside in *.password-store* folder:
+If your password store is already hosted in a Git repository that provides HTTP or HTTP with authentication for cloning (we're working to have support for SSH soon), you can clone your password store directly from the app.
+Otherwise, follow these steps to export it to a ZIP file for importing.
+
+Export passwords to a ZIP archive, assuming they reside in the *.password-store* folder:
 ```
 zip passwords.zip -r .password-store/
 ```
