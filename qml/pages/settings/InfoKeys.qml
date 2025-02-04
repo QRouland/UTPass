@@ -89,11 +89,10 @@ Page {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: {
-                    if (!model.modelData) {
+                    if (!model.modelData)
                         "";
-                    } else {
+                    else
                         model.modelData.keyid;
-                    }
                 }
                 color: theme.palette.normal.backgroundText
             }

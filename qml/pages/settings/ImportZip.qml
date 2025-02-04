@@ -35,10 +35,12 @@ Page {
                     var status = Utils.unzip(importZipPage.activeTransfer.items[0].url, Pass.getPasswordStore());
                     Utils.unzipSucceed.connect(function() {
                         importZipPage.activeTransfer = null;
+                        Utils.rmFile(importZipPage.activeTransfer.items[0].url);
                         PopupUtils.open(dialogImportZipPageSuccess);
                     });
-                    Utils.unzipFailed.connect(function(message) {
+                    Utils.unzipFailed.connect(function() {
                         importZipPage.activeTransfer = null;
+                        Utils.rmFile(importZipPage.activeTransfer.items[0].url);
                         PopupUtils.open(dialogImportZipPageError);
                     });
                 }

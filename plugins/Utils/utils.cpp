@@ -29,7 +29,7 @@ void Utils::unzipResult(bool err)
     qDebug() << "Unzip Result";
     if (err) {
         qInfo() << "Unzip Failed";
-        emit unzipFailed("failed to unzip archive");
+        emit unzipFailed();
 
     } else {
         qInfo() << "Unzip Succeed";
@@ -44,4 +44,15 @@ QString Utils::manifestPath()
     auto path = QDir(QDir::currentPath()).filePath("manifest_.json");
     qInfo() << "Manifest path : " << path;
     return path;
+}
+
+bool Utils::rmFile(QUrl file_url)
+{
+    return QFile::remove(file_url.toLocalFile());
+}
+
+bool Utils::rmDir(QUrl dir_url)
+{
+    QDir dir(dir_url.toLocalFile());
+    return dir.removeRecursively();
 }
