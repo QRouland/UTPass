@@ -2,7 +2,7 @@
 - Port app to Focal
 - Improve UI :
   * Follow human interface guidelines
-  * Fix various components color to work with black theme 
+  * Fix various components color to work with dark theme 
 - Rewrite of Pass Plugin:
   * Move from GPGMe to RNP for GPG operations due to issues running GPG agent in a confined app
   * Improve multithreading code for GPG operations
