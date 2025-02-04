@@ -35,7 +35,7 @@ void DecryptJob::run()
         ret = rnp_output_memory_get_buf(output, &buf, &buf_len, false);
     }
     if (ret == RNP_SUCCESS) {
-        data = QString::fromUtf8((char*)buf);
+        data = QString::fromUtf8((char*)buf, buf_len);
     }
 
     rnp_input_destroy(input);
