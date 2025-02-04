@@ -22,13 +22,13 @@ CloneJob::CloneJob(QString url, QString path, cred_type cred):
 void CloneJob::run()
 {
     auto tmp_dir = this->cloneSetup();
-    auto err = this->clone(this->m_url,  tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
-    if (!err) {
+    auto ret = this->clone(this->m_url,  tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
+    if (ret) {
         this->moveToDestination(tmp_dir, this->m_path);
     }
-    this->cloneTearDown(tmp_dir);
+    this->cloneCleanUp(tmp_dir);
 
-    emit resultReady(err); // TODO Clean error handling to return specifics errors for the ui
+    emit resultReady(!ret); // TODO Clean error handling to return specifics errors for the ui
 }
 
 
@@ -37,26 +37,26 @@ QDir CloneJob::cloneSetup()
     QDir tmp_dir(QStandardPaths::writableLocation( QStandardPaths::CacheLocation).append("/clone"));
 
     tmp_dir.removeRecursively();
-    qDebug() << "Temp dir path is " << tmp_dir.absolutePath();
+    qDebug() << "[CloneJob]Temp dir path is " << tmp_dir.absolutePath();
 
     return tmp_dir;
 }
 
 
-bool CloneJob::cloneTearDown(QDir tmp_dir)
+bool CloneJob::cloneCleanUp(QDir tmp_dir)
 {
     return tmp_dir.removeRecursively();
 }
 
 bool CloneJob::moveToDestination(QDir tmp_dir, QString path)
 {
-    qDebug() << "Removing password_store " << path;
+    qDebug() << "[CloneJob] Removing password_store " << path;
     QDir destination_dir(path);
     destination_dir.removeRecursively();
 
-    qDebug() << "Moving cloned content to destination dir";
+    qDebug() << "[CloneJob] Moving cloned content to destination dir";
     QDir dir;
-    qDebug() <<  tmp_dir.absolutePath() << " to " << destination_dir.absolutePath();
+    qDebug() << "[CloneJob]" <<  tmp_dir.absolutePath() << " to " << destination_dir.absolutePath();
     return dir.rename(tmp_dir.absolutePath(), destination_dir.absolutePath()); // TODO Better error handling
 }
 
@@ -69,12 +69,17 @@ bool CloneJob::clone(QString url, QString path, cred_type cred, git_cred_acquire
     opts.fetch_opts.callbacks.payload = &cred;
 
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
-    if (ret != 0) {
-        qDebug() << git_error_last()->message;
+    if (ret == GIT_EUSER ) {
+        qDebug() << "[CloneJob] CallBack Error";
+    } else if (ret != 0) {
+        auto err = git_error_last(); // TODO Better error handling for return ui messages
+        if (err) {
+            qDebug() << "[CloneJob]" << git_error_last()->message;
+        }
     }
     if (repo) {
         git_repository_free(repo);
-    }// TODO Better error handling
-    return ret != 0;
+    }
+    return ret == 0;
 }
 

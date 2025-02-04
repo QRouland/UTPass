@@ -25,27 +25,27 @@ int GitJob::credentialsCB(git_cred **out, const char *url, const char *username_
     auto v =  overload {
         [](const HTTP & x)
         {
-            qDebug() << "credentialsCB : HTTP ";
-            qWarning() << "credentialsCB : callback should never be call for HTTP ";
+            qDebug() << "[GitJob] credentialsCB : HTTP ";
+            qWarning() << "[GitJob] credentialsCB : callback should never be call for HTTP ";
             return (int) GIT_EUSER;
         },
         [&out, &username_from_url](const HTTPUserPass & x)
         {
-            qDebug() << "credentialsCB : HTTPUserPass ";
+            qDebug() << "[GitJob] credentialsCB : HTTPUserPass ";
             if (!username_from_url) {
-                qWarning() << "credentials_cb : no username provided ";
+                qWarning() << "[GitJob] credentials_cb : no username provided ";
                 return (int) GIT_EUSER;
             }
             return git_cred_userpass_plaintext_new(out, username_from_url, x.pass.toLocal8Bit().constData());
         },
         [](const SSHPass & x)
         {
-            qWarning() << "credentials_cb : SSHAuth to be implemented ";
+            qWarning() << "[GitJob] credentials_cb : SSHAuth to be implemented ";
             return (int) GIT_EUSER;
         }, // TODO
         [](const SSHKey & x)
         {
-            qWarning() << "credentials_cb : SSHKey to be implemented ";
+            qWarning() << "[GitJob] credentials_cb : SSHKey to be implemented ";
             return (int) GIT_EUSER;
         }  // TODO
     };

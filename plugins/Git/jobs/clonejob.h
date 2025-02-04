@@ -70,7 +70,7 @@ private:
      * @param tmp_dir The temporary directory to tear down.
      * @return `true` if the teardown was successful, `false` otherwise.
      */
-    static bool cloneTearDown(QDir tmp_dir);
+    static bool cloneCleanUp(QDir tmp_dir);
 
     /**
      * @brief Clones a repository from a specified URL.
