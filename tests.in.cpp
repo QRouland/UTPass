@@ -16,5 +16,5 @@ int main(int argc, char *argv[])
 
     QGuiApplication::setApplicationName("utpass.qrouland");
 
-    return quick_test_main(argc, argv, @TESTS_PATH@, @TESTS_PATH@);
+    return quick_test_main(argc, argv, "@TESTS_PATH@", "@TESTS_PATH@");
 }

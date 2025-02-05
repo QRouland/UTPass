@@ -1,7 +1,8 @@
 #include <QUrl>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QDir>
-
+#include <QDirIterator>
+#include <QtConcurrent/QtConcurrent>
 #include "jobs/decryptjob.h"
 #include "jobs/deletekeyjob.h"
 #include "jobs/getkeysjob.h"
@@ -61,8 +62,35 @@ void Pass::initPasswordStore()
     qInfo() << "[Pass] Password Store is :" << m_password_store;
 }
 
+void Pass::lsJob()
+{
+    QDirIterator it(this->m_password_store, QStringList() << "*.gpg", QDir::Files, QDirIterator::Subdirectories);
+    QList<QString> ret;
+    while (it.hasNext()) {
+        QFile f(it.next());
+        QString fname = f.fileName();
+        fname.remove(0, this->m_password_store.length() + 1); // remove system path
+        ret.append(fname);
+    }
+    qInfo() << "[Pass] ls Succeed";
+    emit lsSucceed(ret);
+    this->m_sem->release(1);
+}
+
+bool Pass::ls()
+{
+    qInfo() << "[Pass] ls";
+    if (!this->m_sem->tryAcquire(1, 500)) {
+        qInfo() << "[Pass] A command is already running";
+        return false;
+    }
+    QtConcurrent::run(this, &Pass::lsJob );
+    return true;
+}
+
 bool Pass::show(QUrl url)
 {
+    qInfo() << "[Pass] Show";
     if (!this->m_sem->tryAcquire(1, 500)) {
         qInfo() << "[Pass] A command is already running";
         return false;
@@ -111,7 +139,7 @@ void Pass::slotDeletePasswordStoreResult(bool err)
 {
     this->initPasswordStore(); // reinit an empty password-store
     if (err) {
-        qInfo() << "[Pass]  delete Password Store Failed";
+        qInfo() << "[Pass] Delete Password Store Failed";
         emit deletePasswordStoreFailed("failed to delete password store");
     } else {
         qInfo() << "[Pass] Delete Password Store Succeed";

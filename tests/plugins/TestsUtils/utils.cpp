@@ -6,11 +6,11 @@
 #include <memory>
 #include <quazip5/JlCompress.h>
 
-#include "passphraseprovider.h"
+//#include "passphraseprovider.h"
 #include "utils.h"
 
-TestsUtils::TestsUtils():
-    m_passphrase_povider(std::unique_ptr<TesTPassphraseProvider>(new TesTPassphraseProvider()))
+TestsUtils::TestsUtils()
+//m_passphrase_povider(std::unique_ptr<TesTPassphraseProvider>(new TesTPassphraseProvider()))
 {}
 
 
@@ -68,9 +68,9 @@ void TestsUtils::copyFolder(QUrl sourceFolderUrl, QUrl destFolderUrl)
     }
 }
 
-QObject *TestsUtils::getTestPassphraseProvider()
-{
-    return &TesTPassphraseProvider::instance();
-}
+// QObject *TestsUtils::getTestPassphraseProvider()
+// {
+//     return &TesTPassphraseProvider::instance();
+// }
 
 

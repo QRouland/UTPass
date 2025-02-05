@@ -4,6 +4,8 @@ import QtTest 1.2
 import TestsUtils 1.0
 
 TestCase {
+    //Pass.passphrase_provider = TestsUtils.getTestPassphraseProvider();
+
     property string password_store
     property string gpg_home
 
@@ -13,7 +15,6 @@ TestCase {
         Pass.gpg_home = gpg_home;
         password_store = TestsUtils.getTempPath();
         Pass.password_store = password_store;
-        Pass.passphrase_provider = TestsUtils.getTestPassphraseProvider();
     }
 
 }

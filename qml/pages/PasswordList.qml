@@ -10,11 +10,36 @@ import "headers"
 Page {
     id: passwordListPage
 
-    property string passwordStorePath
+    property string __passwordStorePath
+    property var __passwords
+
+    function __searchPasswords(filter) {
+        var ret = [];
+        if (__passwords) {
+            for (var i = 0; i < __passwords.length; i++) {
+                if (__passwords[i].toUpperCase().indexOf(filter.toUpperCase()) > -1)
+                    ret.push(__passwords[i]);
+
+            }
+        }
+        return ret;
+    }
+
+    function __searchUpdateModel(text) {
+        var ret = __searchPasswords(text);
+        passwordListSearch.model.clear();
+        for (var i = 0; i < ret.length; i++) {
+            if (ret[i])
+                passwordListSearch.model.append({
+                    "fileName": ret[i]
+                });
+
+        }
+    }
 
     anchors.fill: parent
     Component.onCompleted: {
-        passwordStorePath = "file:" + Pass.password_store;
+        __passwordStorePath = "file:" + Pass.password_store;
         Pass.onShowSucceed.connect(function(filename, text) {
             pageStack.push(Qt.resolvedUrl("../pages/Password.qml"), {
                 "plainText": text,
@@ -24,16 +49,22 @@ Page {
         Pass.onShowFailed.connect(function(message) {
             PopupUtils.open(passwordPageDecryptError);
         });
+        Pass.onLsSucceed.connect(function(passwords) {
+            __passwords = passwords;
+        });
+        Pass.ls();
     }
 
     Column {
+        id: passwordListEmpty
+
         anchors.top: passwordListHeader.bottom
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.leftMargin: units.gu(2)
         anchors.rightMargin: units.gu(2)
-        visible: folderModel.count == 0
+        visible: passwordListNav.model.count === 0
 
         Rectangle {
             width: parent.width
@@ -71,24 +102,66 @@ Page {
     }
 
     ListView {
+        id: passwordListNav
+
         anchors.top: passwordListHeader.bottom
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
         spacing: 1
-        visible: folderModel.count != 0
+        visible: passwordListNav.model.count !== 0 && passwordListHeader.searchBarIsActive
 
         model: FolderListModel {
-            id: folderModel
-
             nameFilters: ["*.gpg"]
-            rootFolder: passwordStorePath
-            folder: passwordStorePath
+            rootFolder: __passwordStorePath
+            folder: __passwordStorePath
             showDirs: true
         }
 
-        delegate: FileDir {
-            id: fileDelegate
+        delegate: Component {
+            FileDir {
+                fName: fileName
+                fIsDir: fileIsDir
+                onClicked: {
+                    var path = passwordListNav.model.folder + "/" + fileName;
+                    if (fileIsDir) {
+                        passwordListNav.model.folder = path;
+                        backAction.visible = true;
+                        passwordListHeader.title = fileName;
+                    } else {
+                        console.debug("pass show %1".arg(path));
+                        Pass.show(path);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    ListView {
+        id: passwordListSearch
+
+        anchors.top: passwordListHeader.bottom
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: parent.left
+        visible: passwordListNav.model.count !== 0 && !passwordListHeader.searchBarIsActive
+
+        model: ListModel {
+        }
+
+        delegate: Component {
+            FileDir {
+                fName: fileName
+                fIsDir: false
+                onClicked: {
+                    var path = __passwordStorePath + "/" + fileName;
+                    console.debug("pass show %1".arg(path));
+                    Pass.show(path);
+                }
+            }
+
         }
 
     }
@@ -105,6 +178,8 @@ Page {
     header: MainHeader {
         id: passwordListHeader
 
+        onSearchBarActived: __searchUpdateModel("")
+        onSearchBarTextChanged: __searchUpdateModel(text)
         leadingActionBar.height: units.gu(4)
         leadingActionBar.actions: [
             Action {
@@ -114,9 +189,9 @@ Page {
                 text: i18n.tr("Back")
                 visible: false
                 onTriggered: {
-                    folderModel.folder = folderModel.parentFolder;
-                    console.debug(folderModel.folder);
-                    if (folderModel.rootFolder === folderModel.folder) {
+                    passwordListNav.model.folder = passwordListNav.model.parentFolder;
+                    console.debug(passwordListNav.model.folder);
+                    if (passwordListNav.model.rootFolder === passwordListNav.model.folder) {
                         backAction.visible = false;
                         passwordListHeader.title = i18n.tr("UTPass");
                     } else {

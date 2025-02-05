@@ -118,6 +118,9 @@ signals:
      */
     void showSucceed(QString name, QString text);
 
+
+    void lsSucceed(QList<QString>);
+
     /**
      * @brief Emitted when showing a password fails.
      * @param message The error message describing the failure.
@@ -159,6 +162,8 @@ private:
      * @brief Initialize password store.
      */
     void initPasswordStore();
+
+    void lsJob();
 
 public:
     /**
@@ -228,6 +233,12 @@ public:
     Q_INVOKABLE void responsePassphraseDialog(bool cancel, QString passphrase);
 
     // Password store-related methods
+
+    /**
+     * @brief Get the list of password.
+     * @return The list of password in the password store.
+     */
+    Q_INVOKABLE bool ls();
 
     /**
      * @brief Launch the job to shows the password associated with the specified URL.

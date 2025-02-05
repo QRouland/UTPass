@@ -4,24 +4,24 @@ import QtTest 1.2
 import TestsUtils 1.0
 
 PassTestCase {
+    // TODO This test need to fixed by providing custom stub password provider to the pass plugin for succeed tests
     //TODO some additionanl error test
-
     function init_data() {
         return [{
             "spy": showFailed,
             "err_msg": "Bad password",
-            "add_home_gpg_data": true,
+            "add_password_store_data": true,
             "file": "../../assets/gpg/clear_text.txt.gpg"
         }, {
             "spy": showFailed,
             "err_msg": "No suitable key",
-            "add_home_gpg_data": false,
+            "add_password_store_data": false,
             "file": "../../assets/gpg/clear_text.txt.gpg"
         }];
     }
 
     function test_pass_show(data) {
-        if (data.add_home_gpg_data === true)
+        if (data.add_password_store_data === true)
             TestsUtils.copyFolder(Qt.resolvedUrl("../../assets/gpghome"), Qt.resolvedUrl(gpg_home));
 
         var fname, ctext;

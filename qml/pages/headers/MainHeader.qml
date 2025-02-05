@@ -4,23 +4,29 @@ import QtQuick 2.4
 PageHeader {
     id: mainHeader
 
+    readonly property bool searchBarIsActive: !searchBar.visible
+
+    signal searchBarActived()
+    signal searchBarTextChanged(string text)
+
     width: parent.width
     height: units.gu(6)
     title: i18n.tr("UTPass")
     trailingActionBar.height: units.gu(4)
     trailingActionBar.numberOfSlots: 2
     trailingActionBar.actions: [
-        /*Action { TODO
-            iconName: "search"
+        Action {
+            iconName: searchBarIsActive ? "search" : "close"
             text: i18n.tr("Search")
             onTriggered: {
-                searchBar.visible = !searchBar.visible
-                labelTitle.visible = !searchBar.visible
+                searchBar.visible = !searchBar.visible;
+                labelTitle.visible = !searchBar.visible;
                 if (searchBar.visible === true) {
-                    searchBar.focus = true
+                    searchBar.focus = true;
+                    searchBarActived();
                 }
             }
-        },*/
+        },
         Action {
             iconName: "settings"
             text: i18n.tr("Settings")
@@ -58,8 +64,7 @@ PageHeader {
             height: units.gu(4)
             visible: false
             anchors.verticalCenter: parent.verticalCenter
-            onFocusChanged: {
-            }
+            onContentWidthChanged: searchBarTextChanged(searchBar.text)
         }
 
     }

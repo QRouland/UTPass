@@ -3,9 +3,9 @@
 
 #include <QObject>
 #include <gpg-error.h>
-extern "C" {
-#include <rnp/rnp.h>
-}
+// extern "C" {
+// #include <rnp/rnp.h>
+// }
 
 class TesTPassphraseProvider : public QObject
 {
