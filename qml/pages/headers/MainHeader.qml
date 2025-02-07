@@ -64,7 +64,7 @@ PageHeader {
             height: units.gu(4)
             visible: false
             anchors.verticalCenter: parent.verticalCenter
-            onContentWidthChanged: searchBarTextChanged(searchBar.text)
+            onTextChanged: searchBarTextChanged(searchBar.text)
         }
 
     }

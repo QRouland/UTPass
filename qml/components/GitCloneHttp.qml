@@ -30,7 +30,7 @@ Column {
         verticalAlignment: Text.AlignVCenter
         width: parent.width
         placeholderText: "http(s)://<hostname>"
-        onContentWidthChanged: repoUrlChanged(repoUrlInput.text)
+        onTextChanged: repoUrlChanged(repoUrlInput.text)
     }
 
     Rectangle {
