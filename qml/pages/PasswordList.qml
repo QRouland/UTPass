@@ -31,15 +31,15 @@ Page {
         for (var i = 0; i < ret.length; i++) {
             if (ret[i])
                 passwordListSearch.model.append({
-                    "fileName": ret[i]
-                });
+                "fileName": ret[i]
+            });
 
         }
     }
 
     anchors.fill: parent
     Component.onCompleted: {
-        __passwordStorePath = "file:" + Pass.password_store;
+        passwordListPage.__passwordStorePath = "file:" + Pass.password_store;
         Pass.onShowSucceed.connect(function(filename, text) {
             pageStack.push(Qt.resolvedUrl("../pages/Password.qml"), {
                 "plainText": text,
@@ -50,7 +50,7 @@ Page {
             PopupUtils.open(passwordPageDecryptError);
         });
         Pass.onLsSucceed.connect(function(passwords) {
-            __passwords = passwords;
+            passwordListPage.__passwords = passwords;
         });
         Pass.ls();
     }
@@ -113,8 +113,8 @@ Page {
 
         model: FolderListModel {
             nameFilters: ["*.gpg"]
-            rootFolder: __passwordStorePath
-            folder: __passwordStorePath
+            rootFolder: passwordListPage.__passwordStorePath
+            folder: passwordListPage.__passwordStorePath
             showDirs: true
         }
 
@@ -156,7 +156,7 @@ Page {
                 fName: fileName
                 fIsDir: false
                 onClicked: {
-                    var path = __passwordStorePath + "/" + fileName;
+                    var path = passwordListPage.__passwordStorePath + "/" + fileName;
                     console.debug("pass show %1".arg(path));
                     Pass.show(path);
                 }

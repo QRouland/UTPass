@@ -48,6 +48,10 @@ endif()
 
 qt5_use_modules(${PROJECT_NAME} Gui Qml Quick QuickTest)
 
+set_source_files_properties(qml/singletons/GitSettings.qml PROPERTIES
+    QT_QML_SINGLETON_TYPE TRUE
+)
+
 if(TESTS_RUNNER)
     qt5_use_modules(${PROJECT_NAME} QuickTest)
 endif()

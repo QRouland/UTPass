@@ -7,8 +7,6 @@ import QtQuick 2.4
 Page {
     id: settingsPage
 
-    property string gpgKeyId: ""
-
     Flow {
         anchors.top: settingsHeader.bottom
         anchors.bottom: parent.bottom
@@ -44,7 +42,7 @@ Page {
         }
 
         PageStackLink {
-            page: Qt.resolvedUrl("git/ImportGitClone.qml")
+            page: Qt.resolvedUrl("ImportGitClone.qml")
             text: i18n.tr('Import a Password Store using Git')
         }
 

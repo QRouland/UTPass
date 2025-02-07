@@ -4,7 +4,13 @@ import Pass 1.0
 import QtQuick 2.4
 
 Column {
-    anchors.top: parent.fill
+    signal repoUrlChanged(string url)
+
+    function setRepoUrl(url) {
+        repoUrlInput.text = url;
+    }
+
+    width: parent.width
     spacing: units.gu(1)
 
     Text {
@@ -23,27 +29,8 @@ Column {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         width: parent.width
-        placeholderText: "http(s)://<username>@<hostname>"
-    }
-
-    Text {
-        id: repoPasswordLabel
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        width: parent.width
-        text: i18n.tr('Password')
-        color: theme.palette.normal.backgroundText
-    }
-
-    TextField {
-        id: repoPasswordInput
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-        width: parent.width
-        echoMode: TextInput.Password
-        placeholderText: i18n.tr('Password')
+        placeholderText: "http(s)://<hostname>"
+        onContentWidthChanged: repoUrlChanged(repoUrlInput.text)
     }
 
     Rectangle {
@@ -59,7 +46,7 @@ Column {
         color: theme.palette.normal.positive
         text: i18n.tr('Clone')
         onClicked: {
-            Git.cloneHttpPass(repoUrlInput.text, Pass.password_store, repoPasswordInput.text);
+            Git.cloneHttp(repoUrlInput.text, Pass.password_store);
         }
     }
 

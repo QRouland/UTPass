@@ -1,0 +1,2 @@
+module settings
+singleton GitSettings 1.0 GitSettings.qml

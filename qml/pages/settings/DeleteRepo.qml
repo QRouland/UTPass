@@ -1,5 +1,6 @@
 import "../../components"
 import "../../dialogs"
+import "../../settings"
 import "../headers"
 import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
@@ -77,6 +78,8 @@ Page {
         SuccessDialog {
             textSuccess: i18n.tr("Password Store deleted !")
             onDialogClosed: {
+                GitSettings.type = 0;
+                GitSettings.repoUrl = null;
                 pageStack.clear();
                 pageStack.push(Qt.resolvedUrl("../PasswordList.qml"));
             }
