@@ -19,14 +19,15 @@ Page {
             for (var i = 0; i < __passwords.length; i++) {
                 if (__passwords[i].toUpperCase().indexOf(filter.toUpperCase()) > -1)
                     ret.push(__passwords[i]);
-
             }
         }
         return ret;
     }
 
-    function __searchUpdateModel(text) {
-        var ret = __searchPasswords(text);
+    function __searchUpdateModel() {
+        const filter = passwordListHeader.searchBar.text;
+        console.info("filter : %1".arg(filter));
+        var ret = __searchPasswords(filter);
         passwordListSearch.model.clear();
         for (var i = 0; i < ret.length; i++) {
             if (ret[i])
@@ -51,6 +52,7 @@ Page {
         });
         Pass.onLsSucceed.connect(function(passwords) {
             passwordListPage.__passwords = passwords;
+            __searchUpdateModel();
         });
         Pass.ls();
     }
@@ -109,7 +111,7 @@ Page {
         anchors.right: parent.right
         anchors.left: parent.left
         spacing: 1
-        visible: passwordListNav.model.count !== 0 && passwordListHeader.searchBarIsActive
+        visible: passwordListNav.model.count !== 0 && !passwordListHeader.searchBar.visible
 
         model: FolderListModel {
             nameFilters: ["*.gpg"]
@@ -146,7 +148,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: parent.left
-        visible: passwordListNav.model.count !== 0 && !passwordListHeader.searchBarIsActive
+        visible: passwordListNav.model.count !== 0 && passwordListHeader.searchBar.visible
 
         model: ListModel {
         }
@@ -175,11 +177,16 @@ Page {
 
     }
 
+    Timer {
+        id: searchTimer
+        interval: 500
+        onTriggered: __searchUpdateModel()
+    }
+
     header: MainHeader {
         id: passwordListHeader
 
-        onSearchBarActived: __searchUpdateModel("")
-        onSearchBarTextChanged: __searchUpdateModel(text)
+        searchBar.onTextChanged: searchTimer.restart()
         leadingActionBar.height: units.gu(4)
         leadingActionBar.actions: [
             Action {

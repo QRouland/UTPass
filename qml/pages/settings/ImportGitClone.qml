@@ -15,7 +15,6 @@ Page {
     property string __repoUrl
 
     function __loadForm() {
-        console.debug("yo");
         switch (combo.selectedIndex) {
         case 0:
             importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttp.qml");
