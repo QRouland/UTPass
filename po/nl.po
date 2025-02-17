@@ -1,0 +1,268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the utpass.qrouland package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: utpass.qrouland\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-04 17:49+0100\n"
+"PO-Revision-Date: 2025-02-12 22:20+0100\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.5\n"
+
+#: ../qml/dialogs/ErrorDialog.qml:12
+msgid "Error !"
+msgstr "Foutmelding!"
+
+#: ../qml/dialogs/ErrorDialog.qml:16
+msgid "Close"
+msgstr "Sluiten"
+
+#: ../qml/dialogs/PassphraseDialog.qml:15
+msgid "Authentication required"
+msgstr "Verificatie vereist"
+
+#: ../qml/dialogs/PassphraseDialog.qml:16
+msgid "Enter passphrase:"
+msgstr "Voer de toegangszin in:"
+
+#: ../qml/dialogs/PassphraseDialog.qml:21
+msgid "passphrase"
+msgstr "toegangszin"
+
+#: ../qml/dialogs/PassphraseDialog.qml:29
+#: ../qml/dialogs/SimpleValidationDialog.qml:8
+msgid "Ok"
+msgstr "Oké"
+
+#: ../qml/dialogs/PassphraseDialog.qml:41
+#: ../qml/dialogs/SimpleValidationDialog.qml:28
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: ../qml/dialogs/SuccessDialog.qml:12
+msgid "Success !"
+msgstr "Goedgekeurd!"
+
+#: ../qml/dialogs/SuccessDialog.qml:16
+msgid "OK"
+msgstr "Oké"
+
+#: ../qml/pages/Info.qml:62
+msgid "<b>Version</b>"
+msgstr "<b>Versie</b>"
+
+#: ../qml/pages/Info.qml:83
+msgid "<b>Maintainer</>"
+msgstr "<b>Onderhouder</b>"
+
+#: ../qml/pages/Info.qml:110
+msgid "Suggest improvement(s) or report a bug(s)"
+msgstr "Ideeën delen of bugs melden"
+
+#: ../qml/pages/Info.qml:115
+msgid "Access to the source code"
+msgstr "Broncode bekijken"
+
+#: ../qml/pages/Info.qml:123
+msgid "Released under the terms of the GNU GPL v3"
+msgstr "Uitgebracht onder de GNU GPLv3-licentie"
+
+#: ../qml/pages/Info.qml:132 ../qml/pages/headers/MainHeader.qml:33
+msgid "Info"
+msgstr "Informatie"
+
+#: ../qml/pages/PasswordList.qml:45
+msgid "No password found"
+msgstr "Er zijn geen wachtwoorden beschikbaar"
+
+#: ../qml/pages/PasswordList.qml:58
+msgid "You can import a password store by cloning or"
+msgstr "Importeer wachtwoorden door te klonen of een zipbestand"
+
+#: ../qml/pages/PasswordList.qml:65
+msgid "importing a password store zip in the settings"
+msgstr "te importeren vanuit de instellingen"
+
+#: ../qml/pages/PasswordList.qml:100
+msgid "Decryption failed !"
+msgstr "Het ongrendelen is mislukt!"
+
+#: ../qml/pages/PasswordList.qml:114
+msgid "Back"
+msgstr "Terug"
+
+#: ../qml/pages/PasswordList.qml:121 ../qml/pages/headers/MainHeader.qml:9
+#: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
+msgid "UTPass"
+msgstr "UTPass"
+
+#: ../qml/pages/headers/MainHeader.qml:26 ../qml/pages/settings/Settings.qml:75
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../qml/pages/headers/MainHeader.qml:57
+msgid "Search"
+msgstr "Zoeken"
+
+#: ../qml/pages/settings/DeleteRepo.qml:42
+#: ../qml/pages/settings/Settings.qml:58
+msgid "Delete Password Store"
+msgstr "Wachtwoordopslag verwijderen"
+
+#: ../qml/pages/settings/DeleteRepo.qml:55
+msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
+msgstr ""
+"Je staat op het punt om de huidige<br>wachtwoordopslag te verwijderen."
+"<br>Weet je het zeker?"
+
+#: ../qml/pages/settings/DeleteRepo.qml:56
+#: ../qml/pages/settings/ImportZip.qml:66
+#: ../qml/pages/settings/InfoKeys.qml:174
+#: ../qml/pages/settings/git/ImportGitClone.qml:56
+msgid "Yes"
+msgstr "Ja"
+
+#: ../qml/pages/settings/DeleteRepo.qml:69
+msgid "Password Store removal failed !"
+msgstr "Het verwijderen is mislukt!"
+
+#: ../qml/pages/settings/DeleteRepo.qml:78
+msgid "Password Store deleted !"
+msgstr "De opslag is verwijderd!"
+
+#: ../qml/pages/settings/DeleteRepo.qml:90
+#: ../qml/pages/settings/InfoKeys.qml:216
+msgid "Info Keys"
+msgstr "Informatiesleutels"
+
+#: ../qml/pages/settings/ImportKeyFile.qml:61
+msgid "Key import failed !"
+msgstr "Het importeren is mislukt!"
+
+#: ../qml/pages/settings/ImportKeyFile.qml:70
+msgid "Key successfully imported !"
+msgstr "De sleutels zijn geïmporteerd!"
+
+#: ../qml/pages/settings/ImportKeyFile.qml:81
+msgid "GPG Key Import"
+msgstr "Gpg-sleutelimport"
+
+#: ../qml/pages/settings/ImportZip.qml:65
+msgid ""
+"Importing a new zip will delete<br>any existing password store!<br>Continue ?"
+msgstr ""
+"Door een zipbestand te importeren<br>wordt de huidige opslag gewist!<br>Weet "
+"je het zeker?"
+
+#: ../qml/pages/settings/ImportZip.qml:79
+msgid "Password store import failed !"
+msgstr "Het importeren is mislukt!"
+
+#: ../qml/pages/settings/ImportZip.qml:88
+#: ../qml/pages/settings/git/ImportGitClone.qml:78
+msgid "Password store sucessfully imported !"
+msgstr "De wachtwoorden zijn geïmporteerd!"
+
+#: ../qml/pages/settings/ImportZip.qml:100
+msgid "Zip Password Store Import"
+msgstr "Zipbestandsimport"
+
+#: ../qml/pages/settings/InfoKeys.qml:47
+msgid "No key found"
+msgstr "Er zijn geen sleutels aangetroffen"
+
+#: ../qml/pages/settings/InfoKeys.qml:83
+msgid "Key ID :"
+msgstr "Sleutel-id:"
+
+#: ../qml/pages/settings/InfoKeys.qml:124
+msgid "User IDs : "
+msgstr "Gebruikers-id's: "
+
+#: ../qml/pages/settings/InfoKeys.qml:151
+msgid "Delete this key"
+msgstr "Sleutel verwijderen"
+
+#: ../qml/pages/settings/InfoKeys.qml:173
+msgid "You're are about to delete<br>%1.<br>Continue ?"
+msgstr "Je staat op het punt om<br>%1 te verwijderen.<br>Weet je het zeker?"
+
+#: ../qml/pages/settings/InfoKeys.qml:187
+msgid "Key removal failed !"
+msgstr "Het verwijderen is mislukt!"
+
+#: ../qml/pages/settings/InfoKeys.qml:196
+msgid "Key successfully deleted !"
+msgstr "De sleutel is verwijderd!"
+
+#: ../qml/pages/settings/InfoKeys.qml:208
+msgid "An Error occured getting GPG keys !"
+msgstr "Er is een fout opgetreden tijdens het ophalen van de sleutels!"
+
+#: ../qml/pages/settings/Settings.qml:23
+msgid "GPG"
+msgstr "Gpg"
+
+#: ../qml/pages/settings/Settings.qml:29
+msgid "Import a GPG key file"
+msgstr "Gpg-sleutelbestand importeren"
+
+#: ../qml/pages/settings/Settings.qml:34
+msgid "Show GPG keys"
+msgstr "Gpg-sleutels bekijken"
+
+#: ../qml/pages/settings/Settings.qml:42
+msgid "Password Store"
+msgstr "Wachtwoordopslag"
+
+#: ../qml/pages/settings/Settings.qml:48
+msgid "Import a Password Store using Git"
+msgstr "Wachtwoordopslag importeren met Git"
+
+#: ../qml/pages/settings/Settings.qml:53
+msgid "Import a Password Store Zip"
+msgstr "Wachtwoordopslag importeren uit zipbestand"
+
+#: ../qml/pages/settings/Settings.qml:67
+msgid "Warning: importing delete any exiting Password Store"
+msgstr "Waarschuwing: de huidige opslag wordt hierdoor gewist"
+
+#: ../qml/pages/settings/git/GitCloneHttp.qml:16
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:16
+msgid "Repo Url"
+msgstr "Repo-url"
+
+#: ../qml/pages/settings/git/GitCloneHttp.qml:40
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:60
+msgid "Clone"
+msgstr "Klonen"
+
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:35
+#: ../qml/pages/settings/git/GitCloneHttpAuth.qml:46
+msgid "Password"
+msgstr "Wachtwoord"
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:55
+msgid ""
+"Importing a git repo will delete<br>any existing password store!"
+"<br>Continue ?"
+msgstr ""
+"Door een git-repo te importeren<br>wordt de huidige opslag gewist!<br>Weet "
+"je het zeker?"
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:69
+msgid "An error occured during git clone !"
+msgstr "Er is een fout opgetreden tijdens het klonen!"
+
+#: ../qml/pages/settings/git/ImportGitClone.qml:90
+msgid "Git Clone Import"
+msgstr "Git-kloonimport"
