@@ -2,21 +2,24 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the utpass.qrouland package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Quentin Rouland, 2025
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-02-04 17:49+0100\n"
-"PO-Revision-Date: 2025-02-12 22:20+0100\n"
-"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
-"Language-Team: \n"
-"Language: nl\n"
+"PO-Revision-Date: 2025-02-18 13:38+0000\n"
+"Last-Translator: Quentin Rouland, 2025\n"
+"Language-Team: Dutch (https://app.transifex.com/qrouland/teams/204859/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../qml/dialogs/ErrorDialog.qml:12
 msgid "Error !"
@@ -105,7 +108,8 @@ msgstr "Terug"
 msgid "UTPass"
 msgstr "UTPass"
 
-#: ../qml/pages/headers/MainHeader.qml:26 ../qml/pages/settings/Settings.qml:75
+#: ../qml/pages/headers/MainHeader.qml:26
+#: ../qml/pages/settings/Settings.qml:75
 msgid "Settings"
 msgstr "Instellingen"
 
@@ -119,10 +123,11 @@ msgid "Delete Password Store"
 msgstr "Wachtwoordopslag verwijderen"
 
 #: ../qml/pages/settings/DeleteRepo.qml:55
-msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
+msgid ""
+"You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
-"Je staat op het punt om de huidige<br>wachtwoordopslag te verwijderen."
-"<br>Weet je het zeker?"
+"Je staat op het punt om de huidige<br>wachtwoordopslag te "
+"verwijderen.<br>Weet je het zeker?"
 
 #: ../qml/pages/settings/DeleteRepo.qml:56
 #: ../qml/pages/settings/ImportZip.qml:66
@@ -158,10 +163,11 @@ msgstr "Gpg-sleutelimport"
 
 #: ../qml/pages/settings/ImportZip.qml:65
 msgid ""
-"Importing a new zip will delete<br>any existing password store!<br>Continue ?"
+"Importing a new zip will delete<br>any existing password store!<br>Continue "
+"?"
 msgstr ""
-"Door een zipbestand te importeren<br>wordt de huidige opslag gewist!<br>Weet "
-"je het zeker?"
+"Door een zipbestand te importeren<br>wordt de huidige opslag gewist!<br>Weet"
+" je het zeker?"
 
 #: ../qml/pages/settings/ImportZip.qml:79
 msgid "Password store import failed !"
@@ -253,8 +259,8 @@ msgstr "Wachtwoord"
 
 #: ../qml/pages/settings/git/ImportGitClone.qml:55
 msgid ""
-"Importing a git repo will delete<br>any existing password store!"
-"<br>Continue ?"
+"Importing a git repo will delete<br>any existing password store!<br>Continue"
+" ?"
 msgstr ""
 "Door een git-repo te importeren<br>wordt de huidige opslag gewist!<br>Weet "
 "je het zeker?"
