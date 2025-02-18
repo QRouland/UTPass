@@ -18,36 +18,57 @@ GitJob::~GitJob()
     git_libgit2_shutdown();
 }
 
+bool GitJob::getUsername(char **username, QString maybe_username, const char *username_from_url)
+{
+    if (username_from_url) {
+        *username = strdup(username_from_url);
+        return true;
+    } else if (!maybe_username.isNull()) {
+        *username = maybe_username.toLocal8Bit().data();
+        return true;
+    }
+    return false;
+}
+
 int GitJob::credentialsCB(git_cred **out, const char *url, const char *username_from_url,
                           unsigned int allowed_types, void *payload)
 {
+    UNUSED(url);
     cred_type *cred = (cred_type *)payload;
+
+    if (!username_from_url) {
+        qWarning() << "[GitJob] credentials_cb : no username provided ";
+        return (int) GIT_EUSER;
+    }
+
     auto v =  overload {
         [](const HTTP & x)
         {
-            qDebug() << "[GitJob] credentialsCB : HTTP ";
-            qWarning() << "[GitJob] credentialsCB : callback should never be call for HTTP ";
+            UNUSED(x);
+            qDebug() << "[GitJob] credentialsCB : None ";
+            qWarning() << "[GitJob] credentialsCB : callback should never be call for None ";
             return (int) GIT_EUSER;
         },
-        [&out, &username_from_url](const HTTPUserPass & x)
+        [allowed_types, &out, &username_from_url](const HTTPUserPass & x)
         {
             qDebug() << "[GitJob] credentialsCB : HTTPUserPass ";
-            if (!username_from_url) {
-                qWarning() << "[GitJob] credentials_cb : no username provided ";
+            if (!(allowed_types & GIT_CREDTYPE_USERPASS_PLAINTEXT)) {
+                qWarning() << "[GitJob] credentials_cb : allowed_types is invalid for HTTPUserPass ";
                 return (int) GIT_EUSER;
             }
             return git_cred_userpass_plaintext_new(out, username_from_url, x.pass.toLocal8Bit().constData());
         },
-        [](const SSHPass & x)
+        [allowed_types, &out, &username_from_url](const SSHKey & x)
         {
-            qWarning() << "[GitJob] credentials_cb : SSHAuth to be implemented ";
-            return (int) GIT_EUSER;
-        }, // TODO
-        [](const SSHKey & x)
-        {
-            qWarning() << "[GitJob] credentials_cb : SSHKey to be implemented ";
-            return (int) GIT_EUSER;
-        }  // TODO
+            qDebug() << "[GitJob] credentialsCB : SSHKey ";
+            if (!(allowed_types & GIT_CREDTYPE_SSH_KEY)) {
+                qWarning() << "[GitJob] credentials_cb : allowed_types is invalid for HTTPUserPass ";
+                return (int) GIT_EUSER;
+            }
+            return git_cred_ssh_key_new(out, username_from_url, x.pub_key.toLocal8Bit().constData(),
+                                        x.priv_key.toLocal8Bit().constData(), x.passphrase.toLocal8Bit().constData());
+        }
     };
-    return std::visit(v, *cred);
+    auto error = std::visit(v, *cred);
+    return error;
 }

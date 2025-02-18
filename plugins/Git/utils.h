@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#define UNUSED(x) (void)(x)
+
 /**
  * @brief A utility structure for enabling function overloading with template-based classes.
  * see : https://stackoverflow.com/a/64018031

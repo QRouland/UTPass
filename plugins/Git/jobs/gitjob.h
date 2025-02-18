@@ -8,12 +8,17 @@ extern "C" {
 #include <variant>
 
 // Forward declarations for the different credential types.
-struct HTTP { };
+struct HTTP {};
 struct HTTPUserPass {
     QString pass; ///< Password for HTTP user authentication.
 };
-struct SSHPass { };
-struct SSHKey { };
+struct SSHKey {
+    QString pub_key; ///< public key path.
+    QString priv_key; ///< private key path.
+    QString passphrase; ///< key passphrase.
+};
+
+
 
 /**
  * @brief Variant type to represent various types of credentials.
@@ -21,10 +26,9 @@ struct SSHKey { };
  * This type is used to store one of the following credential types:
  * - HTTP
  * - HTTPUserPass
- * - SSHPass
  * - SSHKey
  */
-typedef std::variant<HTTP, HTTPUserPass, SSHPass, SSHKey> cred_type;
+typedef std::variant<HTTP, HTTPUserPass, SSHKey> cred_type;
 
 /**
  * @class GitJob
