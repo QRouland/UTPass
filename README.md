@@ -4,7 +4,7 @@ A Ubuntu Touch password management app aiming to be compatible with [ZX2C4’s p
 
 ## Installation
 
-UTPass is avalaible on the [OpenStore](open-store.io)
+UTPass is avalaible on the [OpenStore](https://open-store.io)
 
 [![OpenStore](https://open-store.io/badges/en_US.png)](https://open-store.io/app/utpass.qrouland)
 
@@ -31,14 +31,14 @@ Export passwords to a ZIP archive, assuming they reside in the *.password-store*
 zip passwords.zip -r .password-store/
 ```
 
-Both files have the correct format for UTPass to import them and work as intended. It is highly recommended to remove them after imported to **UTPass**.
+Files have the correct format for UTPass to import them and work as intended. It is highly recommended to remove them after imported to **UTPass**.
 
 
 ## Build & Tests
 
 See [Build & Tests wiki page](https://github.com/QRouland/UTPass/wiki/Build-&-Tests)
 
-## Contributing & Issues
+## Contributing & Translation
 
 See [Contributing wiki page](https://github.com/QRouland/UTPass/wiki/Contributing)
 
