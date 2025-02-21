@@ -2,11 +2,12 @@ import Lomiri.Components 1.3
 import QtQuick 2.4
 
 PageHeader {
+    //property alias searchBarText: searchBar.text
+    //signal searchBarTextChanged(string text)
+
     id: mainHeader
 
     property alias searchBar: searchBar
-    //property alias searchBarText: searchBar.text
-    //signal searchBarTextChanged(string text)
 
     width: parent.width
     height: units.gu(6)
@@ -20,9 +21,9 @@ PageHeader {
             onTriggered: {
                 searchBar.visible = !searchBar.visible;
                 labelTitle.visible = !searchBar.visible;
-                if (searchBar.visible === true) {
+                if (searchBar.visible === true)
                     searchBar.focus = true;
-                }
+
             }
         },
         Action {

@@ -1,84 +1,35 @@
-import "../../dialogs"
-import "../headers"
-import Lomiri.Components 1.3
-import Lomiri.Components.Popups 1.3
-import Lomiri.Content 1.3
+import "../../components"
 import Pass 1.0
-import QtQuick 2.4
-import Utils 1.0
 
-Page {
+ImportFile {
+
     id: importKeyFilePage
 
-    property var activeTransfer
+    headerTitle: i18n.tr("GPG Key Import")
+    dialogSuccessTxt : i18n.tr("Key successfully imported !")
+    dialogErrorTxt : i18n.tr("Key import failed !")
 
-    ContentPeerPicker {
-        anchors.top: importKeyHeader.bottom
-        anchors.bottom: parent.bottom
-        anchors.topMargin: importKeyFilePage.header.height
-        width: parent.width
-        visible: parent.visible
-        showTitle: false
-        contentType: ContentType.Text
-        handler: ContentHandler.Source
-        onPeerSelected: {
-            peer.selectionType = ContentTransfer.Single;
-            importKeyFilePage.activeTransfer = peer.request();
-            importKeyFilePage.activeTransfer.stateChanged.connect(function() {
-                if (importKeyFilePage.activeTransfer.state === ContentTransfer.Charged) {
-                    console.log("Charged");
-                    console.log(importKeyFilePage.activeTransfer.items[0].url);
-                    var status = Pass.importGPGKey(importKeyFilePage.activeTransfer.items[0].url);
-                    Pass.importGPGKeySucceed.connect(function() {
-                        Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
-                        importKeyFilePage.activeTransfer = null;
-                        PopupUtils.open(dialogImportKeyPageSucess);
-                    });
-                    Pass.importGPGKeyFailed.connect(function(message) {
-                        Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
-                        importKeyFilePage.activeTransfer = null;
-                        PopupUtils.open(dialogImportKeyPageError);
-                    });
-                }
-            });
-        }
-        onCancelPressed: {
-            pageStack.pop();
-        }
+    contentPicker.onPeerSelected: {
+       {
+           peer.selectionType = ContentTransfer.Single;
+           importKeyFilePage.activeTransfer = peer.request();
+           importKeyFilePage.activeTransfer.stateChanged.connect(function() {
+               if (importKeyFilePage.activeTransfer.state === ContentTransfer.Charged) {
+                   console.log("Charged");
+                   console.log(importKeyFilePage.activeTransfer.items[0].url);
+                   Pass.importGPGKey(importKeyFilePage.activeTransfer.items[0].url);
+                   Pass.importGPGKeySucceed.connect(function() {
+                       Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
+                       importKeyFilePage.activeTransfer = null;
+                       PopupUtils.open(importKeyFilePage.dialogImportKeyPageSucess);
+                   });
+                   Pass.importGPGKeyFailed.connect(function(message) {
+                       Utils.rmFile(importKeyFilePage.activeTransfer.items[0].url);
+                       importKeyFilePage.activeTransfer = null;
+                       PopupUtils.open(importKeyFilePage.dialogImportKeyPageError);
+                   });
+               }
+           });
+       }
     }
-
-    ContentTransferHint {
-        id: transferHint
-
-        anchors.fill: parent
-        activeTransfer: importKeyFilePage.activeTransfer
-    }
-
-    Component {
-        id: dialogImportKeyPageError
-
-        ErrorDialog {
-            textError: i18n.tr("Key import failed !")
-        }
-
-    }
-
-    Component {
-        id: dialogImportKeyPageSucess
-
-        SuccessDialog {
-            textSuccess: i18n.tr("Key successfully imported !")
-            onDialogClosed: {
-                pageStack.pop();
-            }
-        }
-
-    }
-
-    header: StackHeader {
-        id: importKeyHeader
-
-        title: i18n.tr("GPG Key Import")
-    }
-
 }

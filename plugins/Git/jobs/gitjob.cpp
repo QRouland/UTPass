@@ -18,17 +18,7 @@ GitJob::~GitJob()
     git_libgit2_shutdown();
 }
 
-bool GitJob::getUsername(char **username, QString maybe_username, const char *username_from_url)
-{
-    if (username_from_url) {
-        *username = strdup(username_from_url);
-        return true;
-    } else if (!maybe_username.isNull()) {
-        *username = maybe_username.toLocal8Bit().data();
-        return true;
-    }
-    return false;
-}
+
 
 int GitJob::credentialsCB(git_cred **out, const char *url, const char *username_from_url,
                           unsigned int allowed_types, void *payload)

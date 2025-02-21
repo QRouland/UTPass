@@ -2,6 +2,7 @@
 #define GIT_H
 
 #include "jobs/gitjob.h"
+#include "qdebug.h"
 #include <QUrl>
 #include <QObject>
 #include <QSemaphore>
@@ -16,6 +17,8 @@
 class Git : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QString privKey READ pubKeyPath)
+    Q_PROPERTY(QString pubKey  READ privKeyPath)
 
 private slots:
     /**
@@ -47,6 +50,7 @@ signals:
 
 private:
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */
+    QDir m_ssh_homedir; /**< Directory that contains the SSH keys (public and private). */
 
     /**
      * @brief Clones a repository from a specified URL.
@@ -60,6 +64,27 @@ private:
      * @return `true` if the cloning process was successful, `false` otherwise.
      */
     bool clone(QString url, QString path, cred_type mode);
+
+protected:
+    /**
+     * @brief Get the path to the public keyring.
+     *
+     * @return The file path to the public key.
+     */
+    QString pubKeyPath()
+    {
+        return this->m_ssh_homedir.filePath("id_rsa.pub");
+    }
+
+    /**
+     * @brief Get the path to the secret keyring.
+     *
+     * @return The file path to the private key.
+     */
+    QString privKeyPath()
+    {
+        return this->m_ssh_homedir.filePath("id_rsa");
+    }
 
 public:
     /**
@@ -75,6 +100,9 @@ public:
      * Cleans up any resources used by the `Git` class, ensuring that no ongoing operations or resources are left hanging.
      */
     ~Git() override;
+
+
+    Q_INVOKABLE bool importSshKey(QUrl source_path, bool is_private);
 
     /**
      * @brief Clones a repository over HTTP.
@@ -97,13 +125,22 @@ public:
      * @param url The HTTP URL of the Git repository to clone.
      * @param path The destination path for the cloned repository.
      * @param pass The password used for HTTP authentication.
-     * @return `true` if the clone operation was successful, `false` otherwise.
+     * @return `true` if the clone job operation was successfully started, `false` otherwise.
      */
     Q_INVOKABLE bool cloneHttpPass(QString url, QString path, QString pass);
 
-    // Future SSH support methods:
-    // Q_INVOKABLE bool clone_ssh_pass(QString url, QString path, QString pass);
-    // Q_INVOKABLE bool clone_ssh_key(QString url, QString path, QString pub_key, QString priv_key, QString passphrase);
+    /**
+     * @brief Clones a repository over SSH with a key for authentication.
+     *
+     * This method clones a Git repository from the specified ssh URL using the provided password for authentication,
+     * and saves it to the given destination path.
+     *
+     * @param url The HTTP URL of the Git repository to clone.
+     * @param path The destination path for the cloned repository.
+     * @param passphrase The passphrase used for SSH authentication.
+     * @return `true` if the clone job operation was successfully started, `false` otherwise.
+     */
+    Q_INVOKABLE bool cloneSshKey(QString url, QString path, QString passphrase);
 
     // Q_INVOKABLE bool update(QUrl url, QString path);
     // ....

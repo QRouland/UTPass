@@ -8,20 +8,28 @@ import Lomiri.Components.Pickers 1.3
 import Lomiri.Components.Popups 1.3
 import Pass 1.0
 import QtQuick 2.4
-
+import Utils 1.0
 Page {
     id: importGitClonePage
+
+    property int __gitModeHTTP : 0
+    property int __gitModeHTTP_AUTH : 1
+    property int __gitModeSSH_KEY : 2
+
 
     property string __repoUrl
 
     function __loadForm() {
         switch (combo.selectedIndex) {
-        case 0:
-            importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttp.qml");
-            break;
-        case 1:
-            importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttpAuth.qml");
-            break;
+            case __gitModeHTTP:
+                importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttp.qml");
+                break;
+            case __gitModeHTTP_AUTH:
+                importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttpAuth.qml");
+                break;
+            case __gitModeSSH_KEY:
+                importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneSshKey.qml");
+                break;
         }
     }
 
@@ -29,6 +37,10 @@ Page {
         Git.cloneSucceed.connect(function() {
             GitSettings.type = combo.selectedIndex;
             GitSettings.repoUrl = importGitClonePage.__repoUrl;
+            if(GitSettings.type != __gitModeSSH_KEY) { // ensure there no ssh key is kept if swicthing to another git mode
+                Utils.rmFile(Git.privKey);
+                Utils.rmFile(Git.pubKey);
+            }
             PopupUtils.open(dialogGitCloneSuccess);
         });
         Git.cloneFailed.connect(function() {
@@ -64,7 +76,7 @@ Page {
             id: combo
 
             width: parent.width
-            model: ["HTTP", "HTTP AUTH"]
+            model: ["HTTP", "HTTP AUTH", "SSH KEY"]
             onDelegateClicked: function(i) {
                 timer.setTimeout(function() {
                     __loadForm();
@@ -98,6 +110,25 @@ Page {
                     importGitClonePage.__repoUrl = url;
                 });
                 importGitCloneForm.item.setRepoUrl(importGitClonePage.__repoUrl);
+
+                switch (combo.selectedIndex) {
+                    case __gitModeHTTP:
+                        break;
+                    case __gitModeHTTP_AUTH:
+                        break;
+                    case __gitModeSSH_KEY:
+                        importGitCloneForm.item.importSshPrivKeyButton.clicked.connect(function() {
+                            pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
+                                "isPrivateKey": true
+                            });
+                        });
+                        importGitCloneForm.item.importSshPubKeyButton.clicked.connect(function() {
+                            pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
+                                "isPrivateKey": false
+                            });
+                        });
+                        break;
+                    }
             }
         }
 

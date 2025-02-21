@@ -19,6 +19,7 @@ Page {
             for (var i = 0; i < __passwords.length; i++) {
                 if (__passwords[i].toUpperCase().indexOf(filter.toUpperCase()) > -1)
                     ret.push(__passwords[i]);
+
             }
         }
         return ret;
@@ -179,6 +180,7 @@ Page {
 
     Timer {
         id: searchTimer
+
         interval: 500
         onTriggered: __searchUpdateModel()
     }

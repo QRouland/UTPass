@@ -80,6 +80,14 @@ public:
      */
     Q_INVOKABLE bool rmDir(QUrl dir_url);
 
+    /**
+     * @brief Verify that file exists at the specified URL.
+     *
+     * @param path The URL of the file to verfidy.
+     * @return `true` if the file exist; `false` otherwise.
+     */
+    Q_INVOKABLE bool fileExists(QUrl path);
+
 };
 
 #endif

@@ -90,7 +90,7 @@ Page {
     header: StackHeader {
         id: deleteRepoPageHeader
 
-        title: i18n.tr('Info Keys')
+        title: i18n.tr('Delete Password Store')
     }
 
 }

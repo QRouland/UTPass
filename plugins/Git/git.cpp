@@ -12,8 +12,15 @@ extern "C" {
 #include "jobs/gitjob.h"
 
 Git::Git():
-    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1)))
+    m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
+    m_ssh_homedir (QStandardPaths::writableLocation(
+                      QStandardPaths::AppDataLocation).append("/.ssh"))
 {
+    qDebug() << "[Git] SSH Home is " << m_ssh_homedir.absolutePath();
+    QDir m_ssh_homedir(this->m_ssh_homedir);
+    if (!m_ssh_homedir.exists()) {
+        m_ssh_homedir.mkpath(".");
+    }
     git_libgit2_init();
 }
 
@@ -26,7 +33,7 @@ Git::~Git()
 bool Git::clone(QString url, QString path, cred_type mode)
 {
     if (!this->m_sem->tryAcquire(1, 500)) {
-        qWarning() << "Can acquire git semaphore a command is already running ";
+        qWarning() << "[Git] Can acquire git semaphore a command is already running ";
         return false;
     }
     auto v =  overload {
@@ -44,15 +51,23 @@ bool Git::clone(QString url, QString path, cred_type mode)
 
 bool Git::cloneHttp(QString url, QString path)
 {
-    qInfo() << "Call clone command Http " << url << " " << path;
+    qInfo() << "[Git] Call clone command Http " << url << " " << path;
     HTTP mode = {};
     return this->clone(url, path, mode);
 }
 
 bool Git::cloneHttpPass(QString url, QString path, QString pass)
 {
-    qInfo() << "Call clone command HttpPass " << url << " " << path;
+    qInfo() << "[Git] Call clone command HttpPass " << url << " " << path;
     HTTPUserPass mode = { pass };
+    return this->clone(url, path, mode);
+}
+
+bool Git::cloneSshKey(QString url, QString path, QString passphrase)
+{
+    qInfo() << "[Git] Call clone command HttpPass " << url << " " << path;
+
+    SSHKey mode = { this->pubKeyPath(), this->privKeyPath(), passphrase };
     return this->clone(url, path, mode);
 }
 
@@ -65,4 +80,24 @@ void Git::cloneResult(const bool err)
         emit cloneSucceed();
     }
     this->m_sem->release();
+}
+
+bool Git::importSshKey(QUrl source_path, bool is_private){
+    auto destination_path = is_private ? this->privKeyPath() : this->pubKeyPath();
+
+    QFile source_file(source_path.toLocalFile());
+
+    if (!source_file.exists()) {
+        qWarning() << "[Git] Source file does not exist.";
+        return false;
+    }
+
+    QDir target_dir = QFileInfo(destination_path).absoluteDir();
+    if (!target_dir.exists()) {
+        if (!target_dir.mkpath(".")) {
+            qWarning() << "[Git] Failed to create target directory.";
+            return false;
+        }
+    }
+    return source_file.copy(destination_path);
 }
