@@ -37,7 +37,7 @@ QDir CloneJob::cloneSetup()
     QDir tmp_dir(QStandardPaths::writableLocation( QStandardPaths::CacheLocation).append("/clone"));
 
     tmp_dir.removeRecursively();
-    qDebug() << "[CloneJob]Temp dir path is " << tmp_dir.absolutePath();
+    qDebug() << "[CloneJob] Temp dir path is " << tmp_dir.absolutePath();
 
     return tmp_dir;
 }
@@ -64,9 +64,10 @@ bool CloneJob::clone(QString url, QString path, cred_type cred, git_cred_acquire
 {
     git_repository *repo = NULL;
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
+    PayloadCB payload = PayloadCB(false, cred);
 
     opts.fetch_opts.callbacks.credentials = cb;
-    opts.fetch_opts.callbacks.payload = &cred;
+    opts.fetch_opts.callbacks.payload = &payload;
 
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
     if (ret == GIT_EUSER ) {

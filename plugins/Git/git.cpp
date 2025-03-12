@@ -41,7 +41,7 @@ bool Git::clone(QString url, QString path, cred_type mode)
         [](const HTTPUserPass & x)    { UNUSED(x); return "HTTPAuth"; },
         [](const SSHKey & x)      { UNUSED(x); return "SSHKey"; },
     };
-    qDebug() << "Creating clone Job  " << url << " " << path << " " << std::visit(v, mode);
+    qDebug() << "[Git] Creating clone Job  " << url << " " << path << " " << std::visit(v, mode);
     CloneJob *clone_job = new CloneJob(url, path, mode);
     connect(clone_job, &CloneJob::resultReady, this, &Git::cloneResult);
     connect(clone_job, &CloneJob::finished, clone_job, &QObject::deleteLater);
@@ -65,7 +65,7 @@ bool Git::cloneHttpPass(QString url, QString path, QString pass)
 
 bool Git::cloneSshKey(QString url, QString path, QString passphrase)
 {
-    qInfo() << "[Git] Call clone command HttpPass " << url << " " << path;
+    qInfo() << "[Git] Call clone command SshKey " << url << " " << path;
 
     SSHKey mode = { this->pubKeyPath(), this->privKeyPath(), passphrase };
     return this->clone(url, path, mode);

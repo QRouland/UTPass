@@ -59,9 +59,9 @@ bool Utils::rmDir(QUrl dir_url)
 
 bool Utils::fileExists(QUrl path)
 {
-    QString p = path.toLocalFile();
+    QString p = path.toString();
     auto ret = QFileInfo::exists(p) && QFileInfo(p).isFile();
-    qDebug() << "[Utils]" << path << " existing file :" << ret;
+    qDebug() << "[Utils]" << path << "existing file :" << ret;
     return ret;
 }
 

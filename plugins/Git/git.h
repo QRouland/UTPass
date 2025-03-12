@@ -56,7 +56,7 @@ private:
      * @brief Clones a repository from a specified URL.
      *
      * This private method initiates the cloning job. It sets up the repository cloning process based on
-     * the specified URL, destination path, and cloning mode (HTTP or SSH).
+     * the specified URL, destination path, and cloning mode (HTTP, HTTP_AUTH or SSH).
      *
      * @param url The URL of the Git repository to clone.
      * @param path The destination path for the cloned repository.
@@ -90,14 +90,14 @@ public:
     /**
      * @brief Constructor for the Git class.
      *
-     * Initializes the `Git` class, setting up necessary resources such as the semaphore for concurrent operation management.
+     * Initializes the `Git` class.
      */
     Git();
 
     /**
      * @brief Destructor for the Git class.
      *
-     * Cleans up any resources used by the `Git` class, ensuring that no ongoing operations or resources are left hanging.
+     * Cleans up any resources used by the `Git` class.
      */
     ~Git() override;
 
@@ -108,11 +108,10 @@ public:
      * @brief Clones a repository over HTTP.
      *
      * This method clones a Git repository from the specified HTTP URL and saves it to the given destination path.
-     * It is a wrapper around the private `clone()` method, specifying the HTTP cloning mode.
      *
      * @param url The HTTP URL of the Git repository to clone.
      * @param path The destination path for the cloned repository.
-     * @return `true` if the clone operation was successful, `false` otherwise.
+     * @return `true` if the clone operation was successfully started, `false` otherwise.
      */
     Q_INVOKABLE bool cloneHttp(QString url, QString path);
 

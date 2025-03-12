@@ -142,7 +142,7 @@ Column {
         color: theme.palette.normal.positive
         text: i18n.tr('Clone')
         onClicked: {
-            Git.cloneSSHKey(repoUrlInput.text, Pass.Passphrase_store, repoPassphraseInput.text);
+            Git.cloneSshKey(repoUrlInput.text, Pass.password_store, repoPassphraseInput.text);
         }
     }
 

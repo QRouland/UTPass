@@ -125,7 +125,7 @@ signals:
      * @brief Emitted when showing a password fails.
      * @param message The error message describing the failure.
      */
-    void showFailed(QString message);
+    void showFailed(int err, QString message);
 
     /**
      * @brief Emitted hen showing a password cancelled.

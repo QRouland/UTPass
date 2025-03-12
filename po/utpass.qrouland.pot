@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-21 15:49+0100\n"
+"POT-Creation-Date: 2025-03-12 15:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,11 +75,11 @@ msgstr ""
 msgid "File Import"
 msgstr ""
 
-#: ../qml/dialogs/ErrorDialog.qml:12
+#: ../qml/dialogs/ErrorDialog.qml:13
 msgid "Error !"
 msgstr ""
 
-#: ../qml/dialogs/ErrorDialog.qml:16
+#: ../qml/dialogs/ErrorDialog.qml:17
 msgid "Close"
 msgstr ""
 
@@ -137,27 +137,35 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:79
-msgid "No password found"
+#: ../qml/pages/PasswordList.qml:58
+msgid "Bad passphrase"
+msgstr ""
+
+#: ../qml/pages/PasswordList.qml:61
+msgid "No valid key found"
 msgstr ""
 
 #: ../qml/pages/PasswordList.qml:92
+msgid "No password found"
+msgstr ""
+
+#: ../qml/pages/PasswordList.qml:105
 msgid "You can import a password store by cloning or"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:99
+#: ../qml/pages/PasswordList.qml:112
 msgid "importing a password store zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:176
+#: ../qml/pages/PasswordList.qml:189
 msgid "Decryption failed !"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:198
+#: ../qml/pages/PasswordList.qml:213
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:205 ../qml/pages/headers/MainHeader.qml:14
+#: ../qml/pages/PasswordList.qml:220 ../qml/pages/headers/MainHeader.qml:14
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""

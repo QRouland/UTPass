@@ -3,6 +3,7 @@
 #include <QtCore/QDir>
 #include <QDirIterator>
 #include <QtConcurrent/QtConcurrent>
+#include "error.h"
 #include "jobs/decryptjob.h"
 #include "jobs/deletekeyjob.h"
 #include "jobs/getkeysjob.h"
@@ -108,7 +109,7 @@ bool Pass::show(QUrl url)
 void Pass::slotShowError(rnp_result_t err)
 {
     qInfo() << "[Pass] Show Failed";
-    emit showFailed(rnp_result_to_string(err));
+    emit showFailed(rnpErrorToErrorCodeShow(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -136,13 +137,13 @@ bool Pass::deletePasswordStore()
 }
 
 void Pass::slotDeletePasswordStoreResult(bool err)
-{
-    this->initPasswordStore(); // reinit an empty password-store
+{ 
     if (err) {
         qInfo() << "[Pass] Delete Password Store Failed";
         emit deletePasswordStoreFailed("failed to delete password store");
     } else {
         qInfo() << "[Pass] Delete Password Store Succeed";
+        this->initPasswordStore(); // reinit an empty password-store
         emit deletePasswordStoreSucceed();
     }
     this->m_sem->release(1);

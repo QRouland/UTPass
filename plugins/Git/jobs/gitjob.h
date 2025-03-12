@@ -31,6 +31,14 @@ struct SSHKey {
  */
 typedef std::variant<HTTP, HTTPUserPass, SSHKey> cred_type;
 
+
+struct PayloadCB
+{
+    bool called;
+    cred_type creds;
+    PayloadCB(bool ca, cred_type cr): called(ca), creds(cr) {}
+};
+
 /**
  * @class GitJob
  * @brief A class that manages Git-related tasks using libgit2.

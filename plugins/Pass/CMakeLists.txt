@@ -7,6 +7,7 @@ set(
         pass.cpp
         passkeyringmodel.h
         passphraseprovider.h
+        error.h
         jobs/decryptjob.cpp
         jobs/deletekeyjob.cpp
         jobs/getkeysjob.cpp

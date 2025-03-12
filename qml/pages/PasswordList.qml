@@ -12,6 +12,7 @@ Page {
 
     property string __passwordStorePath
     property var __passwords
+    property string __text_error_description: null
 
     function __searchPasswords(filter) {
         var ret = [];
@@ -48,7 +49,25 @@ Page {
                 "title": filename
             });
         });
-        Pass.onShowFailed.connect(function(message) {
+        Pass.onShowFailed.connect(function(code, message) {
+            switch (code) {
+                case 1: // UnexceptedError -> use the default (not translate) rnp error
+                    __text_error_description = message;
+                    break;
+                case 2: // BadPassphrase
+                     __text_error_description = i18n.tr("Bad passphrase");
+                    break;
+                case 3: // NoKeyFound
+                     __text_error_description = i18n.tr("No valid key found");
+                    break;
+                case 3: // DecryptFailed
+                     __text_error_description = i18n.tr("Decryption failed");
+                    break;
+                default:
+                    console.warn("Unhandled error code");
+                    __text_error_description = message;
+                    break;
+            }
             PopupUtils.open(passwordPageDecryptError);
         });
         Pass.onLsSucceed.connect(function(passwords) {
@@ -174,9 +193,11 @@ Page {
 
         ErrorDialog {
             textError: i18n.tr("Decryption failed !")
+            textErrorDescription: __text_error_description
         }
-
     }
+
+
 
     Timer {
         id: searchTimer
