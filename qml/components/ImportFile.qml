@@ -17,7 +17,8 @@ Page {
 
     property string headerTitle : i18n.tr("Import succeeded !")
     property string dialogErrorTxt : i18n.tr("Import failed !")
-    property string dialogSuccessTxt : i18n.tr("File Import")
+    property string dialogErrorDescriptionTxt : null
+    property string dialogSuccessTxt : i18n.tr("File Imported")
 
     ContentPeerPicker {
         id: contentPicker
@@ -46,6 +47,7 @@ Page {
 
         ErrorDialog {
             textError: importKeyFilePage.dialogErrorTxt
+            textErrorDescription: importKeyFilePage.dialogErrorDescriptionTxt
         }
 
     }

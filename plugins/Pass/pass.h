@@ -78,7 +78,7 @@ signals:
      * @brief Emitted when a GPG key deletion fails.
      * @param message The error message describing the failure.
      */
-    void deleteGPGKeyFailed(QString message);
+    void deleteGPGKeyFailed(int err, QString message);
 
     /**
      * @brief Emitted when a GPG key is successfully imported.
@@ -89,7 +89,7 @@ signals:
      * @brief Emitted when a GPG key import fails.
      * @param message The error message describing the failure.
      */
-    void importGPGKeyFailed(QString message);
+    void importGPGKeyFailed(int err, QString message);
 
     /**
      * @brief Emitted when all GPG keys are successfully retrieved.
@@ -101,7 +101,7 @@ signals:
      * @brief Emitted when retrieving GPG keys fails.
      * @param message The error message describing the failure.
      */
-    void getAllGPGKeysFailed(QString message);
+    void getAllGPGKeysFailed(int err, QString message);
 
     // Pass-related signals
     /**
@@ -142,7 +142,7 @@ signals:
      * @brief Emitted when deleting the password store fails.
      * @param message The error message describing the failure.
      */
-    void deletePasswordStoreFailed(QString message);
+    void deletePasswordStoreFailed(int err, QString message);
 
 private:
     QString m_password_store; /**< The path to the password store. */

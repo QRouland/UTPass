@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-12 15:16+0100\n"
+"POT-Creation-Date: 2025-03-12 16:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,8 +71,8 @@ msgstr ""
 msgid "Import failed !"
 msgstr ""
 
-#: ../qml/components/ImportFile.qml:20
-msgid "File Import"
+#: ../qml/components/ImportFile.qml:21
+msgid "File Imported"
 msgstr ""
 
 #: ../qml/dialogs/ErrorDialog.qml:13
@@ -145,27 +145,31 @@ msgstr ""
 msgid "No valid key found"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:92
+#: ../qml/pages/PasswordList.qml:64
+msgid "Decryption failed"
+msgstr ""
+
+#: ../qml/pages/PasswordList.qml:98
 msgid "No password found"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:105
+#: ../qml/pages/PasswordList.qml:111
 msgid "You can import a password store by cloning or"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:112
+#: ../qml/pages/PasswordList.qml:118
 msgid "importing a password store zip in the settings"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:189
+#: ../qml/pages/PasswordList.qml:195
 msgid "Decryption failed !"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:213
+#: ../qml/pages/PasswordList.qml:219
 msgid "Back"
 msgstr ""
 
-#: ../qml/pages/PasswordList.qml:220 ../qml/pages/headers/MainHeader.qml:14
+#: ../qml/pages/PasswordList.qml:226 ../qml/pages/headers/MainHeader.qml:14
 #: ../qml/pages/headers/StackHeader.qml:9 UTPass.desktop.in.h:1
 msgid "UTPass"
 msgstr ""
@@ -223,16 +227,20 @@ msgstr ""
 msgid "Git Clone Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:8
+#: ../qml/pages/settings/ImportKeyFile.qml:7
 msgid "GPG Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:9
+#: ../qml/pages/settings/ImportKeyFile.qml:8
 msgid "Key successfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:10
+#: ../qml/pages/settings/ImportKeyFile.qml:9
 msgid "Key import failed !"
+msgstr ""
+
+#: ../qml/pages/settings/ImportKeyFile.qml:33
+msgid "The file is not in a valid key format"
 msgstr ""
 
 #: ../qml/pages/settings/ImportSSHkey.qml:10

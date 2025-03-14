@@ -140,7 +140,7 @@ void Pass::slotDeletePasswordStoreResult(bool err)
 { 
     if (err) {
         qInfo() << "[Pass] Delete Password Store Failed";
-        emit deletePasswordStoreFailed("failed to delete password store");
+        emit deletePasswordStoreFailed(static_cast<int>(ErrorCodeRmFile::Error), "Failed to delete password store");
     } else {
         qInfo() << "[Pass] Delete Password Store Succeed";
         this->initPasswordStore(); // reinit an empty password-store
@@ -168,7 +168,7 @@ bool Pass::deleteGPGKey(PassKeyModel* key)
 void Pass::slotDeleteGPGKeyError(rnp_result_t err)
 {
     qInfo() << "[Pass] Delete GPG key Failed";
-    emit deleteGPGKeyFailed(rnp_result_to_string(err));
+    emit deleteGPGKeyFailed(rnpErrorToErrorCodeGeneric(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -198,7 +198,7 @@ bool Pass::importGPGKey(QUrl url)
 void Pass::slotImportGPGKeyError(rnp_result_t err)
 {
     qInfo() << "[Pass] Import GPG Key Failed";
-    emit importGPGKeyFailed(rnp_result_to_string(err));
+    emit importGPGKeyFailed(rnpErrorToErrorCodeImportKeyFile(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -229,7 +229,7 @@ void Pass::slotGetAllGPGKeysError(rnp_result_t err)
 {
     qInfo() << "[Pass] Get all GPG Keys Failed";
     this->m_keyring_model = nullptr;
-    emit getAllGPGKeysFailed(rnp_result_to_string(err));
+    emit getAllGPGKeysFailed(rnpErrorToErrorCodeGeneric(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 

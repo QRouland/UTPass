@@ -42,29 +42,6 @@ void ImportKeyJob::run()
 
     // Save resulting keyring
     this->saveFullKeyring();
-    // rnp_output_t output = NULL;
-    // qDebug() << "[ImportKeyJob] Writing pubring to " << this->pubringPath();
-    // ret = rnp_output_to_file(&output, this->pubringPath().toLocal8Bit().constData(), RNP_OUTPUT_FILE_OVERWRITE);
-    // if (ret == RNP_SUCCESS) {
-    //     qDebug() << "[ImportKeyJob] Saving key pubring ";
-    //     ret = rnp_save_keys(this->m_ffi, RNP_KEYSTORE_GPG, output, RNP_LOAD_SAVE_PUBLIC_KEYS);
-
-    // }
-    // if (ret == RNP_SUCCESS) {
-    //     ret = rnp_output_finish(output);
-    // }
-    // rnp_output_destroy(output);
-    // terminateOnError(ret);
-
-    // qDebug() << "[ImportKeyJob] Writing secring to " << this->secringPath();
-    // ret = rnp_output_to_file(&output, this->secringPath().toLocal8Bit().constData(), RNP_OUTPUT_FILE_OVERWRITE);
-    // if (ret == RNP_SUCCESS) {
-    //     qDebug() << "[ImportKeyJob] Saving key secring ";
-    //     ret = rnp_save_keys(this->m_ffi, RNP_KEYSTORE_GPG, output, RNP_LOAD_SAVE_SECRET_KEYS);
-    // }
-
-    // rnp_output_destroy(output);
-    // terminateOnError(ret);
 
     // Emit result
     emit resultSuccess();
