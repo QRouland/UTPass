@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#define UNUSED(x) (void)(x)
+#define UNUSED(x) (void)(x) // Stub used to hide some warnings
 
 /**
  * @brief A utility structure for enabling function overloading with template-based classes.

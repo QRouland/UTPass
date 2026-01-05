@@ -31,12 +31,20 @@ struct SSHKey {
  */
 typedef std::variant<HTTP, HTTPUserPass, SSHKey> cred_type;
 
+enum class ErrorCodeCB {
+    None = 0,
+    NoUsername,
+    UrlTypeDoNotMatchCreds,
+    InvalidCreds,
+};
+
 
 struct PayloadCB
 {
     bool called;
     cred_type creds;
-    PayloadCB(bool ca, cred_type cr): called(ca), creds(cr) {}
+    ErrorCodeCB err;
+    PayloadCB(bool ca, cred_type cr): called(ca), creds(cr), err(ErrorCodeCB::None) {}
 };
 
 /**

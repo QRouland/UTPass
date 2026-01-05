@@ -1,8 +1,8 @@
 #ifndef GIT_H
 #define GIT_H
 
+#include "error.h"
 #include "jobs/gitjob.h"
-#include "qdebug.h"
 #include <QUrl>
 #include <QObject>
 #include <QSemaphore>
@@ -28,10 +28,10 @@ private slots:
      * process finishes. It emits the appropriate signal based on whether the clone operation succeeded
      * or failed.
      *
-     * @param err A boolean indicating whether an error occurred during cloning. `true` if the clone failed,
-     *        `false` if it succeeded.
+     * @param err A err_code indicating whether an error occurred during cloning.
+     * @param err An error message.
      */
-    void cloneResult(const bool err);
+    void cloneResult(const int err_code, const QString message);
 
 signals:
     /**
@@ -44,9 +44,11 @@ signals:
     /**
      * @brief Signal emitted when the cloning operation fails.
      *
+     * @param err_code The error code
+     * @param msg The deffautl error message from libgit
      * This signal is emitted when an error occurs during the cloning operation.
      */
-    void cloneFailed();
+    void cloneFailed(int err_code, QString msg);
 
 private:
     std::unique_ptr<QSemaphore> m_sem; /**< Semaphore for managing concurrent operations. */

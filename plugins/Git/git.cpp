@@ -1,3 +1,4 @@
+#include "error.h"
 #include <QUrl>
 #include <QtCore/QDir>
 #include <QDebug>
@@ -71,13 +72,13 @@ bool Git::cloneSshKey(QString url, QString path, QString passphrase)
     return this->clone(url, path, mode);
 }
 
-void Git::cloneResult(const bool err)
+void Git::cloneResult(const int err_code, const QString message)
 {
 
-    if (err) {
-        emit cloneFailed(); // TODO error message
-    } else {
+    if (err_code == code_err(GitCloneErrorCode::Successful)) {
         emit cloneSucceed();
+    } else {
+        emit cloneFailed(err_code, message);
     }
     this->m_sem->release();
 }

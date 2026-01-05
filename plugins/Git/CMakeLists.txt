@@ -6,6 +6,7 @@ set(
         plugin.cpp
         git.cpp
         utils.h
+        error.h
         jobs/clonejob.cpp
         jobs/gitjob.cpp
 )

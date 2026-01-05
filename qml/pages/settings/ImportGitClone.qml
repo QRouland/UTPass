@@ -16,8 +16,15 @@ Page {
     property int __gitModeHTTP_AUTH : 1
     property int __gitModeSSH_KEY : 2
 
+    property int __gitCloneErrorCodeSuccessful : 0
+    property int __gitCloneErrorCodeUnexpectedError : 1
+    property int __gitCloneErrorCodeInvalidUrl : 2
+    property int __gitCloneErrorCodeNoUsername : 3
+    property int __gitCloneErrorCodeAuthentificationError : 4
+    property int __gitCloneErrorCodeUrlTypeDoNotMatchCreds : 5
 
     property string __repoUrl
+    property string __err_message : null
 
     function __loadForm() {
         switch (combo.selectedIndex) {
@@ -41,10 +48,30 @@ Page {
                 Utils.rmFile(Git.privKey);
                 Utils.rmFile(Git.pubKey);
             }
-            PopupUtils.open(dialogGitCloneSuccess);
+            PopupUtils.open(dialogGitCloneSuccess, importGitClonePage);
         });
-        Git.cloneFailed.connect(function() {
-            PopupUtils.open(dialogGitCloneError);
+        Git.cloneFailed.connect(function(err_code, msg) {
+            switch (err_code) {
+                case __gitCloneErrorCodeUnexpectedError:
+                    __err_message = i18n.tr("An error occurred during the clone operation.");
+                    break;
+                case __gitCloneErrorCodeInvalidUrl:
+                    __err_message = i18n.tr("Invalid URL for the current clone operation.");
+                    break;
+                case __gitCloneErrorCodeNoUsername:
+                    __err_message = i18n.tr("Username is missing in the URL.");
+                    break;
+                case __gitCloneErrorCodeAuthentificationError:
+                    __err_message = i18n.tr("Authentication error, credentials may be invalid.");
+                    break;
+                case __gitCloneErrorCodeUrlTypeDoNotMatchCreds:
+                    __err_message = i18n.tr("Credentials type does not match the URL for the current clone operation.");
+                    break;
+                default:
+                    __err_message = msg;
+                    break;
+            }
+            PopupUtils.open(dialogGitCloneError, importGitClonePage);
         });
         if (GitSettings.repoUrl)
             __repoUrl = GitSettings.repoUrl;
@@ -128,7 +155,7 @@ Page {
                             });
                         });
                         break;
-                    }
+                }
             }
         }
 
@@ -153,6 +180,7 @@ Page {
 
         ErrorDialog {
             textError: i18n.tr("An error occured during git clone !")
+            textErrorDescription: __err_message
         }
 
     }

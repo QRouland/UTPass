@@ -1,6 +1,8 @@
 import "../../components"
 import Pass 1.0
 
+import Lomiri.Content 1.3
+
 ImportFile {
     id: importKeyFilePage
 
@@ -10,8 +12,8 @@ ImportFile {
 
     contentPicker.onPeerSelected: {
        {
-           peer.selectionType = ContentTransfer.Single;
-           importKeyFilePage.activeTransfer = peer.request();
+           importKeyFilePage.contentPicker.peer.selectionType = ContentTransfer.Single;
+           importKeyFilePage.activeTransfer = importKeyFilePage.contentPicker.peer.request();
            importKeyFilePage.activeTransfer.stateChanged.connect(function() {
                if (importKeyFilePage.activeTransfer.state === ContentTransfer.Charged) {
                    console.log("Charged");

@@ -6,66 +6,56 @@ extern "C" {
 #include "rnp/rnp_err.h"
 }
 
-enum class ErrorCodeShow {
-    Success= 0,
-    UnexceptedError,
-    BadPassphrase,
-    NoKeyFound,
-    DecryptFailed
+// Enum for general error codes
+enum class ErrorCode {
+    Error = 1,  ///< Generic error code
 };
 
-int rnpErrorToErrorCodeShow(int rnpErrorCode) {
+// Enum for errors related to showing errors (e.g., password issues, key issues)
+enum class ErrorCodeShow {
+    UnexpectedError = 1,  ///< Unknown or unexpected error
+    BadPassphrase,        ///< Invalid passphrase error
+    NoKeyFound,           ///< Key not found error
+    DecryptFailed         ///< Decryption failure error
+};
+
+/**
+* Convert an RNP error code to a corresponding ErrorCodeShow
+* @param rnpErrorCode The RNP error code
+* @return Corresponding ErrorCodeShow integer value
+*/
+inline ErrorCodeShow rnpErrorToErrorCodeShow(int rnpErrorCode) {
     switch (rnpErrorCode) {
-    case RNP_SUCCESS:
-        return static_cast<int>(ErrorCodeShow::Success);
     case RNP_ERROR_BAD_PASSWORD:
-        return static_cast<int>(ErrorCodeShow::BadPassphrase);
+        return ErrorCodeShow::BadPassphrase;   ///< Bad passphrase error
     case RNP_ERROR_KEY_NOT_FOUND:
     case RNP_ERROR_NO_SUITABLE_KEY:
-        return static_cast<int>(ErrorCodeShow::NoKeyFound);
+        return ErrorCodeShow::NoKeyFound;      ///< No key found error
     case RNP_ERROR_DECRYPT_FAILED:
-        return static_cast<int>(ErrorCodeShow::DecryptFailed);
+        return ErrorCodeShow::DecryptFailed;    ///< Decryption failure error
     default:
-        return static_cast<int>(ErrorCodeShow::UnexceptedError);
+        return ErrorCodeShow::UnexpectedError; ///< Default to unexpected error
     }
 }
 
+// Enum for errors related to importing key files
 enum class ErrorCodeImportKeyFile {
-    Success= 0,
-    UnexceptedError,
-    BadFormat,
+    UnexpectedError = 1,  ///< Unknown or unexpected error
+    BadFormat,            ///< Bad format error when importing the key file
 };
 
-int rnpErrorToErrorCodeImportKeyFile(int rnpErrorCode) {
+/**
+* Convert an RNP error code to a corresponding ErrorCodeImportKeyFile
+* @param rnpErrorCode The RNP error code
+* @return Corresponding ErrorCodeImportKeyFile integer value
+*/
+inline ErrorCodeImportKeyFile rnpErrorToErrorCodeImportKeyFile(int rnpErrorCode) {
     switch (rnpErrorCode) {
-    case RNP_SUCCESS:
-        return static_cast<int>(ErrorCodeShow::Success);
     case RNP_ERROR_BAD_FORMAT:
-        return static_cast<int>(ErrorCodeImportKeyFile::BadFormat);
+        return ErrorCodeImportKeyFile::BadFormat; ///< Bad format error
     default:
-        return static_cast<int>(ErrorCodeImportKeyFile::UnexceptedError);
+        return ErrorCodeImportKeyFile::UnexpectedError; ///< Default to unexpected error
     }
 }
-
-
-enum class ErrorCodeUnexvepted {
-    Success= 0,
-    UnexceptedError,
-};
-
-int rnpErrorToErrorCodeGeneric(int rnpErrorCode) {
-    switch (rnpErrorCode) {
-    case RNP_SUCCESS:
-        return static_cast<int>(ErrorCodeShow::Success);
-    default:
-        return static_cast<int>(ErrorCodeImportKeyFile::UnexceptedError);
-    }
-}
-
-enum class ErrorCode
-{
-    Success= 0,
-    Error,
-};
 
 #endif // ERROR_H

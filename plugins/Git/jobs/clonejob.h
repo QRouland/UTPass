@@ -6,6 +6,7 @@ extern "C" {
 #include <git2.h>
 }
 #include "gitjob.h"
+#include "../error.h"
 
 /**
  * @class CloneJob
@@ -26,14 +27,13 @@ class CloneJob : public GitJob
 
 signals:
     /**
-     * @brief Signal emitted when the cloning operation is complete.
-     *
-     * This signal is emitted once the cloning operation finishes.
-     *
-     * @param err A boolean indicating whether an error occurred during cloning.
-     *        `true` if an error occurred, `false` if the clone was successful.
-     */
-    void resultReady(const bool err);
+ * @brief Signal emitted when the cloning operation is complete.
+ *
+ * This signal is emitted once the cloning operation finishes.
+ *
+ * @param err A Git error.
+ */
+    void resultReady(const int err_code, const QString message);
 
 private:
     QString m_url; ///< The URL of the Git repository to clone.
@@ -58,7 +58,7 @@ private:
      * @param tmp_dir The temporary directory where the repository was cloned.
      * @return `true` if the move was successful, `false` otherwise.
      */
-    static bool moveToDestination(QDir tmp_dir, QString path);
+    static bool moveToDestination(QDir tmp_dir, const QString& path);
 
     /**
      * @brief Tears down the temporary directory after cloning.
@@ -84,9 +84,10 @@ private:
      * @param path The destination path for the cloned repository.
      * @param cred The credentials to use for the cloning operation.
      * @param cb The callback function for acquiring credentials during cloning.
-     * @return `true` if the cloning process was successful, `false` otherwise.
+     * @return A Git error, result of the operation.
      */
-    static bool clone(QString url, QString path, cred_type cred, git_cred_acquire_cb cb);
+    static const QPair<GitCloneErrorCode, QString> clone(QString url, QString path, cred_type cred, git_cred_acquire_cb cb);
+
 
 public:
     /**

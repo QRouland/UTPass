@@ -109,7 +109,7 @@ bool Pass::show(QUrl url)
 void Pass::slotShowError(rnp_result_t err)
 {
     qInfo() << "[Pass] Show Failed";
-    emit showFailed(rnpErrorToErrorCodeShow(err), rnp_result_to_string(err));
+    emit showFailed((int) rnpErrorToErrorCodeShow(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -168,7 +168,7 @@ bool Pass::deleteGPGKey(PassKeyModel* key)
 void Pass::slotDeleteGPGKeyError(rnp_result_t err)
 {
     qInfo() << "[Pass] Delete GPG key Failed";
-    emit deleteGPGKeyFailed(rnpErrorToErrorCodeGeneric(err), rnp_result_to_string(err));
+    emit deleteGPGKeyFailed(static_cast<int>(ErrorCode::Error), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -198,7 +198,7 @@ bool Pass::importGPGKey(QUrl url)
 void Pass::slotImportGPGKeyError(rnp_result_t err)
 {
     qInfo() << "[Pass] Import GPG Key Failed";
-    emit importGPGKeyFailed(rnpErrorToErrorCodeImportKeyFile(err), rnp_result_to_string(err));
+    emit importGPGKeyFailed((int) rnpErrorToErrorCodeImportKeyFile(err), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 
@@ -229,7 +229,7 @@ void Pass::slotGetAllGPGKeysError(rnp_result_t err)
 {
     qInfo() << "[Pass] Get all GPG Keys Failed";
     this->m_keyring_model = nullptr;
-    emit getAllGPGKeysFailed(rnpErrorToErrorCodeGeneric(err), rnp_result_to_string(err));
+    emit getAllGPGKeysFailed(static_cast<int>(ErrorCode::Error), rnp_result_to_string(err));
     this->m_sem->release(1);
 }
 

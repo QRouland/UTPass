@@ -3,12 +3,14 @@
 #include <QUrl>
 #include <QDebug>
 #include <QObject>
+#include <memory>
 #include <type_traits>
 extern "C" {
 #include <git2.h>
 }
 
 #include "clonejob.h"
+#include "../error.h"
 
 CloneJob::CloneJob(QString url, QString path, cred_type cred):
     GitJob(cred),
@@ -18,69 +20,90 @@ CloneJob::CloneJob(QString url, QString path, cred_type cred):
     this->setObjectName("CloneJob");
 }
 
-
 void CloneJob::run()
 {
     auto tmp_dir = this->cloneSetup();
-    auto ret = this->clone(this->m_url,  tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
-    if (ret) {
+    const auto [errorCode, errorMessage] = this->clone(m_url, tmp_dir.absolutePath(), this->m_cred, this->credentialsCB);
+
+    if (errorCode == GitCloneErrorCode::Successful) {
         this->moveToDestination(tmp_dir, this->m_path);
     }
+
     this->cloneCleanUp(tmp_dir);
-
-    emit resultReady(!ret); // TODO Clean error handling to return specifics errors for the ui
+    emit resultReady(code_err(errorCode), errorMessage);
 }
-
 
 QDir CloneJob::cloneSetup()
 {
-    QDir tmp_dir(QStandardPaths::writableLocation( QStandardPaths::CacheLocation).append("/clone"));
+    QDir tmp_dir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation).append("/clone"));
 
-    tmp_dir.removeRecursively();
-    qDebug() << "[CloneJob] Temp dir path is " << tmp_dir.absolutePath();
+    tmp_dir.removeRecursively();  // Clean the directory before use
+    qDebug() << "[CloneJob] Temp dir path is" << tmp_dir.absolutePath();
 
     return tmp_dir;
 }
 
-
 bool CloneJob::cloneCleanUp(QDir tmp_dir)
 {
-    return tmp_dir.removeRecursively();
+    if (!tmp_dir.removeRecursively()) {
+        qWarning() << "[CloneJob] Failed to clean up temporary directory:" << tmp_dir.absolutePath();
+        return false;
+    }
+    return true;
 }
 
-bool CloneJob::moveToDestination(QDir tmp_dir, QString path)
+bool CloneJob::moveToDestination(QDir tmp_dir, const QString& path)
 {
-    qDebug() << "[CloneJob] Removing password_store " << path;
+    qDebug() << "[CloneJob] Removing existing destination:" << path;
+
     QDir destination_dir(path);
-    destination_dir.removeRecursively();
+    destination_dir.removeRecursively();  // Clean the destination directory
 
     qDebug() << "[CloneJob] Moving cloned content to destination dir";
-    QDir dir;
-    qDebug() << "[CloneJob]" <<  tmp_dir.absolutePath() << " to " << destination_dir.absolutePath();
-    return dir.rename(tmp_dir.absolutePath(), destination_dir.absolutePath()); // TODO Better error handling
+
+    if (!QDir().rename(tmp_dir.absolutePath(), destination_dir.absolutePath())) {
+        qWarning() << "[CloneJob] Failed to move directory from" << tmp_dir.absolutePath() << "to" << destination_dir.absolutePath();
+        return false;
+    }
+
+    return true;
 }
 
-bool CloneJob::clone(QString url, QString path, cred_type cred, git_cred_acquire_cb cb)
+const QPair<GitCloneErrorCode, QString> CloneJob::clone(QString url, QString path, cred_type cred, git_cred_acquire_cb cb)
 {
-    git_repository *repo = NULL;
+    git_repository *repo = nullptr;  // Use nullptr for type safety
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
-    PayloadCB payload = PayloadCB(false, cred);
+    PayloadCB payload(false, cred);
 
     opts.fetch_opts.callbacks.credentials = cb;
     opts.fetch_opts.callbacks.payload = &payload;
 
     int ret = git_clone(&repo, url.toLocal8Bit().data(), path.toLocal8Bit().data(), &opts);
-    if (ret == GIT_EUSER ) {
-        qDebug() << "[CloneJob] CallBack Error";
-    } else if (ret != 0) {
-        auto err = git_error_last(); // TODO Better error handling for return ui messages
-        if (err) {
-            qDebug() << "[CloneJob]" << git_error_last()->message;
-        }
+
+    // Map the application specific cb errors if any
+    if (ret == GIT_EUSER) {
+        if(payload.err == ErrorCodeCB::NoUsername)
+            return {GitCloneErrorCode::NoUsername, "no username provided in URL"};
+        if(payload.err == ErrorCodeCB::InvalidCreds)
+            return {GitCloneErrorCode::AuthentificationError, "authentification error"};
+        if(payload.err == ErrorCodeCB::UrlTypeDoNotMatchCreds)
+            return {GitCloneErrorCode::UrlTypeDoNotMatchCreds, "invalid creds types for provided url"};
+        return {GitCloneErrorCode::UnexpectedError, "unexcepted error occured"};
     }
+
+    const git_error* err = git_error_last();  // Retrieve the last error git error
+
+    // Log error details for debugging
+    if (err) {
+        qDebug() << "[CloneJob] Error class:" << err->klass;
+        qDebug() << "[CloneJob] Error message:" << err->message;
+    }
+
+    // Check if the repository was successfully created and free it
     if (repo) {
         git_repository_free(repo);
     }
-    return ret == 0;
-}
 
+    // Return the error code mapped from git_error_last
+    return { gitErrorToGitCloneErrorCode(err), err ? QString::fromUtf8(err->message) : "success"};
+}

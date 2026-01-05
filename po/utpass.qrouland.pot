@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: utpass.qrouland\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-14 10:08+0100\n"
+"POT-Creation-Date: 2026-01-05 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,7 +194,7 @@ msgid "You're are about to delete<br>the current Password Store.<br>Continue ?"
 msgstr ""
 
 #: ../qml/pages/settings/DeleteRepo.qml:57
-#: ../qml/pages/settings/ImportGitClone.qml:142
+#: ../qml/pages/settings/ImportGitClone.qml:169
 #: ../qml/pages/settings/ImportZip.qml:66
 #: ../qml/pages/settings/InfoKeys.qml:174
 msgid "Yes"
@@ -208,50 +208,71 @@ msgstr ""
 msgid "Password Store deleted !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:141
+#: ../qml/pages/settings/ImportGitClone.qml:56
+msgid "An unexpected error occurred during the clone operation."
+msgstr ""
+
+#: ../qml/pages/settings/ImportGitClone.qml:59
+msgid "Invalid URL for the current clone operation."
+msgstr ""
+
+#: ../qml/pages/settings/ImportGitClone.qml:62
+msgid "Username is missing in the URL."
+msgstr ""
+
+#: ../qml/pages/settings/ImportGitClone.qml:65
+msgid "Authentication error, credentials may be invalid."
+msgstr ""
+
+#: ../qml/pages/settings/ImportGitClone.qml:68
+msgid ""
+"Credentials type does not match the URL for the current clone operation."
+msgstr ""
+
+#: ../qml/pages/settings/ImportGitClone.qml:168
 msgid ""
 "Importing a git repo will delete<br>any existing password store!"
 "<br>Continue ?"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:155
+#: ../qml/pages/settings/ImportGitClone.qml:182
 msgid "An error occured during git clone !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:164
+#: ../qml/pages/settings/ImportGitClone.qml:192
 #: ../qml/pages/settings/ImportZip.qml:88
 msgid "Password store sucessfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportGitClone.qml:176
+#: ../qml/pages/settings/ImportGitClone.qml:204
 msgid "Git Clone Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:7
+#: ../qml/pages/settings/ImportKeyFile.qml:9
 msgid "GPG Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:8
+#: ../qml/pages/settings/ImportKeyFile.qml:10
 msgid "Key successfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:9
+#: ../qml/pages/settings/ImportKeyFile.qml:11
 msgid "Key import failed !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportKeyFile.qml:33
+#: ../qml/pages/settings/ImportKeyFile.qml:35
 msgid "The file is not in a valid key format"
 msgstr ""
 
-#: ../qml/pages/settings/ImportSSHkey.qml:10
+#: ../qml/pages/settings/ImportSSHkey.qml:12
 msgid "SSH Key Import"
 msgstr ""
 
-#: ../qml/pages/settings/ImportSSHkey.qml:11
+#: ../qml/pages/settings/ImportSSHkey.qml:13
 msgid "SSH Key successfully imported !"
 msgstr ""
 
-#: ../qml/pages/settings/ImportSSHkey.qml:12
+#: ../qml/pages/settings/ImportSSHkey.qml:14
 msgid "SSH Key import failed !"
 msgstr ""
 

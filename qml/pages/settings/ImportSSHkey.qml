@@ -2,6 +2,8 @@ import "../../components"
 import Utils 1.0
 import Git 1.0
 
+import Lomiri.Content 1.3
+
 ImportFile {
     id: importSSHKeyPage
 
@@ -13,8 +15,8 @@ ImportFile {
 
     contentPicker.onPeerSelected: {
        {
-           peer.selectionType = ContentTransfer.Single;
-           importSSHKeyPage.activeTransfer = peer.request();
+           importSSHKeyPage.contentPicker.peer.selectionType = ContentTransfer.Single;
+           importSSHKeyPage.activeTransfer = importSSHKeyPage.contentPicker.peer.request();
            importSSHKeyPage.activeTransfer.stateChanged.connect(function() {
                if (importSSHKeyPage.activeTransfer.state === ContentTransfer.Charged) {
                    console.log("Charged");
