@@ -195,7 +195,7 @@ Page {
         SuccessDialog {
             textSuccess: i18n.tr("Key successfully deleted !")
             onDialogClosed: {
-                infoKeysListView.model = Pass.getAllGPGKeys();
+                Pass.getAllGPGKeys();
             }
         }
 
