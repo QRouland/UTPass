@@ -1,6 +1,6 @@
 # UTPass
 
-A Ubuntu Touch password management app aiming to be compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
+A Ubuntu Touch password management app aiming to be read-only compatible with [ZX2C4’s pass command line application](https://www.passwordstore.org/) the standard unix password manager.
 
 ## Installation
 
@@ -9,10 +9,6 @@ UTPass is avalaible on the [OpenStore](https://open-store.io)
 [![OpenStore](https://open-store.io/badges/en_US.png)](https://open-store.io/app/utpass.qrouland)
 
 
-## Features
-
-The goal is to be closest possible of the features offer by [ZX2C4’s pass command line application](https://www.passwordstore.org/). 
-See [Features wiki page](https://taiga.rdrive.ovh/project/utpass/wiki/contributing) for details.
 
 ## Export/Import
 
@@ -23,7 +19,7 @@ Export gpg private keys in order to decrypt passwords:
 gpg --output keys.gpg --export-secret-keys <key>
 ```
 
-If your password store is already hosted in a Git repository that provides HTTP or HTTP with authentication for cloning (we're working to have support for SSH soon), you can clone your password store directly from the app.
+If your password store is already hosted in a Git repository, you can clone your password store directly from the app.
 Otherwise, follow these steps to export it to a ZIP file for importing.
 
 Export passwords to a ZIP archive, assuming they reside in the *.password-store* folder:
