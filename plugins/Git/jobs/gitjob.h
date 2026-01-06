@@ -39,8 +39,7 @@ enum class ErrorCodeCB {
 };
 
 
-struct PayloadCB
-{
+struct PayloadCB {
     bool called;
     cred_type creds;
     ErrorCodeCB err;

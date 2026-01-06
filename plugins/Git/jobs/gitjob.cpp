@@ -57,7 +57,7 @@ int GitJob::credentialsCB(git_cred **out, const char *url, const char *username_
             }
             return git_cred_userpass_plaintext_new(out, username_from_url, x.pass.toLocal8Bit().constData());
         },
-        [allowed_types, &out, &username_from_url , &p](const SSHKey & x)
+        [allowed_types, &out, &username_from_url, &p](const SSHKey & x)
         {
             qDebug() << "[GitJob] credentialsCB : SSHKey ";
             if (!(allowed_types & GIT_CREDTYPE_SSH_KEY)) {

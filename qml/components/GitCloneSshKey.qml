@@ -1,18 +1,16 @@
 import Git 1.0
 import Lomiri.Components 1.3
 import Pass 1.0
-import Utils 1.0
 import QtQuick 2.4
+import Utils 1.0
 
 Column {
-
-
-    property alias importSshPrivKeyButton : repoImportPrivKeyButton
-    property alias importSshPubKeyButton : repoImportPubKeyButton
-    property alias deleteSshPrivKeyButton : repoDeletePrivKeyButton
-    property alias deleteSshPubKeyButton : repoDeletePubKeyButton
-    property bool __sshPrivKeyAvailable : false
-    property bool __sshPubKeyAvailable : false
+    property alias importSshPrivKeyButton: repoImportPrivKeyButton
+    property alias importSshPubKeyButton: repoImportPubKeyButton
+    property alias deleteSshPrivKeyButton: repoDeletePrivKeyButton
+    property alias deleteSshPubKeyButton: repoDeletePubKeyButton
+    property bool __sshPrivKeyAvailable: false
+    property bool __sshPubKeyAvailable: false
 
     signal repoUrlChanged(string url)
 
@@ -28,7 +26,6 @@ Column {
     Component.onCompleted: {
         update();
     }
-
     anchors.top: parent.fill
     spacing: units.gu(1)
 
@@ -107,7 +104,6 @@ Column {
         text: i18n.tr('Import SSH public key')
         visible: !__sshPrivKeyAvailable
     }
-
 
     Text {
         id: repoPassphraseLabel

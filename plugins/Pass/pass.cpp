@@ -137,7 +137,7 @@ bool Pass::deletePasswordStore()
 }
 
 void Pass::slotDeletePasswordStoreResult(bool err)
-{ 
+{
     if (err) {
         qInfo() << "[Pass] Delete Password Store Failed";
         emit deletePasswordStoreFailed(static_cast<int>(ErrorCode::Error), "Failed to delete password store");

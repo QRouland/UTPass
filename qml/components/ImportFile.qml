@@ -10,15 +10,15 @@ Page {
     id: importKeyFilePage
 
     property var activeTransfer
-    property alias contentPicker : contentPicker
-
-    property string headerTitle : i18n.tr("Import succeeded !")
-    property string dialogErrorTxt : i18n.tr("Import failed !")
-    property string dialogErrorDescriptionTxt : null
-    property string dialogSuccessTxt : i18n.tr("File Imported")
+    property alias contentPicker: contentPicker
+    property string headerTitle: i18n.tr("Import succeeded !")
+    property string dialogErrorTxt: i18n.tr("Import failed !")
+    property string dialogErrorDescriptionTxt: null
+    property string dialogSuccessTxt: i18n.tr("File Imported")
 
     ContentPeerPicker {
         id: contentPicker
+
         anchors.top: importKeyHeader.bottom
         anchors.bottom: parent.bottom
         anchors.topMargin: importKeyFilePage.header.height
@@ -38,7 +38,6 @@ Page {
         anchors.fill: parent
         activeTransfer: importKeyFilePage.activeTransfer
     }
-
 
     header: StackHeader {
         id: importKeyHeader

@@ -22,7 +22,8 @@ enum class GitCloneErrorCode {
 * @param error A pointer to the git_error structure
 * @return Corresponding GitCloneErrorCode integer value
 */
-inline GitCloneErrorCode gitErrorToGitCloneErrorCode(const git_error* error) {
+inline GitCloneErrorCode gitErrorToGitCloneErrorCode(const git_error* error)
+{
     if (error == nullptr) {
         return GitCloneErrorCode::Successful;  ///< Default error if null
     }

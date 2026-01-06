@@ -15,7 +15,7 @@ extern "C" {
 Git::Git():
     m_sem(std::unique_ptr<QSemaphore>(new QSemaphore(1))),
     m_ssh_homedir (QStandardPaths::writableLocation(
-                      QStandardPaths::AppDataLocation).append("/.ssh"))
+                       QStandardPaths::AppDataLocation).append("/.ssh"))
 {
     qDebug() << "[Git] SSH Home is " << m_ssh_homedir.absolutePath();
     QDir m_ssh_homedir(this->m_ssh_homedir);
@@ -83,7 +83,8 @@ void Git::cloneResult(const int err_code, const QString message)
     this->m_sem->release();
 }
 
-bool Git::importSshKey(QUrl source_path, bool is_private){
+bool Git::importSshKey(QUrl source_path, bool is_private)
+{
     auto destination_path = is_private ? this->privKeyPath() : this->pubKeyPath();
 
     QFile source_file(source_path.toLocalFile());

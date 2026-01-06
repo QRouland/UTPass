@@ -62,14 +62,16 @@ bool CloneJob::moveToDestination(QDir tmp_dir, const QString& path)
     qDebug() << "[CloneJob] Moving cloned content to destination dir";
 
     if (!QDir().rename(tmp_dir.absolutePath(), destination_dir.absolutePath())) {
-        qWarning() << "[CloneJob] Failed to move directory from" << tmp_dir.absolutePath() << "to" << destination_dir.absolutePath();
+        qWarning() << "[CloneJob] Failed to move directory from" << tmp_dir.absolutePath() << "to" <<
+                   destination_dir.absolutePath();
         return false;
     }
 
     return true;
 }
 
-const QPair<GitCloneErrorCode, QString> CloneJob::clone(QString url, QString path, cred_type cred, git_cred_acquire_cb cb)
+const QPair<GitCloneErrorCode, QString> CloneJob::clone(QString url, QString path, cred_type cred,
+        git_cred_acquire_cb cb)
 {
     git_repository *repo = nullptr;  // Use nullptr for type safety
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
@@ -82,11 +84,11 @@ const QPair<GitCloneErrorCode, QString> CloneJob::clone(QString url, QString pat
 
     // Map the application specific cb errors if any
     if (ret == GIT_EUSER) {
-        if(payload.err == ErrorCodeCB::NoUsername)
+        if (payload.err == ErrorCodeCB::NoUsername)
             return {GitCloneErrorCode::NoUsername, "no username provided in URL"};
-        if(payload.err == ErrorCodeCB::InvalidCreds)
+        if (payload.err == ErrorCodeCB::InvalidCreds)
             return {GitCloneErrorCode::AuthentificationError, "authentification error"};
-        if(payload.err == ErrorCodeCB::UrlTypeDoNotMatchCreds)
+        if (payload.err == ErrorCodeCB::UrlTypeDoNotMatchCreds)
             return {GitCloneErrorCode::UrlTypeDoNotMatchCreds, "invalid creds types for provided url"};
         return {GitCloneErrorCode::UnexpectedError, "unexcepted error occured"};
     }

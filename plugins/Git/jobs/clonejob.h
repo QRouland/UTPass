@@ -27,12 +27,12 @@ class CloneJob : public GitJob
 
 signals:
     /**
- * @brief Signal emitted when the cloning operation is complete.
- *
- * This signal is emitted once the cloning operation finishes.
- *
- * @param err A Git error.
- */
+    * @brief Signal emitted when the cloning operation is complete.
+    *
+    * This signal is emitted once the cloning operation finishes.
+    *
+    * @param err A Git error.
+    */
     void resultReady(const int err_code, const QString message);
 
 private:

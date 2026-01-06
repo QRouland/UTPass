@@ -24,7 +24,8 @@ enum class ErrorCodeShow {
 * @param rnpErrorCode The RNP error code
 * @return Corresponding ErrorCodeShow integer value
 */
-inline ErrorCodeShow rnpErrorToErrorCodeShow(int rnpErrorCode) {
+inline ErrorCodeShow rnpErrorToErrorCodeShow(int rnpErrorCode)
+{
     switch (rnpErrorCode) {
     case RNP_ERROR_BAD_PASSWORD:
         return ErrorCodeShow::BadPassphrase;   ///< Bad passphrase error
@@ -49,7 +50,8 @@ enum class ErrorCodeImportKeyFile {
 * @param rnpErrorCode The RNP error code
 * @return Corresponding ErrorCodeImportKeyFile integer value
 */
-inline ErrorCodeImportKeyFile rnpErrorToErrorCodeImportKeyFile(int rnpErrorCode) {
+inline ErrorCodeImportKeyFile rnpErrorToErrorCodeImportKeyFile(int rnpErrorCode)
+{
     switch (rnpErrorCode) {
     case RNP_ERROR_BAD_FORMAT:
         return ErrorCodeImportKeyFile::BadFormat; ///< Bad format error
