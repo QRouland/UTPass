@@ -14,7 +14,7 @@ Page {
 
     property int __gitModeHTTP : 0
     property int __gitModeHTTP_AUTH : 1
-    property int __gitModeSSH_KEY : 2
+    // property int __gitModeSSH_KEY : 2
 
     property int __gitCloneErrorCodeSuccessful : 0
     property int __gitCloneErrorCodeUnexpectedError : 1
@@ -34,9 +34,9 @@ Page {
             case __gitModeHTTP_AUTH:
                 importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneHttpAuth.qml");
                 break;
-            case __gitModeSSH_KEY:
-                importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneSshKey.qml");
-                break;
+            // case __gitModeSSH_KEY:
+            //     importGitCloneForm.source = Qt.resolvedUrl("../../components/GitCloneSshKey.qml");
+            //     break;
         }
     }
 
@@ -103,7 +103,7 @@ Page {
             id: combo
 
             width: parent.width
-            model: ["HTTP", "HTTP AUTH", "SSH KEY"]
+            model: ["HTTP", "HTTP AUTH" ] //, "SSH KEY"]
             onDelegateClicked: function(i) {
                 timer.setTimeout(function() {
                     __loadForm();
@@ -143,18 +143,18 @@ Page {
                         break;
                     case __gitModeHTTP_AUTH:
                         break;
-                    case __gitModeSSH_KEY:
-                        importGitCloneForm.item.importSshPrivKeyButton.clicked.connect(function() {
-                            pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
-                                "isPrivateKey": true
-                            });
-                        });
-                        importGitCloneForm.item.importSshPubKeyButton.clicked.connect(function() {
-                            pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
-                                "isPrivateKey": false
-                            });
-                        });
-                        break;
+                    // case __gitModeSSH_KEY:
+                    //     importGitCloneForm.item.importSshPrivKeyButton.clicked.connect(function() {
+                    //         pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
+                    //             "isPrivateKey": true
+                    //         });
+                    //     });
+                    //     importGitCloneForm.item.importSshPubKeyButton.clicked.connect(function() {
+                    //         pageStack.push(Qt.resolvedUrl("ImportSSHkey.qml"), {
+                    //             "isPrivateKey": false
+                    //         });
+                    //     });
+                    //     break;
                 }
             }
         }

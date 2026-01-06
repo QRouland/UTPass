@@ -19,8 +19,7 @@ Export gpg private keys in order to decrypt passwords:
 gpg --output keys.gpg --export-secret-keys <key>
 ```
 
-If your password store is already hosted in a Git repository, you can clone your password store directly from the app.
-Otherwise, follow these steps to export it to a ZIP file for importing.
+If your password store is already hosted in a Git repository with HTTP (SSH is not supported yet), you can clone your password store directly from the app. Otherwise, follow these steps to export it as a ZIP file for importing.
 
 Export passwords to a ZIP archive, assuming they reside in the *.password-store* folder:
 ```
