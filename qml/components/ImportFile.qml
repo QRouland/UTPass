@@ -1,4 +1,3 @@
-import "../dialogs"
 import "../pages/headers"
 import Lomiri.Components 1.3
 import Lomiri.Components.Popups 1.3
@@ -12,8 +11,6 @@ Page {
 
     property var activeTransfer
     property alias contentPicker : contentPicker
-    property alias dialogImportKeyPageError : dialogImportKeyPageError
-    property alias dialogImportKeyPageSucess : dialogImportKeyPageSucess
 
     property string headerTitle : i18n.tr("Import succeeded !")
     property string dialogErrorTxt : i18n.tr("Import failed !")
@@ -42,27 +39,6 @@ Page {
         activeTransfer: importKeyFilePage.activeTransfer
     }
 
-    Component {
-        id: dialogImportKeyPageError
-
-        ErrorDialog {
-            textError: importKeyFilePage.dialogErrorTxt
-            textErrorDescription: importKeyFilePage.dialogErrorDescriptionTxt
-        }
-
-    }
-
-    Component {
-        id: dialogImportKeyPageSucess
-
-        SuccessDialog {
-            textSuccess: importKeyFilePage.dialogSuccessTxt
-            onDialogClosed: {
-                pageStack.pop();
-            }
-        }
-
-    }
 
     header: StackHeader {
         id: importKeyHeader
